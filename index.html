@@ -1,1 +1,1056 @@
 
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI trong công việc</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --navy:#06172b;
+    --navy2:#0b2440;
+    --blue:#31a8ff;
+    --cyan:#6fe7ff;
+    --green:#6ee7b7;
+    --white:#f7fbff;
+    --muted:#9db2c8;
+    --line:rgba(255,255,255,.12);
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+body{
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(circle at 70% 25%, rgba(36,130,190,.16), transparent 32%),
+        radial-gradient(circle at 20% 80%, rgba(31,168,255,.08), transparent 30%),
+        var(--navy);
+
+    color:var(--white);
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.background-grid{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+
+    background-size:55px 55px;
+
+    mask-image:linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+
+    opacity:.55;
+}
+
+.glow{
+    position:fixed;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    filter:blur(120px);
+    background:rgba(31,168,255,.08);
+    right:-180px;
+    top:-180px;
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar{
+    position:fixed;
+    z-index:100;
+    top:0;
+    left:0;
+    right:0;
+
+    height:72px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 5vw;
+
+    border-bottom:1px solid rgba(255,255,255,.07);
+
+    background:rgba(6,23,43,.55);
+    backdrop-filter:blur(18px);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:2px;
+}
+
+.brand-dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 18px var(--cyan);
+}
+
+.chapter{
+    font-size:12px;
+    letter-spacing:1.5px;
+    color:var(--muted);
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress{
+    position:fixed;
+    z-index:110;
+    top:71px;
+    left:0;
+
+    height:2px;
+
+    background:linear-gradient(90deg,var(--blue),var(--cyan));
+    box-shadow:0 0 12px rgba(49,168,255,.5);
+
+    width:0%;
+    transition:width .7s ease;
+}
+
+
+/* =========================================================
+   SCENES
+========================================================= */
+
+.scene{
+    position:absolute;
+    inset:0;
+
+    padding:105px 7vw 55px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    opacity:0;
+    transform:translateY(18px) scale(.99);
+
+    pointer-events:none;
+
+    transition:
+        opacity .65s ease,
+        transform .65s ease;
+}
+
+.scene.active{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    pointer-events:auto;
+}
+
+.scene-inner{
+    width:min(1180px,100%);
+    margin:auto;
+}
+
+
+/* =========================================================
+   TYPOGRAPHY
+========================================================= */
+
+.eyebrow{
+    color:var(--cyan);
+    font-size:13px;
+    letter-spacing:3px;
+    font-weight:700;
+    text-transform:uppercase;
+    margin-bottom:22px;
+}
+
+h1{
+    font-size:clamp(48px,7vw,96px);
+    line-height:.98;
+    letter-spacing:-4px;
+    max-width:1000px;
+}
+
+h2{
+    font-size:clamp(34px,5vw,68px);
+    line-height:1.05;
+    letter-spacing:-2px;
+}
+
+.subtitle{
+    margin-top:28px;
+
+    max-width:700px;
+
+    color:var(--muted);
+
+    font-size:clamp(18px,2vw,25px);
+    line-height:1.6;
+}
+
+.highlight{
+    background:linear-gradient(90deg,#fff,var(--cyan));
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn{
+    margin-top:42px;
+
+    border:1px solid rgba(111,231,255,.4);
+
+    background:rgba(49,168,255,.09);
+
+    color:white;
+
+    padding:15px 24px;
+
+    border-radius:999px;
+
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:1.4px;
+
+    cursor:pointer;
+
+    transition:.25s ease;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    background:rgba(49,168,255,.18);
+    box-shadow:0 10px 35px rgba(0,0,0,.25);
+}
+
+.btn-small{
+    margin-top:0;
+    padding:11px 18px;
+}
+
+
+/* =========================================================
+   SCENE 1 - COVER
+========================================================= */
+
+.cover-number{
+    position:absolute;
+    right:6vw;
+    bottom:7vh;
+
+    font-size:18vw;
+    font-weight:800;
+
+    color:rgba(255,255,255,.018);
+
+    user-select:none;
+}
+
+
+/* =========================================================
+   SCENE 2 - TASK
+========================================================= */
+
+.task-layout{
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:70px;
+    align-items:center;
+}
+
+.task-intro h2{
+    margin-bottom:20px;
+}
+
+.task-intro p{
+    color:var(--muted);
+    font-size:19px;
+    line-height:1.6;
+}
+
+.task-card{
+    position:relative;
+
+    padding:38px;
+
+    border-radius:24px;
+
+    border:1px solid rgba(255,255,255,.13);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.025)
+        );
+
+    box-shadow:
+        0 35px 90px rgba(0,0,0,.28);
+
+    overflow:hidden;
+}
+
+.task-card:before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:3px;
+
+    background:linear-gradient(var(--cyan),var(--blue));
+}
+
+.task-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:28px;
+}
+
+.task-label{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    color:var(--cyan);
+
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.notification{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+
+    background:var(--cyan);
+
+    box-shadow:0 0 18px var(--cyan);
+
+    animation:pulse 1.7s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{transform:scale(1);opacity:1;}
+    50%{transform:scale(1.6);opacity:.45;}
+}
+
+.time{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.task-text{
+    font-size:clamp(22px,2.6vw,34px);
+    line-height:1.45;
+    font-weight:550;
+}
+
+.deadline{
+    margin-top:30px;
+
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+}
+
+.tag{
+    border:1px solid rgba(255,255,255,.1);
+
+    background:rgba(255,255,255,.04);
+
+    color:#c8d6e5;
+
+    padding:9px 13px;
+
+    border-radius:10px;
+
+    font-size:13px;
+}
+
+
+/* =========================================================
+   QUESTION
+========================================================= */
+
+.big-question{
+    text-align:center;
+}
+
+.question-label{
+    color:var(--cyan);
+    font-size:12px;
+    letter-spacing:3px;
+    font-weight:800;
+    margin-bottom:25px;
+}
+
+.big-question h2{
+    max-width:900px;
+    margin:auto;
+}
+
+.response-placeholder{
+    margin:45px auto 0;
+
+    width:min(780px,100%);
+
+    padding:24px 30px;
+
+    border:1px dashed rgba(111,231,255,.32);
+
+    border-radius:18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:20px;
+
+    background:rgba(255,255,255,.025);
+}
+
+.live-left{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.live-icon{
+    width:42px;
+    height:42px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:12px;
+
+    background:rgba(49,168,255,.12);
+
+    font-size:20px;
+}
+
+.live-title{
+    text-align:left;
+    font-weight:700;
+}
+
+.live-sub{
+    text-align:left;
+    margin-top:4px;
+
+    color:var(--muted);
+
+    font-size:13px;
+}
+
+.live-status{
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1.4px;
+
+    color:var(--green);
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.navigation{
+    position:fixed;
+    z-index:150;
+
+    right:5vw;
+    bottom:34px;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.nav-btn{
+    width:46px;
+    height:46px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    background:rgba(255,255,255,.05);
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:19px;
+
+    transition:.2s ease;
+}
+
+.nav-btn:hover{
+    background:rgba(49,168,255,.18);
+    border-color:rgba(111,231,255,.4);
+}
+
+.counter{
+    min-width:58px;
+
+    text-align:center;
+
+    color:var(--muted);
+
+    font-size:12px;
+    letter-spacing:1px;
+}
+
+
+/* =========================================================
+   KEYBOARD TIP
+========================================================= */
+
+.keyboard-tip{
+    position:fixed;
+    left:5vw;
+    bottom:38px;
+
+    z-index:120;
+
+    color:rgba(255,255,255,.35);
+
+    font-size:11px;
+    letter-spacing:1px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:850px){
+
+    .task-layout{
+        grid-template-columns:1fr;
+        gap:35px;
+    }
+
+    .scene{
+        padding-left:7vw;
+        padding-right:7vw;
+        overflow:auto;
+    }
+
+    h1{
+        letter-spacing:-2px;
+    }
+
+    .response-placeholder{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .keyboard-tip{
+        display:none;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="background-grid"></div>
+<div class="glow"></div>
+
+
+<!-- =======================================================
+     TOP BAR
+======================================================= -->
+
+<header class="topbar">
+
+    <div class="brand">
+        <span class="brand-dot"></span>
+        AI × WORK
+    </div>
+
+    <div class="chapter" id="chapterTitle">
+        MỞ ĐẦU
+    </div>
+
+</header>
+
+<div class="progress" id="progress"></div>
+
+
+<!-- =======================================================
+     SCENE 1
+======================================================= -->
+
+<section class="scene active" data-title="MỞ ĐẦU">
+
+    <div class="scene-inner">
+
+        <div class="eyebrow">
+            AI × HUMAN × WORK
+        </div>
+
+        <h1>
+            AI TRONG<br>
+            <span class="highlight">CÔNG VIỆC</span>
+        </h1>
+
+        <p class="subtitle">
+            Từ một nhiệm vụ được giao đến một sản phẩm
+            đáng tin cậy — AI có thể giúp chúng ta ở đâu,
+            và con người cần kiểm soát điều gì?
+        </p>
+
+        <button class="btn" onclick="nextScene()">
+            BẮT ĐẦU &nbsp; →
+        </button>
+
+    </div>
+
+    <div class="cover-number">
+        AI
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     SCENE 2
+======================================================= -->
+
+<section class="scene" data-title="01 · NHẬN NHIỆM VỤ">
+
+    <div class="scene-inner">
+
+        <div class="task-layout">
+
+            <div class="task-intro">
+
+                <div class="eyebrow">
+                    08:32 · THỨ HAI
+                </div>
+
+                <h2>
+                    Một ngày làm việc
+                    <span class="highlight">bắt đầu.</span>
+                </h2>
+
+                <p>
+                    Và một nhiệm vụ mới vừa được gửi đến bạn.
+                </p>
+
+            </div>
+
+
+            <div class="task-card">
+
+                <div class="task-head">
+
+                    <div class="task-label">
+                        <span class="notification"></span>
+                        NHIỆM VỤ MỚI
+                    </div>
+
+                    <div class="time">
+                        Vừa xong
+                    </div>
+
+                </div>
+
+
+                <div class="task-text">
+
+                    “Nghiên cứu vấn đề X, tổng hợp các thông tin
+                    liên quan và đề xuất phương án xử lý.”
+
+                </div>
+
+
+                <div class="deadline">
+
+                    <span class="tag">
+                        ◷ Deadline · 16:00 Thứ Sáu
+                    </span>
+
+                    <span class="tag">
+                        ◇ Báo cáo lãnh đạo
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     SCENE 3
+======================================================= -->
+
+<section class="scene" data-title="01 · CÂU HỎI ĐẦU TIÊN">
+
+    <div class="scene-inner">
+
+        <div class="big-question">
+
+            <div class="question-label">
+                CÂU HỎI DÀNH CHO BẠN
+            </div>
+
+            <h2>
+                Nếu đây là nhiệm vụ của bạn,<br>
+                <span class="highlight">
+                    việc đầu tiên bạn sẽ làm là gì?
+                </span>
+            </h2>
+
+
+            <div class="response-placeholder">
+
+                <div class="live-left">
+
+                    <div class="live-icon">
+                        ◉
+                    </div>
+
+                    <div>
+
+                        <div class="live-title">
+                            Live Audience Response
+                        </div>
+
+                        <div class="live-sub">
+                            Kết quả của người học sẽ xuất hiện tại đây.
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="live-status">
+                    ● READY
+                </div>
+
+            </div>
+
+
+            <button
+                class="btn"
+                onclick="showPreview()"
+                id="previewBtn">
+
+                XEM THỬ KẾT QUẢ &nbsp; →
+
+            </button>
+
+
+            <div
+                id="previewResults"
+                style="
+                    display:none;
+                    margin:40px auto 0;
+                    max-width:850px;
+                    line-height:2.2;
+                    font-weight:700;
+                    text-align:center;
+                ">
+
+                <span style="font-size:34px;margin:14px;">
+                    TÌM TÀI LIỆU
+                </span>
+
+                <span style="font-size:22px;margin:14px;color:#6fe7ff;">
+                    HỎI AI
+                </span>
+
+                <span style="font-size:27px;margin:14px;">
+                    LẬP KẾ HOẠCH
+                </span>
+
+                <span style="font-size:18px;margin:14px;color:#9db2c8;">
+                    HỎI ĐỒNG NGHIỆP
+                </span>
+
+                <span style="font-size:24px;margin:14px;color:#6ee7b7;">
+                    XEM BÁO CÁO CŨ
+                </span>
+
+                <span style="font-size:19px;margin:14px;">
+                    HỎI LẠI LÃNH ĐẠO
+                </span>
+
+                <div
+                    id="revealQuestion"
+                    style="
+                        opacity:0;
+                        margin-top:38px;
+                        padding-top:28px;
+                        border-top:1px solid rgba(255,255,255,.1);
+                        transition:opacity .8s ease;
+                        font-size:22px;
+                        color:#fff;
+                    ">
+
+                    Nhưng trước khi bắt đầu...
+
+                    <div
+                        style="
+                            margin-top:8px;
+                            font-size:31px;
+                            color:#6fe7ff;
+                        ">
+
+                        Chúng ta đã thực sự
+                        HIỂU NHIỆM VỤ chưa?
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     NAVIGATION
+======================================================= -->
+
+<div class="keyboard-tip">
+    ← → &nbsp; SỬ DỤNG PHÍM MŨI TÊN ĐỂ TRÌNH CHIẾU
+</div>
+
+
+<div class="navigation">
+
+    <button
+        class="nav-btn"
+        onclick="previousScene()">
+        ←
+    </button>
+
+    <div
+        class="counter"
+        id="counter">
+        01 / 03
+    </div>
+
+    <button
+        class="nav-btn"
+        onclick="nextScene()">
+        →
+    </button>
+
+</div>
+
+
+<!-- =======================================================
+     JAVASCRIPT
+======================================================= -->
+
+<script>
+
+const scenes = document.querySelectorAll(".scene");
+
+let currentScene = 0;
+
+
+/* ---------------------------------------------------------
+   SHOW SCENE
+--------------------------------------------------------- */
+
+function showScene(index){
+
+    if(index < 0){
+        index = 0;
+    }
+
+    if(index >= scenes.length){
+        index = scenes.length - 1;
+    }
+
+
+    scenes.forEach(scene => {
+        scene.classList.remove("active");
+    });
+
+
+    currentScene = index;
+
+    scenes[currentScene].classList.add("active");
+
+
+    /* Counter */
+
+    document.getElementById("counter").innerText =
+        String(currentScene + 1).padStart(2,"0")
+        + " / "
+        + String(scenes.length).padStart(2,"0");
+
+
+    /* Chapter title */
+
+    document.getElementById("chapterTitle").innerText =
+        scenes[currentScene].dataset.title;
+
+
+    /* Progress */
+
+    const progress =
+        ((currentScene + 1) / scenes.length) * 100;
+
+    document.getElementById("progress").style.width =
+        progress + "%";
+}
+
+
+/* ---------------------------------------------------------
+   NEXT / PREVIOUS
+--------------------------------------------------------- */
+
+function nextScene(){
+
+    if(currentScene < scenes.length - 1){
+        showScene(currentScene + 1);
+    }
+
+}
+
+
+function previousScene(){
+
+    if(currentScene > 0){
+        showScene(currentScene - 1);
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   KEYBOARD
+--------------------------------------------------------- */
+
+document.addEventListener("keydown", function(event){
+
+    if(
+        event.key === "ArrowRight" ||
+        event.key === "PageDown" ||
+        event.key === " "
+    ){
+        nextScene();
+    }
+
+
+    if(
+        event.key === "ArrowLeft" ||
+        event.key === "PageUp"
+    ){
+        previousScene();
+    }
+
+});
+
+
+/* ---------------------------------------------------------
+   PREVIEW LIVE RESULTS
+--------------------------------------------------------- */
+
+function showPreview(){
+
+    const results =
+        document.getElementById("previewResults");
+
+    const button =
+        document.getElementById("previewBtn");
+
+    const reveal =
+        document.getElementById("revealQuestion");
+
+
+    results.style.display = "block";
+
+    button.style.display = "none";
+
+
+    setTimeout(function(){
+
+        reveal.style.opacity = "1";
+
+    },900);
+
+}
+
+
+/* ---------------------------------------------------------
+   INITIALIZE
+--------------------------------------------------------- */
+
+showScene(0);
+
+</script>
+
+</body>
+</html>
