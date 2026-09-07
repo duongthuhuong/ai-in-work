@@ -48,7 +48,7 @@ body:before{
   background-size:55px 55px;
 }
 
-/* ===================== TOP ===================== */
+/* TOP */
 
 .topbar{
   position:fixed;
@@ -130,7 +130,7 @@ body:before{
   transition:.4s;
 }
 
-/* ===================== SCENES ===================== */
+/* SCENES */
 
 .scene{
   position:absolute;
@@ -177,10 +177,10 @@ h1{
 }
 
 h2{
-  font-size:clamp(36px,4vw,52px);
+  font-size:clamp(36px,4vw,48px);
   line-height:1.14;
   font-weight:720;
-  letter-spacing:-.4px;
+  letter-spacing:0;
 }
 
 h3{
@@ -210,7 +210,7 @@ h3{
   font-weight:650;
 }
 
-/* ===================== REVEAL ===================== */
+/* REVEAL */
 
 .reveal{
   opacity:0;
@@ -239,7 +239,7 @@ h3{
   }
 }
 
-/* ===================== BUTTON ===================== */
+/* BUTTON */
 
 .btn{
   display:inline-block;
@@ -262,7 +262,7 @@ h3{
   background:rgba(56,189,248,.18);
 }
 
-/* ===================== CARDS ===================== */
+/* CARDS */
 
 .grid2{
   display:grid;
@@ -292,7 +292,7 @@ h3{
   line-height:1.5;
 }
 
-/* ===================== TASK ===================== */
+/* TASK */
 
 .task-layout{
   display:grid;
@@ -327,7 +327,7 @@ h3{
   font-size:19px;
 }
 
-/* ===================== TIME SAVING ===================== */
+/* TIME */
 
 .time-compare{
   display:grid;
@@ -363,9 +363,7 @@ h3{
   background:rgba(56,189,248,.08);
 }
 
-.time-box.ai .time-number{
-  color:var(--cyan);
-}
+.time-box.ai .time-number{color:var(--cyan)}
 
 .time-description{
   margin-top:18px;
@@ -379,7 +377,7 @@ h3{
   font-size:40px;
 }
 
-/* ===================== ROUTINE ===================== */
+/* ROUTINE */
 
 .routine-grid{
   display:grid;
@@ -401,18 +399,17 @@ h3{
   margin-bottom:18px;
 }
 
-.routine-item{
-  margin:10px 0;
-  padding:12px 14px;
-  border-radius:11px;
-  background:rgba(255,255,255,.05);
-  font-size:19px;
-}
-
+.routine-item,
 .human-item{
   margin:10px 0;
   padding:12px 14px;
   border-radius:11px;
+  font-size:19px;
+}
+
+.routine-item{background:rgba(255,255,255,.05)}
+
+.human-item{
   background:rgba(56,189,248,.09);
   font-size:20px;
   font-weight:650;
@@ -423,7 +420,7 @@ h3{
   font-size:42px;
 }
 
-/* ===================== LEARNING ===================== */
+/* LEARNING */
 
 .learning-chain{
   display:flex;
@@ -474,7 +471,7 @@ h3{
   line-height:1.45;
 }
 
-/* ===================== CHANGE ===================== */
+/* CHANGE */
 
 .change-line{
   display:grid;
@@ -516,7 +513,7 @@ h3{
   font-size:27px;
 }
 
-/* ===================== TOOLS ===================== */
+/* TOOLS */
 
 .tool-cloud{
   display:flex;
@@ -556,7 +553,7 @@ h3{
   line-height:1.55;
 }
 
-/* ===================== JOURNEY ===================== */
+/* JOURNEY */
 
 .journey{
   display:grid;
@@ -593,7 +590,7 @@ h3{
   line-height:1.4;
 }
 
-/* ===================== PIPELINE ===================== */
+/* PIPELINE */
 
 .pipeline{
   display:flex;
@@ -612,16 +609,13 @@ h3{
 }
 
 .pipe strong{
-  display:block;
-  margin-bottom:7px;
   color:var(--cyan);
-  font-size:20px;
+  font-size:22px;
 }
 
 .pipe p{
-  color:var(--muted);
+  margin-top:7px;
   font-size:18px;
-  line-height:1.4;
 }
 
 .pipe-arrow{
@@ -630,41 +624,89 @@ h3{
   font-size:23px;
 }
 
-/* ===================== PROMPT ===================== */
+/* PROMPT */
 
 .prompt{
-  margin-top:24px;
-  padding:23px 25px;
-  border:1px solid rgba(103,232,249,.25);
-  border-radius:18px;
-  background:#081c30;
+  margin-top:27px;
+  padding:22px 25px;
+  border-left:4px solid var(--cyan);
+  border-radius:0 16px 16px 0;
+  background:rgba(56,189,248,.075);
   font-size:20px;
-  line-height:1.6;
+  line-height:1.55;
 }
 
-.prompt:before{
-  content:"CÓ THỂ YÊU CẦU AI NHƯ SAU";
-  display:block;
-  margin-bottom:9px;
+/* RULES */
+
+.rules{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-top:30px;
+}
+
+.rule{
+  padding:24px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:rgba(255,255,255,.045);
+}
+
+.rule-num{
   color:var(--cyan);
-  font-size:15px;
+  font-size:16px;
   font-weight:700;
+  margin-bottom:14px;
 }
 
-/* ===================== VOTE ===================== */
+.rule p{
+  margin-top:9px;
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.45;
+}
 
-.vote-area{
-  max-width:940px;
-  margin:28px auto 0;
+/* SECURITY */
+
+.security{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:28px;
+}
+
+.sec{
   padding:25px;
-  border:1px dashed rgba(103,232,249,.38);
-  border-radius:20px;
-  background:rgba(255,255,255,.025);
+  border:1px solid var(--line);
+  border-radius:19px;
+  background:rgba(255,255,255,.045);
 }
+
+.light{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  margin-bottom:16px;
+}
+
+.green .light{background:var(--green)}
+.yellow .light{background:var(--yellow)}
+.red .light{background:var(--red)}
+
+.sec p{
+  margin-top:9px;
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.5;
+}
+
+/* VOTE */
+
+.vote-area{margin-top:27px}
 
 .vote-question{
-  font-size:24px;
-  line-height:1.4;
+  margin-bottom:16px;
+  font-size:20px;
   font-weight:650;
 }
 
@@ -672,18 +714,17 @@ h3{
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
-  gap:11px;
-  margin-top:21px;
+  gap:12px;
 }
 
 .vote{
   padding:13px 18px;
   border:1px solid var(--line);
-  border-radius:11px;
+  border-radius:999px;
   background:rgba(255,255,255,.05);
   color:white;
   font-family:inherit;
-  font-size:18px;
+  font-size:17px;
   cursor:pointer;
 }
 
@@ -694,99 +735,45 @@ h3{
 
 .result{
   display:none;
-  margin-top:20px;
-  padding-top:18px;
-  border-top:1px solid var(--line);
-  font-size:20px;
-  line-height:1.5;
-}
-
-/* ===================== RULES ===================== */
-
-.rules{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-  margin-top:30px;
-}
-
-.rule{
-  min-height:210px;
-  padding:24px;
-  border:1px solid var(--line);
-  border-radius:19px;
-  background:rgba(255,255,255,.045);
-}
-
-.rule-num{
-  color:rgba(255,255,255,.14);
-  font-size:38px;
-  font-weight:750;
-}
-
-.rule p{
-  margin-top:10px;
-  color:var(--muted);
+  max-width:820px;
+  margin:19px auto 0;
+  padding:17px 20px;
+  border-radius:14px;
+  background:rgba(56,189,248,.09);
+  color:#e8f8ff;
   font-size:19px;
   line-height:1.5;
 }
 
-/* ===================== SECURITY ===================== */
-
-.security{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:19px;
-  margin-top:29px;
-}
-
-.sec{
-  min-height:210px;
-  padding:26px;
-  border:1px solid var(--line);
-  border-radius:21px;
-}
-
-.green{background:rgba(110,231,183,.07)}
-.yellow{background:rgba(253,230,138,.07)}
-.red{background:rgba(252,165,165,.07)}
-
-.light{
-  width:18px;height:18px;
-  margin-bottom:16px;
-  border-radius:50%;
-}
-
-.green .light{background:var(--green)}
-.yellow .light{background:var(--yellow)}
-.red .light{background:var(--red)}
-
-.sec p{
-  margin-top:10px;
-  color:var(--muted);
-  font-size:19px;
-  line-height:1.5;
-}
-
-/* ===================== BOSS ===================== */
+/* BOSS */
 
 .boss-buttons{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:13px;
-  margin-top:28px;
+  gap:12px;
+  margin-top:25px;
 }
 
 .boss-btn{
-  min-height:91px;
-  padding:17px;
-  text-align:left;
+  padding:16px;
   border:1px solid var(--line);
-  border-radius:15px;
+  border-radius:14px;
   background:rgba(255,255,255,.045);
   color:white;
+  text-align:left;
   font-family:inherit;
   cursor:pointer;
+}
+
+.boss-btn small{
+  display:block;
+  color:var(--cyan);
+  font-size:14px;
+  margin-bottom:7px;
+}
+
+.boss-btn strong{
+  font-size:18px;
 }
 
 .boss-btn.active{
@@ -794,94 +781,75 @@ h3{
   background:rgba(56,189,248,.12);
 }
 
-.boss-btn small{
-  display:block;
-  color:var(--cyan);
-  font-size:15px;
-  margin-bottom:6px;
-}
-
-.boss-btn strong{font-size:20px}
-
 .boss-focus{
-  margin-top:21px;
-  min-height:155px;
-  padding:27px 30px;
+  margin-top:23px;
+  padding:24px;
   border:1px solid rgba(103,232,249,.25);
-  border-radius:20px;
-  background:rgba(56,189,248,.055);
+  border-radius:18px;
+  background:rgba(56,189,248,.07);
 }
 
 .boss-focus-label{
   color:var(--cyan);
-  font-size:15px;
+  font-size:14px;
   font-weight:700;
 }
 
 .boss-focus-question{
-  margin-top:10px;
+  margin-top:8px;
   font-size:28px;
-  font-weight:650;
+  font-weight:700;
 }
 
 .boss-focus-help{
-  margin-top:10px;
+  margin-top:8px;
   color:var(--muted);
   font-size:19px;
 }
 
-/* ===================== DECISION ===================== */
+/* DECISION */
 
 .decision-box{
-  max-width:940px;
+  max-width:900px;
   margin:28px auto 0;
-  padding:34px;
-  border:1px solid rgba(103,232,249,.28);
-  border-radius:24px;
-  background:rgba(56,189,248,.055);
+  padding:31px;
+  border:1px solid rgba(103,232,249,.25);
+  border-radius:22px;
+  background:rgba(56,189,248,.07);
 }
 
 .decision-word{
-  font-size:clamp(48px,6vw,72px);
+  color:var(--cyan);
+  font-size:clamp(42px,5vw,66px);
   font-weight:750;
 }
 
 .decision-sub{
-  margin-top:12px;
-  color:var(--cyan);
-  font-size:22px;
+  margin-top:9px;
+  font-size:21px;
   font-weight:650;
 }
 
-/* ===================== MENU ===================== */
+/* MENU */
 
 .overlay{
   position:fixed;
+  z-index:500;
   inset:0;
-  z-index:600;
-  background:rgba(0,0,0,.55);
-  opacity:0;
-  pointer-events:none;
-  transition:.25s;
+  display:none;
+  background:rgba(0,0,0,.58);
 }
 
-.overlay.open{
-  opacity:1;
-  pointer-events:auto;
-}
+.overlay.open{display:block}
 
 .drawer{
-  position:absolute;
-  top:0;bottom:0;left:0;
-  width:min(470px,90vw);
-  padding:27px;
+  width:min(430px,92vw);
+  height:100%;
   overflow:auto;
+  padding:24px;
   background:#071a2b;
-  transform:translateX(-100%);
-  transition:.3s;
+  border-right:1px solid var(--line);
 }
-
-.overlay.open .drawer{transform:none}
 
 .drawer-head{
   display:flex;
@@ -890,116 +858,135 @@ h3{
   margin-bottom:20px;
 }
 
-.drawer-head h3{font-size:28px}
-
 .close{
-  width:40px;height:40px;
+  width:38px;height:38px;
   border:1px solid var(--line);
   border-radius:50%;
   background:transparent;
   color:white;
-  font-size:20px;
+  font-size:24px;
   cursor:pointer;
 }
 
 .menu-section{
-  margin:22px 0 7px;
+  margin:22px 0 8px;
   color:var(--cyan);
-  font-size:15px;
+  font-size:14px;
   font-weight:700;
 }
 
 .menu-item{
   width:100%;
-  padding:11px 13px;
-  text-align:left;
+  padding:12px 13px;
   border:0;
-  border-radius:9px;
+  border-radius:10px;
   background:transparent;
-  color:#c9d5df;
+  color:#c5d2de;
+  text-align:left;
   font-family:inherit;
-  font-size:17px;
+  font-size:16px;
   cursor:pointer;
 }
 
+.menu-item:hover,
 .menu-item.current{
-  background:rgba(56,189,248,.1);
   color:white;
+  background:rgba(56,189,248,.11);
 }
 
-/* ===================== QR ===================== */
+/* QR */
 
 .qr-modal{
   position:fixed;
+  z-index:600;
   inset:0;
-  z-index:800;
-  display:flex;
+  display:none;
   align-items:center;
   justify-content:center;
-  background:rgba(2,10,18,.88);
-  opacity:0;
-  pointer-events:none;
-  transition:.25s;
+  padding:20px;
+  background:rgba(0,0,0,.68);
 }
 
-.qr-modal.open{
-  opacity:1;
-  pointer-events:auto;
-}
+.qr-modal.open{display:flex}
 
 .qr-card{
-  width:min(700px,92vw);
-  padding:34px;
+  width:min(500px,94vw);
+  padding:30px;
   text-align:center;
   border:1px solid var(--line);
-  border-radius:25px;
+  border-radius:24px;
   background:#0a2034;
 }
 
+.qr-card h2{
+  font-size:34px;
+}
+
 .qr-box{
-  width:215px;
-  height:215px;
+  width:230px;
+  height:230px;
   margin:22px auto;
-  padding:10px;
+  padding:12px;
   border-radius:16px;
   background:white;
 }
 
-.qr-box img{width:100%;height:100%}
+.qr-box img{
+  width:100%;
+  height:100%;
+}
 
 .qr-note{
   color:var(--muted);
-  font-size:19px;
+  font-size:17px;
   line-height:1.5;
 }
 
-/* ===================== BOTTOM ===================== */
+/* BOTTOM */
 
 .bottom-nav{
   position:fixed;
   z-index:350;
   right:3vw;
-  bottom:24px;
+  bottom:22px;
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:10px;
 }
 
 .nav-btn{
-  width:45px;height:45px;
+  width:43px;
+  height:43px;
   border:1px solid var(--line);
   border-radius:50%;
-  background:rgba(255,255,255,.055);
+  background:rgba(255,255,255,.06);
   color:white;
-  font-size:18px;
+  font-size:20px;
   cursor:pointer;
 }
 
 .counter{
-  min-width:75px;
+  min-width:78px;
   text-align:center;
   color:var(--muted);
   font-size:15px;
+}
+
+.mobile-center{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.mobile-action{
+  display:none;
+  padding:9px 10px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:rgba(255,255,255,.06);
+  color:white;
+  font-family:inherit;
+  font-size:13px;
 }
 
 .location{
@@ -1011,6 +998,8 @@ h3{
   font-size:15px;
 }
 
+/* RESPONSIVE */
+
 @media(max-width:1050px){
   .parts{display:none}
   .journey,.rules{grid-template-columns:1fr 1fr}
@@ -1020,12 +1009,74 @@ h3{
 }
 
 @media(max-width:760px){
+
+  html,body{
+    overflow:hidden;
+  }
+
+  .topbar{
+    height:62px;
+    padding:0 14px;
+  }
+
+  .brand{
+    min-width:0;
+    flex:1;
+    font-size:14px;
+  }
+
+  .topbar .top-btn:not(:last-child){
+    display:none;
+  }
+
+  .topbar .top-btn:last-child{
+    padding:9px 11px;
+    font-size:0;
+  }
+
+  .topbar .top-btn:last-child:after{
+    content:"☰";
+    font-size:20px;
+  }
+
+  .progress{top:61px}
+
+  .scene{
+    padding:84px 18px 92px;
+    overflow:auto;
+    align-items:flex-start;
+  }
+
+  .inner{
+    width:100%;
+    padding-bottom:18px;
+  }
+
+  h1{
+    font-size:clamp(40px,12vw,56px);
+  }
+
+  h2{
+    font-size:clamp(31px,9vw,42px);
+  }
+
+  .subtitle{
+    font-size:19px;
+  }
+
+  .bigline{
+    font-size:23px;
+  }
+
   .grid2,.grid3,.security,.rules,
-  .boss-buttons,.problem-grid{
+  .boss-buttons,.problem-grid,
+  .task-layout{
     grid-template-columns:1fr;
   }
 
-  .journey{grid-template-columns:1fr}
+  .journey{
+    grid-template-columns:1fr 1fr;
+  }
 
   .time-compare,.routine-grid,.change-line{
     grid-template-columns:1fr;
@@ -1036,10 +1087,86 @@ h3{
     text-align:center;
   }
 
-  .pipeline{flex-wrap:wrap}
-  .pipe-arrow{display:none}
-  .location{display:none}
+  .time-box{
+    min-height:0;
+  }
+
+  .time-number{
+    font-size:48px;
+  }
+
+  .pipeline{
+    flex-wrap:wrap;
+  }
+
+  .pipe{
+    min-width:45%;
+  }
+
+  .pipe-arrow{
+    display:none;
+  }
+
+  .location{
+    display:none;
+  }
+
+  .bottom-nav{
+    left:12px;
+    right:12px;
+    bottom:12px;
+    justify-content:space-between;
+    padding:7px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    background:rgba(6,21,36,.94);
+    backdrop-filter:blur(14px);
+  }
+
+  .mobile-center{
+    flex:1;
+    justify-content:center;
+  }
+
+  .mobile-action{
+    display:inline-block;
+  }
+
+  .counter{
+    min-width:62px;
+  }
+
+  .nav-btn{
+    width:40px;
+    height:40px;
+    flex:0 0 40px;
+  }
+
+  .task-text{
+    font-size:25px;
+  }
+
+  .tool-link{
+    font-size:17px;
+  }
 }
+
+@media(max-width:480px){
+  .journey{
+    grid-template-columns:1fr;
+  }
+
+  .mobile-action{
+    font-size:12px;
+    padding:8px;
+  }
+
+  .counter{
+    font-size:13px;
+    min-width:52px;
+  }
+}
+
 </style>
 </head>
 
@@ -1069,7 +1196,7 @@ h3{
 
 <div class="progress" id="progress"></div>
 
-<!-- ===================== MENU ===================== -->
+<!-- MENU -->
 
 <div class="overlay" id="overlay" onclick="overlayClick(event)">
 <div class="drawer">
@@ -1117,7 +1244,7 @@ h3{
 </div>
 </div>
 
-<!-- ===================== QR ===================== -->
+<!-- QR -->
 
 <div class="qr-modal" id="qrModal" onclick="qrOutside(event)">
 <div class="qr-card">
@@ -1141,7 +1268,7 @@ h3{
 </div>
 </div>
 
-<!-- ===================== 01 ===================== -->
+<!-- 01 -->
 
 <section class="scene active" data-part="1" data-title="Mở đầu">
 <div class="inner">
@@ -1163,7 +1290,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 02 ===================== -->
+<!-- 02 -->
 
 <section class="scene" data-part="1" data-title="Một nhiệm vụ mới">
 <div class="inner">
@@ -1198,7 +1325,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 03 ===================== -->
+<!-- 03 -->
 
 <section class="scene" data-part="1" data-title="Bạn bắt đầu từ đâu?">
 <div class="inner center">
@@ -1229,7 +1356,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 04 ===================== -->
+<!-- 04 -->
 
 <section class="scene" data-part="1" data-title="Bản đồ công việc">
 <div class="inner">
@@ -1296,7 +1423,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 05 TIME ===================== -->
+<!-- 05 -->
 
 <section class="scene" data-part="2" data-title="AI giúp lấy lại thời gian">
 <div class="inner center">
@@ -1343,7 +1470,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 06 ROUTINE ===================== -->
+<!-- 06 -->
 
 <section class="scene" data-part="2" data-title="Lấy lại thời gian">
 <div class="inner">
@@ -1394,7 +1521,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 07 LEARN ===================== -->
+<!-- 07 -->
 
 <section class="scene" data-part="2" data-title="Muốn nhanh phải học">
 <div class="inner center">
@@ -1451,7 +1578,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 08 CHANGE ===================== -->
+<!-- 08 -->
 
 <section class="scene" data-part="2" data-title="AI thay đổi rất nhanh">
 <div class="inner center">
@@ -1504,7 +1631,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 09 TOOLS ===================== -->
+<!-- 09 -->
 
 <section class="scene" data-part="3" data-title="Một vài công cụ">
 <div class="inner center">
@@ -1542,7 +1669,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 10 UNDERSTAND ===================== -->
+<!-- 10 -->
 
 <section class="scene" data-part="3" data-title="Hiểu việc">
 <div class="inner">
@@ -1591,7 +1718,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 11 BREAK DOWN ===================== -->
+<!-- 11 -->
 
 <section class="scene" data-part="3" data-title="Chia việc">
 <div class="inner">
@@ -1626,7 +1753,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 12 ANALYSE ===================== -->
+<!-- 12 -->
 
 <section class="scene" data-part="3" data-title="Tìm – đọc – phân tích">
 <div class="inner">
@@ -1658,16 +1785,16 @@ h3{
   </div>
 
   <div class="bigline reveal d6">
-    AI giúp phân tích và gợi ý.
+    AI giúp phân tích và gợi ý phương án.
     <span class="highlight">
-      Người dùng đánh giá và lựa chọn.
+      Người dùng AI là người đánh giá và lựa chọn.
     </span>
   </div>
 
 </div>
 </section>
 
-<!-- ===================== 13 CREATE ===================== -->
+<!-- 13 -->
 
 <section class="scene" data-part="3" data-title="Tạo – phản biện">
 <div class="inner">
@@ -1709,7 +1836,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 14 RULES ===================== -->
+<!-- 14 -->
 
 <section class="scene" data-part="4" data-title="Nguyên tắc sử dụng AI">
 <div class="inner">
@@ -1752,7 +1879,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 15 POLICY ===================== -->
+<!-- 15 -->
 
 <section class="scene" data-part="4" data-title="Quy định nội bộ">
 <div class="inner center">
@@ -1791,7 +1918,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 16 SECURITY ===================== -->
+<!-- 16 -->
 
 <section class="scene" data-part="4" data-title="Xanh – Vàng – Đỏ">
 <div class="inner">
@@ -1863,7 +1990,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 17 VERIFY ===================== -->
+<!-- 17 -->
 
 <section class="scene" data-part="4" data-title="Kiểm chứng">
 <div class="inner center">
@@ -1895,7 +2022,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 18 SWITCH ===================== -->
+<!-- 18 -->
 
 <section class="scene" data-part="5" data-title="Đổi vai">
 <div class="inner center">
@@ -1927,7 +2054,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 19 BOSS ===================== -->
+<!-- 19 -->
 
 <section class="scene" data-part="5" data-title="6 câu hỏi của Sếp">
 <div class="inner">
@@ -1998,7 +2125,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 20 REVERSE AI ===================== -->
+<!-- 20 -->
 
 <section class="scene" data-part="5" data-title="AI phản biện ngược">
 <div class="inner">
@@ -2039,7 +2166,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 21 BOUNDARY ===================== -->
+<!-- 21 -->
 
 <section class="scene" data-part="6" data-title="AI dừng ở đâu?">
 <div class="inner center">
@@ -2070,7 +2197,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 22 FINAL CHECK ===================== -->
+<!-- 22 -->
 
 <section class="scene" data-part="6" data-title="5 kiểm tra cuối">
 <div class="inner">
@@ -2104,7 +2231,7 @@ h3{
     <div class="node reveal d4">
       <small>04</small>
       <strong>An toàn</strong>
-      <p>Có an toàn thông tin và đúng quy định không?</p>
+      <p>Có an toàn thông tin / đúng quy định không?</p>
     </div>
 
     <div class="node reveal d5">
@@ -2118,7 +2245,7 @@ h3{
 </div>
 </section>
 
-<!-- ===================== 23 END ===================== -->
+<!-- 23 -->
 
 <section class="scene" data-part="6" data-title="Con người quyết định">
 <div class="inner center">
@@ -2157,19 +2284,26 @@ h3{
 </div>
 </section>
 
-<!-- ===================== BOTTOM ===================== -->
+<!-- BOTTOM -->
 
 <div class="location" id="location">
   PHẦN 1 · NHẬN VIỆC
 </div>
 
 <div class="bottom-nav">
-  <button class="nav-btn" onclick="previousScene()">←</button>
-  <div class="counter" id="counter">01 / 23</div>
-  <button class="nav-btn" onclick="nextScene()">→</button>
+  <button class="nav-btn" onclick="previousScene()" aria-label="Màn trước">←</button>
+
+  <div class="mobile-center">
+    <button class="mobile-action" onclick="goTo(3)">◎ Bản đồ</button>
+    <div class="counter" id="counter">01 / 23</div>
+    <button class="mobile-action" onclick="openQR()">▦ Tham gia</button>
+  </div>
+
+  <button class="nav-btn" onclick="nextScene()" aria-label="Màn tiếp theo">→</button>
 </div>
 
 <script>
+
 const scenes=document.querySelectorAll(".scene");
 const parts=document.querySelectorAll(".part");
 const menuItems=document.querySelectorAll(".menu-item");
@@ -2219,6 +2353,8 @@ function showScene(index){
 
   document.getElementById("location").innerText=
     partNames[part]+" · "+scene.dataset.title;
+
+  scene.scrollTop=0;
 }
 
 function nextScene(){
@@ -2253,6 +2389,7 @@ document.addEventListener("keydown",e=>{
     document.getElementById("overlay").classList.remove("open");
     closeQR();
   }
+
 });
 
 /* MENU */
@@ -2291,6 +2428,7 @@ function qrOutside(e){
 /* VOTE */
 
 function selectVote(button){
+
   button.parentElement
     .querySelectorAll(".vote")
     .forEach(x=>x.classList.remove("selected"));
@@ -2299,19 +2437,24 @@ function selectVote(button){
 }
 
 function startVote(button){
+
   selectVote(button);
+
   document.getElementById("startResult").style.display="block";
 }
 
 function securityVote(button,text){
+
   selectVote(button);
 
   const result=document.getElementById("securityResult");
+
   result.innerText=text;
   result.style.display="block";
 }
 
 function checkVote(correct,button){
+
   selectVote(button);
 
   const result=document.getElementById("checkResult");
@@ -2336,9 +2479,42 @@ function bossQuestion(button,title,help){
   document.getElementById("bossHelp").innerText=help;
 }
 
+/* SWIPE MOBILE */
+
+let touchStartX=0;
+let touchStartY=0;
+
+document.addEventListener("touchstart",e=>{
+
+  touchStartX=e.changedTouches[0].screenX;
+  touchStartY=e.changedTouches[0].screenY;
+
+},{passive:true});
+
+document.addEventListener("touchend",e=>{
+
+  const touchEndX=e.changedTouches[0].screenX;
+  const touchEndY=e.changedTouches[0].screenY;
+
+  const dx=touchEndX-touchStartX;
+  const dy=touchEndY-touchStartY;
+
+  if(Math.abs(dx)>70 && Math.abs(dx)>Math.abs(dy)*1.4){
+
+    if(dx<0){
+      nextScene();
+    }else{
+      previousScene();
+    }
+
+  }
+
+},{passive:true});
+
 /* START */
 
 showScene(0);
+
 </script>
 
 </body>
