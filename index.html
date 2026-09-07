@@ -1,66 +1,2375 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI trong công việc</title>
 
-bash -lc python - <<'PY'
-from pathlib import Path
-src=Path('/mnt/data/Pasted text(20260907-103153).txt').read_text()
-text=src
-# slide 8 phrase
-text=text.replace('''  <div class="bigline reveal d4">\n    Đừng học để thuộc một công cụ.<br>\n    <span class="highlight">\n      Hãy học để có thể nhanh chóng làm chủ công cụ mới.\n    </span>\n  </div>\n\n  <p class="subtitle reveal d5">\n    AI càng phát triển nhanh,\n    khả năng học nhanh càng trở nên có giá trị.\n  </p>''','''  <div class="bigline reveal d4">\n    Công cụ thay đổi, cách làm việc cũng thay đổi.<br>\n    <span class="highlight">\n      Điều cần duy trì là khả năng học hỏi và thích nghi.\n    </span>\n  </div>\n\n  <p class="subtitle reveal d5">\n    Học tập liên tục giúp chúng ta sẵn sàng\n    ứng dụng những công cụ phù hợp khi công việc cần đến.\n  </p>''')
-# slide 9 title and add copilot
-text=text.replace('''  <h2 class="reveal d2">\n    Biết để lựa chọn.<br>\n    <span class="highlight">Không cần học thuộc.</span>\n  </h2>''','''  <h2 class="reveal d2">\n    Mỗi công cụ có một thế mạnh.<br>\n    <span class="highlight">Lựa chọn theo việc cần giải quyết.</span>\n  </h2>''')
-text=text.replace('''    <a class="tool-link" href="https://notebooklm.google.com/" target="_blank">NotebookLM ↗</a>''','''    <a class="tool-link" href="https://notebooklm.google.com/" target="_blank">NotebookLM ↗</a>\n    <a class="tool-link" href="https://www.microsoft.com/microsoft-copilot" target="_blank">Copilot ↗</a>''')
-# add case note in slide 10 before closing inner
-old='''  </div>\n\n</div>\n</section>\n\n<!-- ===================== 11 BREAK DOWN ===================== -->'''
-new='''  </div>\n\n  <div class="tool-note reveal d6">\n    <strong style="color:white">Case minh họa · Cập nhật sản lượng khai thác:</strong>\n    yêu cầu không chỉ là “tổng hợp số liệu”, mà cần làm rõ nguồn dữ liệu, kỳ báo cáo,\n    cách so sánh với kế hoạch và thông tin nào cần đưa đến người ra quyết định.\n  </div>\n\n</div>\n</section>\n\n<!-- ===================== 11 BREAK DOWN ===================== -->'''
-# replace first occurrence after slide10 only by splitting
-idx=text.find('<!-- ===================== 10 UNDERSTAND')
-j=text.find(old, idx)
-if j!=-1:
-    text=text[:j]+new+text[j+len(old):]
-else:
-    print('slide10 insertion anchor not found')
-# slide11 add case note after prompt
-anchor='''  <div class="prompt reveal d4">\n    Hãy chia nhiệm vụ này thành các bước.\n    Với mỗi bước, cho biết cần làm gì,\n    cần thông tin gì và kết quả cần có.\n  </div>'''
-repl=anchor+'''\n\n  <div class="tool-note reveal d5">\n    <strong style="color:white">Ví dụ với báo cáo sản lượng:</strong>\n    nhận dữ liệu → chuẩn hóa → tổng hợp → so sánh kế hoạch → phát hiện điểm cần chú ý → cập nhật báo cáo.\n    Những bước lặp lại có thể được số hóa; phần nhận định vẫn cần bối cảnh chuyên môn.\n  </div>'''
-text=text.replace(anchor,repl,1)
-# slide12 case note before closing
-anchor2='''  <div class="bigline reveal d6">\n    AI giúp phân tích và gợi ý.\n    <span class="highlight">\n      Người dùng đánh giá và lựa chọn.\n    </span>\n  </div>'''
-repl2=anchor2+'''\n\n  <div class="tool-note reveal d6">\n    <strong style="color:white">Case minh họa:</strong>\n    AI có thể chỉ ra mỏ nào lệch kế hoạch nhiều nhất hoặc xu hướng nào đáng chú ý.\n    Nhưng nguyên nhân của biến động phải được kiểm tra bằng dữ liệu nguồn và bối cảnh kỹ thuật.\n  </div>'''
-text=text.replace(anchor2,repl2,1)
-# slide13 add case note after prompt
-anchor3='''  <div class="prompt reveal d5">\n    Đóng vai người phản biện.\n    Hãy chỉ ra những điểm chưa thuyết phục,\n    dữ liệu còn thiếu và những câu hỏi\n    người phê duyệt có thể đặt ra.\n  </div>'''
-repl3=anchor3+'''\n\n  <div class="tool-note reveal d6">\n    <strong style="color:white">Một cách kết hợp công cụ trong case sản lượng:</strong>\n    Power BI hỗ trợ tổng hợp và trực quan hóa; Copilot có thể hỗ trợ tóm tắt, tìm điểm bất thường\n    và gợi ý câu hỏi — trên môi trường được phép. Con người kiểm chứng trước khi sử dụng.\n  </div>'''
-text=text.replace(anchor3,repl3,1)
-# slide16 question
-text=text.replace('''      Báo cáo nội bộ chưa công bố — bạn chọn màu nào?''','''      Số liệu sản lượng khai thác chưa công bố — bạn chọn màu nào?''')
-# slide17 replace heading and result messages? Use exact section fragment
-start=text.find('<!-- ===================== 17 VERIFY ===================== -->')
-end=text.find('<!-- ===================== 18 SWITCH ===================== -->',start)
-oldsec=text[start:end]
-newsec='''<!-- ===================== 17 VERIFY ===================== -->\n\n<section class="scene" data-part="4" data-title="Kiểm chứng">\n<div class="inner center">\n\n  <div class="eyebrow reveal d1">Câu hỏi tương tác 02 · dữ liệu giả lập</div>\n\n  <h2 class="reveal d2">\n    Kế hoạch Gamma: 6.200 · Thực hiện: 5.950.<br>\n    AI kết luận: <span class="highlight">“Gamma đã vượt kế hoạch.”</span>\n  </h2>\n\n  <div class="vote-area reveal d3">\n\n    <div class="vote-question">\n      Bạn làm gì tiếp?\n    </div>\n\n    <div class="vote-options">\n      <button class="vote" onclick="checkVote(false,this)">Dùng luôn</button>\n      <button class="vote" onclick="checkVote(true,this)">Kiểm tra lại dữ liệu nguồn</button>\n      <button class="vote" onclick="checkVote(false,this)">Hỏi AI “có chắc không?”</button>\n    </div>\n\n    <div class="result" id="checkResult"></div>\n\n  </div>\n\n  <div class="bigline reveal d4">\n    AI có thể rất nhanh và rất thuyết phục.\n    <span class="highlight">Nhưng một kết luận sai vẫn là sai.</span>\n  </div>\n\n</div>\n</section>\n\n'''
-text=text[:start]+newsec+text[end:]
-# slide18 replace subtle
-start=text.find('<!-- ===================== 18 SWITCH ===================== -->')
-end=text.find('<!-- ===================== 19 BOSS ===================== -->',start)
-new18='''<!-- ===================== 18 SWITCH ===================== -->\n\n<section class="scene" data-part="5" data-title="Góc nhìn người nhận sản phẩm">\n<div class="inner center">\n\n  <div class="eyebrow reveal d1">Một góc nhìn khác</div>\n\n  <h2 class="reveal d2">\n    Khi một sản phẩm được trình lên,<br>\n    <span class="highlight">cách sử dụng AI cũng có thể thay đổi.</span>\n  </h2>\n\n  <div class="decision-box reveal d3">\n\n    <p class="subtitle" style="margin-top:0">\n      Ví dụ từ case giả lập:\n    </p>\n\n    <div class="bigline">\n      “Gamma là điểm cần ưu tiên xử lý do sản lượng thấp hơn kế hoạch.”\n    </div>\n\n  </div>\n\n  <p class="subtitle reveal d4">\n    Người nhận sản phẩm không chỉ cần một kết luận ngắn gọn.\n    Điều quan trọng là kiểm tra căn cứ, giả định, điểm chưa chắc chắn\n    và những thông tin còn thiếu trước khi sử dụng kết luận đó.\n  </p>\n\n</div>\n</section>\n\n'''
-text=text[:start]+new18+text[end:]
-# slide19 title and button wording more general
-text=text.replace('''<section class="scene" data-part="5" data-title="6 câu hỏi của Sếp">''','''<section class="scene" data-part="5" data-title="6 câu hỏi kiểm tra ngược">''',1)
-text=text.replace('''    6 câu hỏi của<br>\n    <span class="highlight">người nhận sản phẩm</span>''','''    6 câu hỏi để<br>\n    <span class="highlight">kiểm tra một đề xuất</span>''',1)
-text=text.replace("'Nếu không chọn phương án này, phương án tốt thứ hai là gì?'","'Nếu không chọn phương án này, phương án phù hợp tiếp theo là gì?'",1)
-text=text.replace("'Giả định nào đang được dùng?'","'Những giả định nào đang được sử dụng?'",1)
-text=text.replace("'Nếu giả định đó sai, kết luận thay đổi như thế nào?'","'Nếu một giả định quan trọng không còn đúng, kết luận thay đổi như thế nào?'",1)
-text=text.replace("'Cho tôi 3 lý do để KHÔNG chọn chính phương án đang đề xuất.'","'Hãy chỉ ra những lý do có thể khiến phương án đang đề xuất không còn phù hợp.'",1)
-text=text.replace("'Bạn có thực sự hiểu?'","'Người trình có thực sự hiểu kết luận?'",1)
-text=text.replace('''      <strong>Bạn có hiểu?</strong>''','''      <strong>Có thực sự hiểu?</strong>''',1)
-# Menu labels
-text=text.replace('''  <button class="menu-item" onclick="goToMenu(17)">18. Đổi vai</button>\n  <button class="menu-item" onclick="goToMenu(18)">19. 6 câu hỏi của Sếp</button>''','''  <button class="menu-item" onclick="goToMenu(17)">18. Góc nhìn người nhận sản phẩm</button>\n  <button class="menu-item" onclick="goToMenu(18)">19. 6 câu hỏi kiểm tra ngược</button>''')
-# add rel noopener to tool links
-text=text.replace('target="_blank">','target="_blank" rel="noopener">')
-# final check exact safety wording with slash
-text=text.replace('Có an toàn thông tin và đúng quy định không?','Có an toàn thông tin / đúng quy định không?',1)
-# create output
-out=Path('/mnt/data/index_23slides_case_integrated.html')
-out.write_text(text)
-print('len',len(text),'scenes',text.count('<section class="scene'))
-print('contains forbidden phrase?', 'Đừng học để thuộc một công cụ' in text, 'của Sếp' in text, 'Bây giờ đổi vai' in text)
-PY
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#061524;
+  --panel:#0a2034;
+  --blue:#38bdf8;
+  --cyan:#67e8f9;
+  --green:#6ee7b7;
+  --yellow:#fde68a;
+  --red:#fca5a5;
+  --white:#f7fbff;
+  --muted:#c3d0dc;
+  --line:rgba(255,255,255,.13);
+  --card:rgba(255,255,255,.055);
+}
+
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
+body{
+  font-family:"Segoe UI",Arial,sans-serif;
+  color:var(--white);
+  background:
+    radial-gradient(circle at 82% 18%,rgba(56,189,248,.14),transparent 28%),
+    radial-gradient(circle at 10% 85%,rgba(103,232,249,.06),transparent 30%),
+    var(--bg);
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:55px 55px;
+}
+
+/* ===================== TOP ===================== */
+
+.topbar{
+  position:fixed;
+  z-index:300;
+  top:0;left:0;right:0;
+  height:76px;
+  padding:0 3vw;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  background:rgba(6,21,36,.94);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(16px);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:165px;
+  font-size:15px;
+  font-weight:750;
+}
+
+.brand-dot{
+  width:10px;height:10px;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 16px var(--cyan);
+}
+
+.parts{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  gap:3px;
+}
+
+.part{
+  padding:9px 10px;
+  border:0;
+  border-radius:999px;
+  background:transparent;
+  color:#899daf;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:650;
+  cursor:pointer;
+}
+
+.part.active{
+  color:white;
+  background:rgba(56,189,248,.14);
+}
+
+.top-btn{
+  padding:10px 12px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:rgba(255,255,255,.05);
+  color:white;
+  font-family:inherit;
+  font-size:14px;
+  font-weight:650;
+  cursor:pointer;
+}
+
+.join-btn{
+  color:var(--cyan);
+  border-color:rgba(103,232,249,.3);
+}
+
+.progress{
+  position:fixed;
+  z-index:310;
+  top:75px;left:0;
+  height:3px;
+  background:linear-gradient(90deg,var(--blue),var(--cyan));
+  transition:.4s;
+}
+
+/* ===================== SCENES ===================== */
+
+.scene{
+  position:absolute;
+  inset:0;
+  padding:106px 6vw 82px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(18px) scale(.99);
+  filter:blur(3px);
+  transition:.45s ease;
+}
+
+.scene.active{
+  opacity:1;
+  pointer-events:auto;
+  transform:none;
+  filter:none;
+}
+
+.inner{
+  width:min(1180px,100%);
+  margin:auto;
+}
+
+.center{text-align:center}
+
+.eyebrow{
+  margin-bottom:15px;
+  color:var(--cyan);
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+}
+
+h1{
+  font-size:clamp(48px,5.3vw,72px);
+  line-height:1.08;
+  font-weight:750;
+  letter-spacing:-1px;
+}
+
+h2{
+  font-size:clamp(36px,4vw,52px);
+  line-height:1.14;
+  font-weight:720;
+  letter-spacing:-.4px;
+}
+
+h3{
+  font-size:23px;
+  line-height:1.3;
+}
+
+.subtitle{
+  margin-top:22px;
+  max-width:880px;
+  color:var(--muted);
+  font-size:21px;
+  line-height:1.55;
+}
+
+.center .subtitle{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.highlight{color:var(--cyan)}
+
+.bigline{
+  margin-top:27px;
+  font-size:28px;
+  line-height:1.4;
+  font-weight:650;
+}
+
+/* ===================== REVEAL ===================== */
+
+.reveal{
+  opacity:0;
+  transform:translateY(17px);
+}
+
+.scene.active .reveal{
+  animation:rise .5s forwards;
+}
+
+.scene.active .d1{animation-delay:.08s}
+.scene.active .d2{animation-delay:.18s}
+.scene.active .d3{animation-delay:.28s}
+.scene.active .d4{animation-delay:.38s}
+.scene.active .d5{animation-delay:.48s}
+.scene.active .d6{animation-delay:.58s}
+
+@keyframes rise{
+  to{opacity:1;transform:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+  }
+}
+
+/* ===================== BUTTON ===================== */
+
+.btn{
+  display:inline-block;
+  margin-top:25px;
+  padding:13px 21px;
+  border:1px solid rgba(103,232,249,.35);
+  border-radius:999px;
+  background:rgba(56,189,248,.10);
+  color:white;
+  font-family:inherit;
+  font-size:17px;
+  font-weight:700;
+  text-decoration:none;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  background:rgba(56,189,248,.18);
+}
+
+/* ===================== CARDS ===================== */
+
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  margin-top:29px;
+}
+
+.grid3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:29px;
+}
+
+.card{
+  padding:25px;
+  border:1px solid var(--line);
+  border-radius:19px;
+  background:var(--card);
+}
+
+.card p{
+  margin-top:9px;
+  color:var(--muted);
+  font-size:19px;
+  line-height:1.5;
+}
+
+/* ===================== TASK ===================== */
+
+.task-layout{
+  display:grid;
+  grid-template-columns:.85fr 1.15fr;
+  gap:50px;
+  align-items:center;
+}
+
+.task{
+  padding:34px;
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:rgba(255,255,255,.06);
+}
+
+.task-label{
+  margin-bottom:20px;
+  color:var(--cyan);
+  font-size:16px;
+  font-weight:700;
+}
+
+.task-text{
+  font-size:30px;
+  line-height:1.45;
+  font-weight:600;
+}
+
+.task-note{
+  margin-top:22px;
+  color:var(--muted);
+  font-size:19px;
+}
+
+/* ===================== TIME SAVING ===================== */
+
+.time-compare{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:28px;
+  margin-top:35px;
+}
+
+.time-box{
+  min-height:250px;
+  padding:30px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:rgba(255,255,255,.045);
+}
+
+.time-label{
+  color:var(--muted);
+  font-size:16px;
+  font-weight:700;
+}
+
+.time-number{
+  margin-top:14px;
+  font-size:58px;
+  line-height:1;
+  font-weight:750;
+}
+
+.time-box.ai{
+  border-color:rgba(103,232,249,.32);
+  background:rgba(56,189,248,.08);
+}
+
+.time-box.ai .time-number{
+  color:var(--cyan);
+}
+
+.time-description{
+  margin-top:18px;
+  color:var(--muted);
+  font-size:19px;
+  line-height:1.5;
+}
+
+.time-arrow{
+  color:var(--cyan);
+  font-size:40px;
+}
+
+/* ===================== ROUTINE ===================== */
+
+.routine-grid{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:35px;
+  align-items:center;
+  margin-top:35px;
+}
+
+.routine-side{
+  padding:28px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:rgba(255,255,255,.04);
+}
+
+.routine-side h3{
+  color:var(--cyan);
+  margin-bottom:18px;
+}
+
+.routine-item{
+  margin:10px 0;
+  padding:12px 14px;
+  border-radius:11px;
+  background:rgba(255,255,255,.05);
+  font-size:19px;
+}
+
+.human-item{
+  margin:10px 0;
+  padding:12px 14px;
+  border-radius:11px;
+  background:rgba(56,189,248,.09);
+  font-size:20px;
+  font-weight:650;
+}
+
+.routine-arrow{
+  color:var(--cyan);
+  font-size:42px;
+}
+
+/* ===================== LEARNING ===================== */
+
+.learning-chain{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:32px;
+}
+
+.learn-step{
+  padding:15px 23px;
+  border:1px solid rgba(103,232,249,.28);
+  border-radius:999px;
+  background:rgba(56,189,248,.07);
+  font-size:21px;
+  font-weight:700;
+}
+
+.learn-arrow{
+  color:var(--cyan);
+  font-size:25px;
+}
+
+.problem-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-top:30px;
+}
+
+.problem{
+  padding:22px 17px;
+  border:1px solid var(--line);
+  border-radius:17px;
+  background:rgba(255,255,255,.04);
+}
+
+.problem strong{
+  display:block;
+  font-size:20px;
+}
+
+.problem p{
+  margin-top:9px;
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.45;
+}
+
+/* ===================== CHANGE ===================== */
+
+.change-line{
+  display:grid;
+  grid-template-columns:1fr auto 1fr auto 1fr;
+  gap:14px;
+  align-items:center;
+  margin-top:34px;
+}
+
+.change-box{
+  min-height:150px;
+  padding:23px 20px;
+  border:1px solid var(--line);
+  border-radius:19px;
+  background:rgba(255,255,255,.045);
+}
+
+.change-box small{
+  color:var(--cyan);
+  font-size:15px;
+  font-weight:700;
+}
+
+.change-box strong{
+  display:block;
+  margin-top:10px;
+  font-size:23px;
+}
+
+.change-box p{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.4;
+}
+
+.arrow{
+  color:var(--cyan);
+  font-size:27px;
+}
+
+/* ===================== TOOLS ===================== */
+
+.tool-cloud{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:13px;
+  margin-top:30px;
+}
+
+.tool-link{
+  padding:15px 20px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:rgba(255,255,255,.045);
+  color:white;
+  text-decoration:none;
+  font-size:19px;
+  font-weight:650;
+  transition:.2s;
+}
+
+.tool-link:hover{
+  border-color:var(--cyan);
+  background:rgba(56,189,248,.12);
+  transform:translateY(-3px);
+}
+
+.tool-note{
+  max-width:920px;
+  margin:28px auto 0;
+  padding:20px 24px;
+  border-left:3px solid var(--cyan);
+  background:rgba(56,189,248,.055);
+  text-align:left;
+  color:var(--muted);
+  font-size:19px;
+  line-height:1.55;
+}
+
+/* ===================== JOURNEY ===================== */
+
+.journey{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-top:29px;
+}
+
+.node{
+  min-height:132px;
+  padding:20px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:rgba(255,255,255,.045);
+  cursor:pointer;
+}
+
+.node small{
+  color:var(--cyan);
+  font-size:15px;
+  font-weight:700;
+}
+
+.node strong{
+  display:block;
+  margin-top:7px;
+  font-size:22px;
+}
+
+.node p{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.4;
+}
+
+/* ===================== PIPELINE ===================== */
+
+.pipeline{
+  display:flex;
+  align-items:stretch;
+  gap:9px;
+  margin-top:31px;
+}
+
+.pipe{
+  flex:1;
+  padding:20px 13px;
+  text-align:center;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:rgba(255,255,255,.045);
+}
+
+.pipe strong{
+  display:block;
+  margin-bottom:7px;
+  color:var(--cyan);
+  font-size:20px;
+}
+
+.pipe p{
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.4;
+}
+
+.pipe-arrow{
+  align-self:center;
+  color:var(--cyan);
+  font-size:23px;
+}
+
+/* ===================== PROMPT ===================== */
+
+.prompt{
+  margin-top:24px;
+  padding:23px 25px;
+  border:1px solid rgba(103,232,249,.25);
+  border-radius:18px;
+  background:#081c30;
+  font-size:20px;
+  line-height:1.6;
+}
+
+.prompt:before{
+  content:"CÓ THỂ YÊU CẦU AI NHƯ SAU";
+  display:block;
+  margin-bottom:9px;
+  color:var(--cyan);
+  font-size:15px;
+  font-weight:700;
+}
+
+/* ===================== VOTE ===================== */
+
+.vote-area{
+  max-width:940px;
+  margin:28px auto 0;
+  padding:25px;
+  border:1px dashed rgba(103,232,249,.38);
+  border-radius:20px;
+  background:rgba(255,255,255,.025);
+}
+
+.vote-question{
+  font-size:24px;
+  line-height:1.4;
+  font-weight:650;
+}
+
+.vote-options{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:11px;
+  margin-top:21px;
+}
+
+.vote{
+  padding:13px 18px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:rgba(255,255,255,.05);
+  color:white;
+  font-family:inherit;
+  font-size:18px;
+  cursor:pointer;
+}
+
+.vote.selected{
+  border-color:var(--cyan);
+  background:rgba(56,189,248,.17);
+}
+
+.result{
+  display:none;
+  margin-top:20px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+  font-size:20px;
+  line-height:1.5;
+}
+
+/* ===================== RULES ===================== */
+
+.rules{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-top:30px;
+}
+
+.rule{
+  min-height:210px;
+  padding:24px;
+  border:1px solid var(--line);
+  border-radius:19px;
+  background:rgba(255,255,255,.045);
+}
+
+.rule-num{
+  color:rgba(255,255,255,.14);
+  font-size:38px;
+  font-weight:750;
+}
+
+.rule p{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:19px;
+  line-height:1.5;
+}
+
+/* ===================== SECURITY ===================== */
+
+.security{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:19px;
+  margin-top:29px;
+}
+
+.sec{
+  min-height:210px;
+  padding:26px;
+  border:1px solid var(--line);
+  border-radius:21px;
+}
+
+.green{background:rgba(110,231,183,.07)}
+.yellow{background:rgba(253,230,138,.07)}
+.red{background:rgba(252,165,165,.07)}
+
+.light{
+  width:18px;height:18px;
+  margin-bottom:16px;
+  border-radius:50%;
+}
+
+.green .light{background:var(--green)}
+.yellow .light{background:var(--yellow)}
+.red .light{background:var(--red)}
+
+.sec p{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:19px;
+  line-height:1.5;
+}
+
+/* ===================== CHECK NGƯỢC ===================== */
+
+.boss-buttons{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+  margin-top:28px;
+}
+
+.boss-btn{
+  min-height:91px;
+  padding:17px;
+  text-align:left;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:rgba(255,255,255,.045);
+  color:white;
+  font-family:inherit;
+  cursor:pointer;
+}
+
+.boss-btn.active{
+  border-color:var(--cyan);
+  background:rgba(56,189,248,.12);
+}
+
+.boss-btn small{
+  display:block;
+  color:var(--cyan);
+  font-size:15px;
+  margin-bottom:6px;
+}
+
+.boss-btn strong{font-size:20px}
+
+.boss-focus{
+  margin-top:21px;
+  min-height:155px;
+  padding:27px 30px;
+  border:1px solid rgba(103,232,249,.25);
+  border-radius:20px;
+  background:rgba(56,189,248,.055);
+}
+
+.boss-focus-label{
+  color:var(--cyan);
+  font-size:15px;
+  font-weight:700;
+}
+
+.boss-focus-question{
+  margin-top:10px;
+  font-size:28px;
+  font-weight:650;
+}
+
+.boss-focus-help{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:19px;
+}
+
+/* ===================== DECISION ===================== */
+
+.decision-box{
+  max-width:940px;
+  margin:28px auto 0;
+  padding:34px;
+  border:1px solid rgba(103,232,249,.28);
+  border-radius:24px;
+  background:rgba(56,189,248,.055);
+}
+
+.decision-word{
+  font-size:clamp(48px,6vw,72px);
+  font-weight:750;
+}
+
+.decision-sub{
+  margin-top:12px;
+  color:var(--cyan);
+  font-size:22px;
+  font-weight:650;
+}
+
+/* ===================== MENU ===================== */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:600;
+  background:rgba(0,0,0,.55);
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+}
+
+.overlay.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.drawer{
+  position:absolute;
+  top:0;bottom:0;left:0;
+  width:min(470px,90vw);
+  padding:27px;
+  overflow:auto;
+  background:#071a2b;
+  transform:translateX(-100%);
+  transition:.3s;
+}
+
+.overlay.open .drawer{transform:none}
+
+.drawer-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.drawer-head h3{font-size:28px}
+
+.close{
+  width:40px;height:40px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:transparent;
+  color:white;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.menu-section{
+  margin:22px 0 7px;
+  color:var(--cyan);
+  font-size:15px;
+  font-weight:700;
+}
+
+.menu-item{
+  width:100%;
+  padding:11px 13px;
+  text-align:left;
+  border:0;
+  border-radius:9px;
+  background:transparent;
+  color:#c9d5df;
+  font-family:inherit;
+  font-size:17px;
+  cursor:pointer;
+}
+
+.menu-item.current{
+  background:rgba(56,189,248,.1);
+  color:white;
+}
+
+/* ===================== QR ===================== */
+
+.qr-modal{
+  position:fixed;
+  inset:0;
+  z-index:800;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(2,10,18,.88);
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+}
+
+.qr-modal.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.qr-card{
+  width:min(700px,92vw);
+  padding:34px;
+  text-align:center;
+  border:1px solid var(--line);
+  border-radius:25px;
+  background:#0a2034;
+}
+
+.qr-box{
+  width:215px;
+  height:215px;
+  margin:22px auto;
+  padding:10px;
+  border-radius:16px;
+  background:white;
+}
+
+.qr-box img{width:100%;height:100%}
+
+.qr-note{
+  color:var(--muted);
+  font-size:19px;
+  line-height:1.5;
+}
+
+/* ===================== BOTTOM ===================== */
+
+.bottom-nav{
+  position:fixed;
+  z-index:350;
+  right:3vw;
+  bottom:24px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.nav-btn{
+  width:45px;height:45px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:rgba(255,255,255,.055);
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+}
+
+.counter{
+  min-width:75px;
+  text-align:center;
+  color:var(--muted);
+  font-size:15px;
+}
+
+.location{
+  position:fixed;
+  z-index:340;
+  left:3vw;
+  bottom:28px;
+  color:#96a9ba;
+  font-size:15px;
+}
+
+@media(max-width:1050px){
+  .parts{display:none}
+  .journey,.rules{grid-template-columns:1fr 1fr}
+  .problem-grid{grid-template-columns:1fr 1fr}
+  .boss-buttons{grid-template-columns:1fr 1fr}
+  .scene{overflow:auto;align-items:flex-start}
+}
+
+@media(max-width:760px){
+  .grid2,.grid3,.security,.rules,
+  .boss-buttons,.problem-grid{
+    grid-template-columns:1fr;
+  }
+
+  .journey{grid-template-columns:1fr}
+
+  .time-compare,.routine-grid,.change-line{
+    grid-template-columns:1fr;
+  }
+
+  .time-arrow,.routine-arrow,.change-line>.arrow{
+    transform:rotate(90deg);
+    text-align:center;
+  }
+
+  .pipeline{flex-wrap:wrap}
+  .pipe-arrow{display:none}
+  .location{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <div class="brand">
+    <span class="brand-dot"></span>
+    AI TRONG CÔNG VIỆC
+  </div>
+
+  <nav class="parts">
+    <button class="part active" data-part="1" onclick="goTo(0)">1 · NHẬN VIỆC</button>
+    <button class="part" data-part="2" onclick="goTo(4)">2 · HỌC & THÍCH NGHI</button>
+    <button class="part" data-part="3" onclick="goTo(8)">3 · LÀM CÙNG AI</button>
+    <button class="part" data-part="4" onclick="goTo(13)">4 · KIỂM SOÁT</button>
+    <button class="part" data-part="5" onclick="goTo(17)">5 · CHECK NGƯỢC</button>
+    <button class="part" data-part="6" onclick="goTo(20)">6 · QUYẾT ĐỊNH</button>
+  </nav>
+
+  <button class="top-btn" onclick="goTo(3)">◎ BẢN ĐỒ</button>
+  <button class="top-btn join-btn" onclick="openQR()">▦ THAM GIA</button>
+  <button class="top-btn" onclick="toggleMenu()">☰ MỤC LỤC</button>
+
+</header>
+
+<div class="progress" id="progress"></div>
+
+<!-- ===================== MENU ===================== -->
+
+<div class="overlay" id="overlay" onclick="overlayClick(event)">
+<div class="drawer">
+
+  <div class="drawer-head">
+    <h3>Mục lục</h3>
+    <button class="close" onclick="toggleMenu()">×</button>
+  </div>
+
+  <div class="menu-section">1 · NHẬN VIỆC</div>
+  <button class="menu-item" onclick="goToMenu(0)">01. AI trong công việc</button>
+  <button class="menu-item" onclick="goToMenu(1)">02. Một nhiệm vụ mới</button>
+  <button class="menu-item" onclick="goToMenu(2)">03. Bạn bắt đầu từ đâu?</button>
+  <button class="menu-item" onclick="goToMenu(3)">04. Bản đồ công việc</button>
+
+  <div class="menu-section">2 · HỌC & THÍCH NGHI</div>
+  <button class="menu-item" onclick="goToMenu(4)">05. AI giúp lấy lại thời gian</button>
+  <button class="menu-item" onclick="goToMenu(5)">06. Thời gian để làm việc có giá trị hơn</button>
+  <button class="menu-item" onclick="goToMenu(6)">07. Muốn nhanh phải học</button>
+  <button class="menu-item" onclick="goToMenu(7)">08. AI thay đổi rất nhanh</button>
+
+  <div class="menu-section">3 · LÀM CÙNG AI</div>
+  <button class="menu-item" onclick="goToMenu(8)">09. Một vài công cụ hiện nay</button>
+  <button class="menu-item" onclick="goToMenu(9)">10. Hiểu việc</button>
+  <button class="menu-item" onclick="goToMenu(10)">11. Chia việc</button>
+  <button class="menu-item" onclick="goToMenu(11)">12. Tìm – đọc – phân tích</button>
+  <button class="menu-item" onclick="goToMenu(12)">13. Tạo – phản biện</button>
+
+  <div class="menu-section">4 · KIỂM SOÁT</div>
+  <button class="menu-item" onclick="goToMenu(13)">14. Nguyên tắc sử dụng AI</button>
+  <button class="menu-item" onclick="goToMenu(14)">15. Quy định nội bộ</button>
+  <button class="menu-item" onclick="goToMenu(15)">16. Xanh – Vàng – Đỏ</button>
+  <button class="menu-item" onclick="goToMenu(16)">17. Kiểm chứng</button>
+
+  <div class="menu-section">5 · CHECK NGƯỢC</div>
+  <button class="menu-item" onclick="goToMenu(17)">18. Góc nhìn người nhận sản phẩm</button>
+  <button class="menu-item" onclick="goToMenu(18)">19. 6 câu hỏi kiểm tra ngược</button>
+  <button class="menu-item" onclick="goToMenu(19)">20. AI phản biện ngược</button>
+
+  <div class="menu-section">6 · QUYẾT ĐỊNH</div>
+  <button class="menu-item" onclick="goToMenu(20)">21. AI dừng ở đâu?</button>
+  <button class="menu-item" onclick="goToMenu(21)">22. 5 kiểm tra cuối</button>
+  <button class="menu-item" onclick="goToMenu(22)">23. Con người quyết định</button>
+
+</div>
+</div>
+
+<!-- ===================== QR ===================== -->
+
+<div class="qr-modal" id="qrModal" onclick="qrOutside(event)">
+<div class="qr-card">
+
+  <div class="eyebrow">Tương tác với lớp học</div>
+  <h2>Quét QR để tham gia</h2>
+
+  <div class="qr-box">
+    <img
+      src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https%3A%2F%2Fduongthuhuong.github.io%2Fai-in-work%2F"
+      alt="QR">
+  </div>
+
+  <p class="qr-note">
+    QR hiện dẫn tới bài học.<br>
+    Phần nhận câu trả lời trực tiếp sẽ được kết nối sau.
+  </p>
+
+  <button class="btn" onclick="closeQR()">Đóng</button>
+
+</div>
+</div>
+
+<!-- ===================== 01 ===================== -->
+
+<section class="scene active" data-part="1" data-title="Mở đầu">
+<div class="inner">
+
+  <div class="eyebrow reveal d1">AI trong công việc</div>
+
+  <h1 class="reveal d2">
+    AI có thể giúp gì<br>
+    trong <span class="highlight">công việc?</span>
+  </h1>
+
+  <p class="subtitle reveal d3">
+    Không bắt đầu bằng việc học thật nhiều công cụ.
+    Hãy bắt đầu từ một công việc thực tế cần giải quyết.
+  </p>
+
+  <button class="btn reveal d4" onclick="nextScene()">Bắt đầu →</button>
+
+</div>
+</section>
+
+<!-- ===================== 02 ===================== -->
+
+<section class="scene" data-part="1" data-title="Một nhiệm vụ mới">
+<div class="inner">
+
+<div class="task-layout">
+
+  <div>
+    <div class="eyebrow reveal d1">08:32 · Thứ Hai</div>
+
+    <h2 class="reveal d2">
+      Một nhiệm vụ<br>
+      vừa được giao.
+    </h2>
+  </div>
+
+  <div class="task reveal d3">
+
+    <div class="task-label">● NHIỆM VỤ MỚI</div>
+
+    <div class="task-text">
+      “Nghiên cứu vấn đề X, tổng hợp thông tin
+      và đề xuất phương án xử lý.”
+    </div>
+
+    <div class="task-note">
+      Hạn hoàn thành: 16:00 Thứ Sáu
+    </div>
+
+  </div>
+
+</div>
+</div>
+</section>
+
+<!-- ===================== 03 ===================== -->
+
+<section class="scene" data-part="1" data-title="Bạn bắt đầu từ đâu?">
+<div class="inner center">
+
+  <div class="eyebrow reveal d1">Câu hỏi tương tác 01</div>
+
+  <h2 class="reveal d2">
+    Việc đầu tiên<br>
+    <span class="highlight">bạn sẽ làm là gì?</span>
+  </h2>
+
+  <div class="vote-area reveal d3">
+
+    <div class="vote-options">
+      <button class="vote" onclick="startVote(this)">Tìm tài liệu</button>
+      <button class="vote" onclick="startVote(this)">Hỏi AI ngay</button>
+      <button class="vote" onclick="startVote(this)">Làm rõ yêu cầu</button>
+      <button class="vote" onclick="startVote(this)">Lập kế hoạch</button>
+    </div>
+
+    <div class="result" id="startResult">
+      Không nhất thiết phải hỏi AI ngay.
+      Trước hết cần hiểu mình đang phải giải quyết việc gì.
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 04 ===================== -->
+
+<section class="scene" data-part="1" data-title="Bản đồ công việc">
+<div class="inner">
+
+  <div class="eyebrow reveal d1">Bản đồ toàn bài</div>
+
+  <h2 class="reveal d2">
+    Từ lúc nhận việc<br>
+    đến khi <span class="highlight">ra quyết định</span>
+  </h2>
+
+  <div class="journey reveal d3">
+
+    <div class="node" onclick="goTo(9)">
+      <small>01</small>
+      <strong>Hiểu việc</strong>
+      <p>Làm rõ yêu cầu.</p>
+    </div>
+
+    <div class="node" onclick="goTo(10)">
+      <small>02</small>
+      <strong>Chia việc</strong>
+      <p>Xác định các bước.</p>
+    </div>
+
+    <div class="node" onclick="goTo(11)">
+      <small>03</small>
+      <strong>Tìm & đọc</strong>
+      <p>Lấy thông tin cần thiết.</p>
+    </div>
+
+    <div class="node" onclick="goTo(11)">
+      <small>04</small>
+      <strong>Phân tích</strong>
+      <p>Hiểu vấn đề và phương án.</p>
+    </div>
+
+    <div class="node" onclick="goTo(12)">
+      <small>05</small>
+      <strong>Tạo</strong>
+      <p>Tạo sản phẩm đầu tiên.</p>
+    </div>
+
+    <div class="node" onclick="goTo(12)">
+      <small>06</small>
+      <strong>Phản biện</strong>
+      <p>Tìm điểm yếu.</p>
+    </div>
+
+    <div class="node" onclick="goTo(16)">
+      <small>07</small>
+      <strong>Kiểm chứng</strong>
+      <p>Kiểm tra trước khi dùng.</p>
+    </div>
+
+    <div class="node" onclick="goTo(22)">
+      <small>08</small>
+      <strong>Quyết định</strong>
+      <p>Con người chịu trách nhiệm.</p>
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 05 ===================== -->
+
+<section class="scene" data-part="2" data-title="AI giúp lấy lại thời gian">
+<div class="inner center">
+
+  <div class="eyebrow reveal d1">AI giúp chúng ta lấy lại thời gian</div>
+
+  <h2 class="reveal d2">
+    Có những việc từng mất<br>
+    <span class="highlight">rất nhiều thời gian.</span>
+  </h2>
+
+  <div class="time-compare reveal d3">
+
+    <div class="time-box">
+      <div class="time-label">VÍ DỤ · LÀM BẢN TRÌNH BÀY NÀY</div>
+      <div class="time-number">1 ngày</div>
+
+      <div class="time-description">
+        Lên ý tưởng · bố cục · viết nội dung ·
+        thiết kế · chỉnh sửa · hoàn thiện
+      </div>
+    </div>
+
+    <div class="time-arrow">→</div>
+
+    <div class="time-box ai">
+      <div class="time-label">KHI CÓ AI HỖ TRỢ</div>
+      <div class="time-number">10 phút</div>
+
+      <div class="time-description">
+        Có thể tạo rất nhanh một bản đầu tiên
+        để tiếp tục kiểm tra và hoàn thiện.
+      </div>
+    </div>
+
+  </div>
+
+  <p class="subtitle reveal d4">
+    Thời gian thực tế phụ thuộc vào từng công việc.
+    Điểm quan trọng là AI có thể rút ngắn đáng kể
+    nhiều bước vốn rất tốn thời gian.
+  </p>
+
+</div>
+</section>
+
+<!-- ===================== 06 ===================== -->
+
+<section class="scene" data-part="2" data-title="Lấy lại thời gian">
+<div class="inner">
+
+  <div class="eyebrow reveal d1">Không phải để làm nhiều việc hơn</div>
+
+  <h2 class="reveal d2">
+    Mà để dành thời gian<br>
+    cho <span class="highlight">việc có giá trị hơn.</span>
+  </h2>
+
+  <div class="routine-grid">
+
+    <div class="routine-side reveal d3">
+
+      <h3>AI có thể hỗ trợ</h3>
+
+      <div class="routine-item">Tìm và tổng hợp thông tin</div>
+      <div class="routine-item">Soạn bản nháp đầu tiên</div>
+      <div class="routine-item">Định dạng và cấu trúc</div>
+      <div class="routine-item">Cập nhật nội dung lặp lại</div>
+      <div class="routine-item">Các thao tác routine</div>
+
+    </div>
+
+    <div class="routine-arrow reveal d4">→</div>
+
+    <div class="routine-side reveal d5">
+
+      <h3>Con người dành thời gian cho</h3>
+
+      <div class="human-item">Suy nghĩ</div>
+      <div class="human-item">Phân tích</div>
+      <div class="human-item">Trao đổi</div>
+      <div class="human-item">Sáng tạo</div>
+      <div class="human-item">Ra quyết định</div>
+
+    </div>
+
+  </div>
+
+  <div class="bigline reveal d6">
+    AI giúp giảm thời gian cho việc lặp lại,
+    để con người tập trung vào việc cần
+    <span class="highlight">phán đoán và trách nhiệm.</span>
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 07 ===================== -->
+
+<section class="scene" data-part="2" data-title="Muốn nhanh phải học">
+<div class="inner center">
+
+  <div class="eyebrow reveal d1">Nhưng có một điều kiện</div>
+
+  <h2 class="reveal d2">
+    AI không tự nhiên<br>
+    làm chúng ta <span class="highlight">nhanh hơn.</span>
+  </h2>
+
+  <div class="problem-grid reveal d3">
+
+    <div class="problem">
+      <strong>Không biết công cụ</strong>
+      <p>Mất thời gian tìm và thử.</p>
+    </div>
+
+    <div class="problem">
+      <strong>Không biết cách yêu cầu</strong>
+      <p>Kết quả không đúng điều mình cần.</p>
+    </div>
+
+    <div class="problem">
+      <strong>Không có quy trình</strong>
+      <p>Làm đi làm lại nhiều lần.</p>
+    </div>
+
+    <div class="problem">
+      <strong>Không kiểm chứng</strong>
+      <p>Có thể nhanh — nhưng sai.</p>
+    </div>
+
+  </div>
+
+  <div class="learning-chain reveal d4">
+    <div class="learn-step">HỌC</div>
+    <div class="learn-arrow">→</div>
+    <div class="learn-step">THỬ</div>
+    <div class="learn-arrow">→</div>
+    <div class="learn-step">ÁP DỤNG</div>
+    <div class="learn-arrow">→</div>
+    <div class="learn-step">RÚT KINH NGHIỆM</div>
+    <div class="learn-arrow">→</div>
+    <div class="learn-step">NHANH HƠN</div>
+  </div>
+
+  <div class="bigline reveal d5">
+    Thời gian dành cho việc học hôm nay<br>
+    có thể tiết kiệm rất nhiều
+    <span class="highlight">thời gian làm việc về sau.</span>
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 08 ===================== -->
+
+<section class="scene" data-part="2" data-title="AI thay đổi rất nhanh">
+<div class="inner center">
+
+  <div class="eyebrow reveal d1">Và việc học không dừng lại</div>
+
+  <h2 class="reveal d2">
+    Vì AI thay đổi<br>
+    <span class="highlight">rất nhanh.</span>
+  </h2>
+
+  <div class="change-line reveal d3">
+
+    <div class="change-box">
+      <small>HÔM NAY</small>
+      <strong>Một công cụ đang rất mạnh</strong>
+      <p>Ta học và sử dụng.</p>
+    </div>
+
+    <div class="arrow">→</div>
+
+    <div class="change-box">
+      <small>NGÀY MAI</small>
+      <strong>Công cụ khác tốt hơn</strong>
+      <p>Nhanh hơn hoặc phù hợp hơn.</p>
+    </div>
+
+    <div class="arrow">→</div>
+
+    <div class="change-box">
+      <small>TIẾP THEO</small>
+      <strong>Cách làm việc thay đổi</strong>
+      <p>Ta tiếp tục học và thích nghi.</p>
+    </div>
+
+  </div>
+
+  <div class="bigline reveal d4">
+    Công cụ thay đổi, cách làm việc cũng thay đổi.<br>
+    <span class="highlight">
+      Điều cần duy trì là khả năng học hỏi và thích nghi.
+    </span>
+  </div>
+
+  <p class="subtitle reveal d5">
+    Học tập liên tục giúp chúng ta sẵn sàng
+    ứng dụng những công cụ phù hợp khi công việc cần đến.
+  </p>
+
+</div>
+</section>
+
+<!-- ===================== 09 ===================== -->
+
+<section class="scene" data-part="3" data-title="Một vài công cụ">
+<div class="inner center">
+
+  <div class="eyebrow reveal d1">Một vài công cụ ở thời điểm hiện tại</div>
+
+  <h2 class="reveal d2">
+    Mỗi công cụ có một thế mạnh.<br>
+    <span class="highlight">Lựa chọn theo việc cần giải quyết.</span>
+  </h2>
+
+  <div class="tool-cloud reveal d3">
+
+    <a class="tool-link" href="https://chatgpt.com/" target="_blank" rel="noopener">ChatGPT ↗</a>
+    <a class="tool-link" href="https://claude.ai/" target="_blank" rel="noopener">Claude ↗</a>
+    <a class="tool-link" href="https://gemini.google.com/" target="_blank" rel="noopener">Gemini ↗</a>
+    <a class="tool-link" href="https://notebooklm.google.com/" target="_blank" rel="noopener">NotebookLM ↗</a>
+    <a class="tool-link" href="https://www.microsoft.com/microsoft-copilot" target="_blank" rel="noopener">Copilot ↗</a>
+    <a class="tool-link" href="https://manus.im/" target="_blank" rel="noopener">Manus ↗</a>
+    <a class="tool-link" href="https://xmind.com/ai" target="_blank" rel="noopener">XMind AI ↗</a>
+    <a class="tool-link" href="https://app.diagrams.net/" target="_blank" rel="noopener">draw.io ↗</a>
+    <a class="tool-link" href="https://www.microsoft.com/power-platform/products/power-bi" target="_blank" rel="noopener">Power BI ↗</a>
+    <a class="tool-link" href="https://www.canva.com/canva-ai/" target="_blank" rel="noopener">Canva AI ↗</a>
+    <a class="tool-link" href="https://github.com/" target="_blank" rel="noopener">GitHub ↗</a>
+
+  </div>
+
+  <div class="tool-note reveal d4">
+    Đây chỉ là một số công cụ để tham khảo.
+    Danh sách này sẽ tiếp tục thay đổi.
+    Quan trọng hơn tên công cụ là biết
+    <strong style="color:white">mình cần giải quyết việc gì</strong>
+    và lựa chọn công cụ phù hợp.
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 10 ===================== -->
+
+<section class="scene" data-part="3" data-title="Hiểu việc">
+<div class="inner">
+
+  <div class="eyebrow reveal d1">Bước 01 · Hiểu việc</div>
+
+  <h2 class="reveal d2">
+    Khoan hỏi AI.<br>
+    <span class="highlight">Hãy hiểu việc trước.</span>
+  </h2>
+
+  <div class="grid3">
+
+    <div class="card reveal d3">
+      <h3>Mục tiêu?</h3>
+      <p>Cần giải quyết vấn đề gì?</p>
+    </div>
+
+    <div class="card reveal d3">
+      <h3>Đầu ra?</h3>
+      <p>Cần tạo sản phẩm gì?</p>
+    </div>
+
+    <div class="card reveal d4">
+      <h3>Cho ai?</h3>
+      <p>Ai sẽ đọc hoặc sử dụng?</p>
+    </div>
+
+    <div class="card reveal d4">
+      <h3>Phạm vi?</h3>
+      <p>Làm đến mức nào?</p>
+    </div>
+
+    <div class="card reveal d5">
+      <h3>Dữ liệu?</h3>
+      <p>Thông tin cần lấy ở đâu?</p>
+    </div>
+
+    <div class="card reveal d5">
+      <h3>Thời hạn?</h3>
+      <p>Khi nào phải hoàn thành?</p>
+    </div>
+
+  </div>
+
+  <div class="tool-note reveal d6">
+    <strong style="color:white">Case minh họa · Cập nhật sản lượng khai thác:</strong>
+    yêu cầu không chỉ là “tổng hợp số liệu”, mà cần làm rõ nguồn dữ liệu, kỳ báo cáo,
+    cách so sánh với kế hoạch và thông tin nào cần đưa đến người ra quyết định.
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 11 ===================== -->
+
+<section class="scene" data-part="3" data-title="Chia việc">
+<div class="inner">
+
+  <div class="eyebrow reveal d1">Bước 02 · Chia việc</div>
+
+  <h2 class="reveal d2">
+    Biến nhiệm vụ lớn thành<br>
+    <span class="highlight">những việc có thể làm.</span>
+  </h2>
+
+  <div class="pipeline reveal d3">
+
+    <div class="pipe"><strong>1</strong><p>Tìm thông tin</p></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe"><strong>2</strong><p>Chọn lọc</p></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe"><strong>3</strong><p>Phân tích</p></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe"><strong>4</strong><p>Xây phương án</p></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe"><strong>5</strong><p>Hoàn thiện</p></div>
+
+  </div>
+
+  <div class="prompt reveal d4">
+    Hãy chia nhiệm vụ này thành các bước.
+    Với mỗi bước, cho biết cần làm gì,
+    cần thông tin gì và kết quả cần có.
+  </div>
+
+  <div class="tool-note reveal d5">
+    <strong style="color:white">Ví dụ với báo cáo sản lượng:</strong>
+    nhận dữ liệu → chuẩn hóa → tổng hợp → so sánh kế hoạch → phát hiện điểm cần chú ý → cập nhật báo cáo.
+    Những bước lặp lại có thể được số hóa; phần nhận định vẫn cần bối cảnh chuyên môn.
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 12 ===================== -->
+
+<section class="scene" data-part="3" data-title="Tìm – đọc – phân tích">
+<div class="inner">
+
+  <div class="eyebrow reveal d1">Bước 03 · Tìm – đọc – phân tích</div>
+
+  <h2 class="reveal d2">
+    AI có thể giúp nhìn vấn đề<br>
+    <span class="highlight">từ nhiều góc.</span>
+  </h2>
+
+  <div class="grid3">
+
+    <div class="card reveal d3">
+      <h3>Điều gì đang xảy ra?</h3>
+      <p>Tóm tắt thông tin và số liệu chính.</p>
+    </div>
+
+    <div class="card reveal d4">
+      <h3>Vì sao?</h3>
+      <p>Tìm nguyên nhân, mối liên hệ và điểm bất thường.</p>
+    </div>
+
+    <div class="card reveal d5">
+      <h3>Có thể làm gì?</h3>
+      <p>Đưa ra các phương án để xem xét.</p>
+    </div>
+
+  </div>
+
+  <div class="bigline reveal d6">
+    AI giúp phân tích và gợi ý.
+    <span class="highlight">
+      Người dùng đánh giá và lựa chọn.
+    </span>
+  </div>
+
+  <div class="tool-note reveal d6">
+    <strong style="color:white">Case minh họa:</strong>
+    AI có thể chỉ ra mỏ nào lệch kế hoạch nhiều nhất hoặc xu hướng nào đáng chú ý.
+    Nhưng nguyên nhân của biến động phải được kiểm tra bằng dữ liệu nguồn và bối cảnh kỹ thuật.
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 13 ===================== -->
+
+<section class="scene" data-part="3" data-title="Tạo – phản biện">
+<div class="inner">
+
+  <div class="eyebrow reveal d1">Bước 04 · Tạo – phản biện</div>
+
+  <h2 class="reveal d2">
+    Đừng dừng ở<br>
+    <span class="highlight">bản AI tạo đầu tiên.</span>
+  </h2>
+
+  <div class="grid2">
+
+    <div class="card reveal d3">
+      <h3>AI tạo</h3>
+      <p>
+        Báo cáo, email, phương án, slide,
+        bảng so sánh hoặc bản nháp.
+      </p>
+    </div>
+
+    <div class="card reveal d4">
+      <h3>AI phản biện</h3>
+      <p>
+        Tìm điểm yếu, giả định, dữ liệu còn thiếu
+        và rủi ro chưa được xem xét.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="prompt reveal d5">
+    Đóng vai người phản biện.
+    Hãy chỉ ra những điểm chưa thuyết phục,
+    dữ liệu còn thiếu và những câu hỏi
+    người phê duyệt có thể đặt ra.
+  </div>
+
+  <div class="tool-note reveal d6">
+    <strong style="color:white">Một cách kết hợp công cụ trong case sản lượng:</strong>
+    Power BI hỗ trợ tổng hợp và trực quan hóa; Copilot có thể hỗ trợ tóm tắt, tìm điểm bất thường
+    và gợi ý câu hỏi — trên môi trường được phép. Con người kiểm chứng trước khi sử dụng.
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 14 ===================== -->
+
+<section class="scene" data-part="4" data-title="Nguyên tắc sử dụng AI">
+<div class="inner">
+
+  <div class="eyebrow reveal d1">Sử dụng AI có trách nhiệm</div>
+
+  <h2 class="reveal d2">
+    4 nguyên tắc<br>
+    <span class="highlight">khi sử dụng AI</span>
+  </h2>
+
+  <div class="rules">
+
+    <div class="rule reveal d3">
+      <div class="rule-num">01</div>
+      <h3>Đúng công cụ</h3>
+      <p>Chọn công cụ phù hợp với việc cần làm.</p>
+    </div>
+
+    <div class="rule reveal d4">
+      <div class="rule-num">02</div>
+      <h3>Đúng dữ liệu</h3>
+      <p>Chỉ đưa dữ liệu vào khi được phép.</p>
+    </div>
+
+    <div class="rule reveal d5">
+      <div class="rule-num">03</div>
+      <h3>Kiểm chứng</h3>
+      <p>Không sử dụng kết quả AI mà chưa kiểm tra.</p>
+    </div>
+
+    <div class="rule reveal d6">
+      <div class="rule-num">04</div>
+      <h3>Con người quyết định</h3>
+      <p>AI hỗ trợ. Con người chịu trách nhiệm.</p>
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 15 ===================== -->
+
+<section class="scene" data-part="4" data-title="Quy định nội bộ">
+<div class="inner center">
+
+  <div class="eyebrow reveal d1">Quy định nội bộ</div>
+
+  <h2 class="reveal d2">
+    Trước khi hỏi “AI làm được không?”<br>
+    hãy hỏi <span class="highlight">“Có được phép không?”</span>
+  </h2>
+
+  <div class="grid3">
+
+    <div class="card reveal d3">
+      <h3>Công cụ</h3>
+      <p>Công cụ này có được tổ chức cho phép sử dụng không?</p>
+    </div>
+
+    <div class="card reveal d4">
+      <h3>Dữ liệu</h3>
+      <p>Loại thông tin này có được đưa vào công cụ đó không?</p>
+    </div>
+
+    <div class="card reveal d5">
+      <h3>Cách sử dụng</h3>
+      <p>Công việc này có yêu cầu hoặc giới hạn nội bộ nào không?</p>
+    </div>
+
+  </div>
+
+  <div class="bigline reveal d6">
+    Quy định nội bộ được ưu tiên
+    trước sự tiện lợi của công cụ.
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 16 ===================== -->
+
+<section class="scene" data-part="4" data-title="Xanh – Vàng – Đỏ">
+<div class="inner">
+
+  <div class="eyebrow reveal d1">Đúng dữ liệu</div>
+
+  <h2 class="reveal d2">
+    Thông tin này có được<br>
+    <span class="highlight">đưa vào AI không?</span>
+  </h2>
+
+  <div class="security">
+
+    <div class="sec green reveal d3">
+      <div class="light"></div>
+      <h3>Xanh</h3>
+      <p>Thông tin công khai. Có thể sử dụng theo quy định.</p>
+    </div>
+
+    <div class="sec yellow reveal d4">
+      <div class="light"></div>
+      <h3>Vàng</h3>
+      <p>
+        Thông tin nội bộ.
+        Cần kiểm tra quy định và công cụ được phép.
+      </p>
+    </div>
+
+    <div class="sec red reveal d5">
+      <div class="light"></div>
+      <h3>Đỏ</h3>
+      <p>
+        Thông tin mật, nhạy cảm hoặc hạn chế.
+        Không đưa vào công cụ chưa được phép.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="vote-area reveal d6">
+
+    <div class="vote-question">
+      Số liệu sản lượng khai thác chưa công bố — bạn chọn màu nào?
+    </div>
+
+    <div class="vote-options">
+
+      <button class="vote"
+        onclick="securityVote(this,'Không nên mặc định là Xanh.')">
+        Xanh
+      </button>
+
+      <button class="vote"
+        onclick="securityVote(this,'Cần kiểm tra quy định nội bộ và công cụ được phép sử dụng.')">
+        Vàng
+      </button>
+
+      <button class="vote"
+        onclick="securityVote(this,'Có thể là Đỏ nếu thuộc diện mật, nhạy cảm hoặc hạn chế.')">
+        Đỏ
+      </button>
+
+    </div>
+
+    <div class="result" id="securityResult"></div>
+
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 17 ===================== -->
+
+<section class="scene" data-part="4" data-title="Kiểm chứng">
+<div class="inner center">
+
+  <div class="eyebrow reveal d1">Câu hỏi tương tác 02 · dữ liệu giả lập</div>
+
+  <h2 class="reveal d2">
+    Kế hoạch Gamma: 6.200 · Thực hiện: 5.950.<br>
+    AI kết luận: <span class="highlight">“Gamma đã vượt kế hoạch.”</span>
+  </h2>
+
+  <div class="vote-area reveal d3">
+
+    <div class="vote-question">
+      Bạn làm gì tiếp?
+    </div>
+
+    <div class="vote-options">
+      <button class="vote" onclick="checkVote(false,this)">Dùng luôn</button>
+      <button class="vote" onclick="checkVote(true,this)">Kiểm tra lại dữ liệu nguồn</button>
+      <button class="vote" onclick="checkVote(false,this)">Hỏi AI “có chắc không?”</button>
+    </div>
+
+    <div class="result" id="checkResult"></div>
+
+  </div>
+
+  <div class="bigline reveal d4">
+    AI có thể rất nhanh và rất thuyết phục.
+    <span class="highlight">Nhưng một kết luận sai vẫn là sai.</span>
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 18 ===================== -->
+
+<section class="scene" data-part="5" data-title="Góc nhìn người nhận sản phẩm">
+<div class="inner center">
+
+  <div class="eyebrow reveal d1">Một góc nhìn khác</div>
+
+  <h2 class="reveal d2">
+    Khi một sản phẩm được trình lên,<br>
+    <span class="highlight">cách sử dụng AI cũng có thể thay đổi.</span>
+  </h2>
+
+  <div class="decision-box reveal d3">
+
+    <p class="subtitle" style="margin-top:0">
+      Ví dụ từ case giả lập:
+    </p>
+
+    <div class="bigline">
+      “Gamma là điểm cần ưu tiên xử lý do sản lượng thấp hơn kế hoạch.”
+    </div>
+
+  </div>
+
+  <p class="subtitle reveal d4">
+    Người nhận sản phẩm không chỉ cần một kết luận ngắn gọn.
+    Điều quan trọng là kiểm tra căn cứ, giả định, điểm chưa chắc chắn
+    và những thông tin còn thiếu trước khi sử dụng kết luận đó.
+  </p>
+
+</div>
+</section>
+
+<!-- ===================== 19 ===================== -->
+
+<section class="scene" data-part="5" data-title="6 câu hỏi kiểm tra ngược">
+<div class="inner">
+
+  <div class="eyebrow reveal d1">Check ngược</div>
+
+  <h2 class="reveal d2">
+    6 câu hỏi để<br>
+    <span class="highlight">kiểm tra một đề xuất</span>
+  </h2>
+
+  <div class="boss-buttons reveal d3">
+
+    <button class="boss-btn active"
+      onclick="bossQuestion(this,'Căn cứ ở đâu?','Cho tôi xem nguồn của những số liệu quan trọng nhất.')">
+      <small>01</small>
+      <strong>Căn cứ ở đâu?</strong>
+    </button>
+
+    <button class="boss-btn"
+      onclick="bossQuestion(this,'Vì sao chọn phương án này?','Nếu không chọn phương án này, phương án phù hợp tiếp theo là gì?')">
+      <small>02</small>
+      <strong>Vì sao chọn?</strong>
+    </button>
+
+    <button class="boss-btn"
+      onclick="bossQuestion(this,'Những giả định nào đang được sử dụng?','Nếu một giả định quan trọng không còn đúng, kết luận thay đổi như thế nào?')">
+      <small>03</small>
+      <strong>Giả định gì?</strong>
+    </button>
+
+    <button class="boss-btn"
+      onclick="bossQuestion(this,'Điều gì chưa chắc chắn?','Đâu là dữ liệu, đâu là nhận định và đâu là dự báo?')">
+      <small>04</small>
+      <strong>Chưa chắc ở đâu?</strong>
+    </button>
+
+    <button class="boss-btn"
+      onclick="bossQuestion(this,'Đã phản biện chưa?','Hãy chỉ ra những lý do có thể khiến phương án đang đề xuất không còn phù hợp.')">
+      <small>05</small>
+      <strong>Đã phản biện?</strong>
+    </button>
+
+    <button class="boss-btn"
+      onclick="bossQuestion(this,'Người trình có thực sự hiểu kết luận?','Không nhìn báo cáo. Hãy giải thích kết luận này trong 60 giây.')">
+      <small>06</small>
+      <strong>Có thực sự hiểu?</strong>
+    </button>
+
+  </div>
+
+  <div class="boss-focus reveal d4">
+
+    <div class="boss-focus-label">
+      CÂU HỎI ĐANG CHỌN
+    </div>
+
+    <div class="boss-focus-question" id="bossTitle">
+      Căn cứ ở đâu?
+    </div>
+
+    <div class="boss-focus-help" id="bossHelp">
+      Cho tôi xem nguồn của những số liệu quan trọng nhất.
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 20 ===================== -->
+
+<section class="scene" data-part="5" data-title="AI phản biện ngược">
+<div class="inner">
+
+  <div class="eyebrow reveal d1">AI cho người nhận sản phẩm</div>
+
+  <h2 class="reveal d2">
+    Có thể dùng AI<br>
+    để <span class="highlight">đặt câu hỏi tốt hơn.</span>
+  </h2>
+
+  <div class="prompt reveal d3">
+    Đóng vai người phê duyệt.
+    Đừng tóm tắt tài liệu này.
+    Hãy tìm 5 điểm tôi cần hỏi lại người trình
+    trước khi ra quyết định.
+  </div>
+
+  <div class="grid3">
+
+    <div class="card reveal d4">
+      <h3>Tìm điểm yếu</h3>
+      <p>Nguồn, giả định, logic, rủi ro và chỗ thiếu.</p>
+    </div>
+
+    <div class="card reveal d5">
+      <h3>Hỏi người trình</h3>
+      <p>Dùng AI để tạo câu hỏi, không dùng AI để thay người trình trả lời.</p>
+    </div>
+
+    <div class="card reveal d6">
+      <h3>Ra quyết định</h3>
+      <p>Kết quả AI chỉ là một đầu vào để xem xét.</p>
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 21 ===================== -->
+
+<section class="scene" data-part="6" data-title="AI dừng ở đâu?">
+<div class="inner center">
+
+  <div class="eyebrow reveal d1">Ranh giới quan trọng</div>
+
+  <h2 class="reveal d2">
+    AI có thể phân tích và đề xuất.<br>
+    <span class="highlight">Nhưng AI không quyết định thay bạn.</span>
+  </h2>
+
+  <div class="grid3">
+
+    <div class="card reveal d3">
+      <h3>AI không ký</h3>
+    </div>
+
+    <div class="card reveal d4">
+      <h3>AI không phê duyệt</h3>
+    </div>
+
+    <div class="card reveal d5">
+      <h3>AI không chịu trách nhiệm thay bạn</h3>
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 22 ===================== -->
+
+<section class="scene" data-part="6" data-title="5 kiểm tra cuối">
+<div class="inner">
+
+  <div class="eyebrow reveal d1">Trước khi gửi · trình · sử dụng</div>
+
+  <h2 class="reveal d2">
+    5 điều cần kiểm tra
+  </h2>
+
+  <div class="journey">
+
+    <div class="node reveal d3">
+      <small>01</small>
+      <strong>Sự thật</strong>
+      <p>Đúng sự thật chưa?</p>
+    </div>
+
+    <div class="node reveal d3">
+      <small>02</small>
+      <strong>Nguồn</strong>
+      <p>Nguồn ở đâu?</p>
+    </div>
+
+    <div class="node reveal d4">
+      <small>03</small>
+      <strong>Bối cảnh</strong>
+      <p>Có đúng bối cảnh không?</p>
+    </div>
+
+    <div class="node reveal d4">
+      <small>04</small>
+      <strong>An toàn</strong>
+      <p>Có an toàn thông tin / đúng quy định không?</p>
+    </div>
+
+    <div class="node reveal d5">
+      <small>05</small>
+      <strong>Trách nhiệm</strong>
+      <p>Ai chịu trách nhiệm?</p>
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+<!-- ===================== 23 ===================== -->
+
+<section class="scene" data-part="6" data-title="Con người quyết định">
+<div class="inner center">
+
+  <div class="eyebrow reveal d1">Điểm cuối của hành trình</div>
+
+  <div class="decision-box reveal d2">
+
+    <div class="decision-word">
+      QUYẾT ĐỊNH
+    </div>
+
+    <div class="decision-sub">
+      THUỘC VỀ CON NGƯỜI
+    </div>
+
+  </div>
+
+  <div class="bigline reveal d3">
+    AI có thể giúp bạn làm nhanh hơn.<br>
+    <span class="highlight">
+      Nhưng người chịu trách nhiệm cuối cùng vẫn là bạn.
+    </span>
+  </div>
+
+  <p class="subtitle reveal d4">
+    Công cụ sẽ tiếp tục thay đổi.
+    Khả năng học hỏi, thích nghi, kiểm chứng
+    và phán đoán mới là năng lực cần giữ lại.
+  </p>
+
+  <button class="btn reveal d5" onclick="goTo(3)">
+    Quay lại bản đồ ↑
+  </button>
+
+</div>
+</section>
+
+<!-- ===================== BOTTOM ===================== -->
+
+<div class="location" id="location">
+  PHẦN 1 · NHẬN VIỆC
+</div>
+
+<div class="bottom-nav">
+  <button class="nav-btn" onclick="previousScene()">←</button>
+  <div class="counter" id="counter">01 / 23</div>
+  <button class="nav-btn" onclick="nextScene()">→</button>
+</div>
+
+<script>
+const scenes=document.querySelectorAll(".scene");
+const parts=document.querySelectorAll(".part");
+const menuItems=document.querySelectorAll(".menu-item");
+
+let currentScene=0;
+
+const partNames={
+  1:"PHẦN 1 · NHẬN VIỆC",
+  2:"PHẦN 2 · HỌC & THÍCH NGHI",
+  3:"PHẦN 3 · LÀM CÙNG AI",
+  4:"PHẦN 4 · KIỂM SOÁT",
+  5:"PHẦN 5 · CHECK NGƯỢC",
+  6:"PHẦN 6 · QUYẾT ĐỊNH"
+};
+
+function showScene(index){
+
+  if(index<0) index=0;
+  if(index>=scenes.length) index=scenes.length-1;
+
+  scenes.forEach(s=>s.classList.remove("active"));
+
+  currentScene=index;
+  const scene=scenes[index];
+
+  void scene.offsetWidth;
+  scene.classList.add("active");
+
+  const part=Number(scene.dataset.part);
+
+  parts.forEach(x=>{
+    x.classList.toggle(
+      "active",
+      Number(x.dataset.part)===part
+    );
+  });
+
+  menuItems.forEach((x,i)=>{
+    x.classList.toggle("current",i===index);
+  });
+
+  document.getElementById("counter").innerText=
+    String(index+1).padStart(2,"0")+" / "+scenes.length;
+
+  document.getElementById("progress").style.width=
+    ((index+1)/scenes.length*100)+"%";
+
+  document.getElementById("location").innerText=
+    partNames[part]+" · "+scene.dataset.title;
+}
+
+function nextScene(){
+  if(currentScene<scenes.length-1){
+    showScene(currentScene+1);
+  }
+}
+
+function previousScene(){
+  if(currentScene>0){
+    showScene(currentScene-1);
+  }
+}
+
+function goTo(i){
+  showScene(i);
+}
+
+/* KEYBOARD */
+
+document.addEventListener("keydown",e=>{
+
+  if(e.key==="ArrowRight" || e.key==="PageDown"){
+    nextScene();
+  }
+
+  if(e.key==="ArrowLeft" || e.key==="PageUp"){
+    previousScene();
+  }
+
+  if(e.key==="Escape"){
+    document.getElementById("overlay").classList.remove("open");
+    closeQR();
+  }
+});
+
+/* MENU */
+
+function toggleMenu(){
+  document.getElementById("overlay").classList.toggle("open");
+}
+
+function goToMenu(i){
+  document.getElementById("overlay").classList.remove("open");
+  setTimeout(()=>showScene(i),120);
+}
+
+function overlayClick(e){
+  if(e.target.id==="overlay"){
+    toggleMenu();
+  }
+}
+
+/* QR */
+
+function openQR(){
+  document.getElementById("qrModal").classList.add("open");
+}
+
+function closeQR(){
+  document.getElementById("qrModal").classList.remove("open");
+}
+
+function qrOutside(e){
+  if(e.target.id==="qrModal"){
+    closeQR();
+  }
+}
+
+/* VOTE */
+
+function selectVote(button){
+  button.parentElement
+    .querySelectorAll(".vote")
+    .forEach(x=>x.classList.remove("selected"));
+
+  button.classList.add("selected");
+}
+
+function startVote(button){
+  selectVote(button);
+  document.getElementById("startResult").style.display="block";
+}
+
+function securityVote(button,text){
+  selectVote(button);
+
+  const result=document.getElementById("securityResult");
+  result.innerText=text;
+  result.style.display="block";
+}
+
+function checkVote(correct,button){
+  selectVote(button);
+
+  const result=document.getElementById("checkResult");
+
+  result.innerText=correct
+    ? "Đúng. Hãy mở nguồn gốc và tự kiểm tra trước khi sử dụng."
+    : "Chưa đủ. Cần kiểm tra bằng nguồn và bằng chứng độc lập.";
+
+  result.style.display="block";
+}
+
+/* CHECK NGƯỢC */
+
+function bossQuestion(button,title,help){
+
+  document.querySelectorAll(".boss-btn")
+    .forEach(x=>x.classList.remove("active"));
+
+  button.classList.add("active");
+
+  document.getElementById("bossTitle").innerText=title;
+  document.getElementById("bossHelp").innerText=help;
+}
+
+/* START */
+
+showScene(0);
+</script>
+
+</body>
+</html>
