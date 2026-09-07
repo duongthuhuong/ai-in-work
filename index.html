@@ -53,7 +53,9 @@ body:before{
 .topbar{
   position:fixed;
   z-index:300;
-  top:0;left:0;right:0;
+  top:0;
+  left:0;
+  right:0;
   height:76px;
   padding:0 3vw;
   display:flex;
@@ -74,7 +76,8 @@ body:before{
 }
 
 .brand-dot{
-  width:10px;height:10px;
+  width:10px;
+  height:10px;
   border-radius:50%;
   background:var(--cyan);
   box-shadow:0 0 16px var(--cyan);
@@ -124,7 +127,8 @@ body:before{
 .progress{
   position:fixed;
   z-index:310;
-  top:75px;left:0;
+  top:75px;
+  left:0;
   height:3px;
   background:linear-gradient(90deg,var(--blue),var(--cyan));
   transition:.4s;
@@ -229,7 +233,10 @@ h3{
 .scene.active .d6{animation-delay:.58s}
 
 @keyframes rise{
-  to{opacity:1;transform:none}
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -327,7 +334,7 @@ h3{
   font-size:19px;
 }
 
-/* ===================== TIME SAVING ===================== */
+/* ===================== TIME ===================== */
 
 .time-compare{
   display:grid;
@@ -752,7 +759,8 @@ h3{
 .red{background:rgba(252,165,165,.07)}
 
 .light{
-  width:18px;height:18px;
+  width:18px;
+  height:18px;
   margin-bottom:16px;
   border-radius:50%;
 }
@@ -768,7 +776,7 @@ h3{
   line-height:1.5;
 }
 
-/* ===================== CHECK NGƯỢC ===================== */
+/* ===================== QUESTIONS ===================== */
 
 .boss-buttons{
   display:grid;
@@ -872,7 +880,9 @@ h3{
 
 .drawer{
   position:absolute;
-  top:0;bottom:0;left:0;
+  top:0;
+  bottom:0;
+  left:0;
   width:min(470px,90vw);
   padding:27px;
   overflow:auto;
@@ -893,7 +903,8 @@ h3{
 .drawer-head h3{font-size:28px}
 
 .close{
-  width:40px;height:40px;
+  width:40px;
+  height:40px;
   border:1px solid var(--line);
   border-radius:50%;
   background:transparent;
@@ -965,7 +976,10 @@ h3{
   background:white;
 }
 
-.qr-box img{width:100%;height:100%}
+.qr-box img{
+  width:100%;
+  height:100%;
+}
 
 .qr-note{
   color:var(--muted);
@@ -986,7 +1000,8 @@ h3{
 }
 
 .nav-btn{
-  width:45px;height:45px;
+  width:45px;
+  height:45px;
   border:1px solid var(--line);
   border-radius:50%;
   background:rgba(255,255,255,.055);
@@ -1011,12 +1026,17 @@ h3{
   font-size:15px;
 }
 
+/* ===================== RESPONSIVE ===================== */
+
 @media(max-width:1050px){
   .parts{display:none}
   .journey,.rules{grid-template-columns:1fr 1fr}
   .problem-grid{grid-template-columns:1fr 1fr}
   .boss-buttons{grid-template-columns:1fr 1fr}
-  .scene{overflow:auto;align-items:flex-start}
+  .scene{
+    overflow:auto;
+    align-items:flex-start;
+  }
 }
 
 @media(max-width:760px){
@@ -1040,6 +1060,328 @@ h3{
   .pipe-arrow{display:none}
   .location{display:none}
 }
+
+/* ===================== MOBILE TỐI ƯU ===================== */
+
+@media(max-width:760px){
+
+  .topbar{
+    height:62px;
+    padding:0 10px;
+    gap:6px;
+  }
+
+  .progress{top:61px}
+
+  .brand{
+    min-width:auto;
+    width:24px;
+    font-size:0;
+    gap:0;
+  }
+
+  .brand-dot{
+    width:11px;
+    height:11px;
+  }
+
+  .top-btn{
+    min-width:42px;
+    height:42px;
+    padding:0 9px;
+    font-size:0;
+    border-radius:12px;
+  }
+
+  .top-btn[onclick*="goTo(3)"]::after{
+    content:"◎";
+    font-size:21px;
+  }
+
+  .top-btn[onclick*="openQR"]::after{
+    content:"▦";
+    font-size:20px;
+  }
+
+  .top-btn[onclick*="toggleMenu"]::after{
+    content:"☰";
+    font-size:20px;
+  }
+
+  .scene{
+    padding:84px 16px 105px;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    align-items:flex-start;
+  }
+
+  .inner{width:100%}
+
+  h1{
+    font-size:clamp(38px,11vw,50px);
+    letter-spacing:-.4px;
+  }
+
+  h2{
+    font-size:clamp(31px,8.5vw,40px);
+    letter-spacing:-.2px;
+  }
+
+  h3{font-size:22px}
+
+  .eyebrow{
+    font-size:15px;
+    margin-bottom:11px;
+  }
+
+  .subtitle{
+    font-size:18px;
+    line-height:1.5;
+    margin-top:16px;
+  }
+
+  .bigline{
+    font-size:22px;
+    line-height:1.45;
+    margin-top:20px;
+  }
+
+  .task-layout{
+    grid-template-columns:1fr;
+    gap:22px;
+  }
+
+  .task{
+    padding:23px;
+    border-radius:19px;
+  }
+
+  .task-label{
+    font-size:14px;
+    margin-bottom:14px;
+  }
+
+  .task-text{
+    font-size:23px;
+    line-height:1.42;
+  }
+
+  .task-note{
+    font-size:17px;
+    margin-top:16px;
+  }
+
+  .card{padding:20px}
+  .card p{font-size:18px}
+
+  .grid2,.grid3,.security,.rules,
+  .boss-buttons,.problem-grid{
+    gap:12px;
+  }
+
+  .journey{gap:11px}
+
+  .node{
+    min-height:auto;
+    padding:18px;
+  }
+
+  .node strong{font-size:21px}
+  .node p{font-size:17px}
+
+  .time-compare{
+    gap:14px;
+    margin-top:24px;
+  }
+
+  .time-box{
+    min-height:auto;
+    padding:22px;
+  }
+
+  .time-number{font-size:46px}
+  .time-description{font-size:17px}
+
+  .time-arrow,
+  .routine-arrow,
+  .change-line>.arrow{
+    font-size:28px;
+  }
+
+  .routine-grid{
+    gap:14px;
+    margin-top:24px;
+  }
+
+  .routine-side{padding:20px}
+
+  .routine-item,
+  .human-item{
+    font-size:18px;
+    padding:10px 12px;
+  }
+
+  .learning-chain{
+    gap:8px;
+    margin-top:24px;
+  }
+
+  .learn-step{
+    padding:11px 16px;
+    font-size:17px;
+  }
+
+  .learn-arrow{font-size:19px}
+
+  .problem{
+    padding:18px 15px;
+  }
+
+  .problem strong{font-size:19px}
+  .problem p{font-size:17px}
+
+  .change-line{
+    gap:11px;
+    margin-top:24px;
+  }
+
+  .change-box{
+    min-height:auto;
+    padding:18px;
+  }
+
+  .change-box strong{font-size:21px}
+  .change-box p{font-size:17px}
+
+  .tool-cloud{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-top:22px;
+  }
+
+  .tool-link{
+    padding:12px 10px;
+    font-size:16px;
+  }
+
+  .tool-note{
+    margin-top:20px;
+    padding:17px 18px;
+    font-size:17px;
+  }
+
+  .pipeline{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:9px;
+    margin-top:22px;
+  }
+
+  .pipe{padding:16px}
+  .pipe p{font-size:17px}
+  .pipe-arrow{display:none}
+
+  .prompt{
+    padding:18px;
+    font-size:18px;
+    line-height:1.5;
+  }
+
+  .vote-area{
+    padding:19px;
+    margin-top:22px;
+  }
+
+  .vote-question{font-size:20px}
+
+  .vote{
+    font-size:16px;
+    padding:11px 13px;
+  }
+
+  .result{font-size:18px}
+
+  .rule,.sec{
+    min-height:auto;
+    padding:20px;
+  }
+
+  .rule p,.sec p{font-size:17px}
+
+  .boss-btn{
+    min-height:76px;
+    padding:14px;
+  }
+
+  .boss-btn strong{font-size:18px}
+
+  .boss-focus{
+    padding:21px;
+    min-height:auto;
+  }
+
+  .boss-focus-question{font-size:23px}
+  .boss-focus-help{font-size:17px}
+
+  .decision-box{
+    padding:23px;
+    margin-top:22px;
+  }
+
+  .decision-word{font-size:44px}
+  .decision-sub{font-size:19px}
+
+  .bottom-nav{
+    left:12px;
+    right:12px;
+    bottom:max(10px,env(safe-area-inset-bottom));
+    height:58px;
+    padding:7px;
+    display:grid;
+    grid-template-columns:46px 1fr 46px;
+    gap:7px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:18px;
+    background:rgba(7,26,43,.94);
+    backdrop-filter:blur(18px);
+    box-shadow:0 15px 40px rgba(0,0,0,.3);
+  }
+
+  .nav-btn{
+    width:44px;
+    height:44px;
+    border-radius:13px;
+    font-size:20px;
+  }
+
+  .counter{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-width:0;
+    font-size:13px;
+    color:var(--cyan);
+  }
+
+  .location{display:none}
+}
+
+@media(max-width:390px){
+
+  .scene{
+    padding-left:15px;
+    padding-right:15px;
+  }
+
+  h1{font-size:36px}
+  h2{font-size:29px}
+  .subtitle{font-size:17px}
+
+  .tool-link{font-size:15px}
+  .time-number{font-size:43px}
+}
+
 </style>
 </head>
 
@@ -1053,12 +1395,29 @@ h3{
   </div>
 
   <nav class="parts">
-    <button class="part active" data-part="1" onclick="goTo(0)">1 · NHẬN VIỆC</button>
-    <button class="part" data-part="2" onclick="goTo(4)">2 · HỌC & THÍCH NGHI</button>
-    <button class="part" data-part="3" onclick="goTo(8)">3 · LÀM CÙNG AI</button>
-    <button class="part" data-part="4" onclick="goTo(13)">4 · KIỂM SOÁT</button>
-    <button class="part" data-part="5" onclick="goTo(17)">5 · CHECK NGƯỢC</button>
-    <button class="part" data-part="6" onclick="goTo(20)">6 · QUYẾT ĐỊNH</button>
+    <button class="part active" data-part="1" onclick="goTo(0)">
+      1 · NHẬN VIỆC
+    </button>
+
+    <button class="part" data-part="2" onclick="goTo(4)">
+      2 · HỌC & THÍCH NGHI
+    </button>
+
+    <button class="part" data-part="3" onclick="goTo(8)">
+      3 · LÀM CÙNG AI
+    </button>
+
+    <button class="part" data-part="4" onclick="goTo(13)">
+      4 · KIỂM SOÁT
+    </button>
+
+    <button class="part" data-part="5" onclick="goTo(17)">
+      5 · KIỂM TRA NGƯỢC
+    </button>
+
+    <button class="part" data-part="6" onclick="goTo(20)">
+      6 · QUYẾT ĐỊNH
+    </button>
   </nav>
 
   <button class="top-btn" onclick="goTo(3)">◎ BẢN ĐỒ</button>
@@ -1080,39 +1439,108 @@ h3{
   </div>
 
   <div class="menu-section">1 · NHẬN VIỆC</div>
-  <button class="menu-item" onclick="goToMenu(0)">01. AI trong công việc</button>
-  <button class="menu-item" onclick="goToMenu(1)">02. Một nhiệm vụ mới</button>
-  <button class="menu-item" onclick="goToMenu(2)">03. Bạn bắt đầu từ đâu?</button>
-  <button class="menu-item" onclick="goToMenu(3)">04. Bản đồ công việc</button>
+
+  <button class="menu-item" onclick="goToMenu(0)">
+    01. AI trong công việc
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(1)">
+    02. Một việc cần giải quyết
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(2)">
+    03. Bạn bắt đầu từ đâu?
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(3)">
+    04. Bản đồ công việc
+  </button>
 
   <div class="menu-section">2 · HỌC & THÍCH NGHI</div>
-  <button class="menu-item" onclick="goToMenu(4)">05. AI giúp lấy lại thời gian</button>
-  <button class="menu-item" onclick="goToMenu(5)">06. Thời gian để làm việc có giá trị hơn</button>
-  <button class="menu-item" onclick="goToMenu(6)">07. Muốn nhanh phải học</button>
-  <button class="menu-item" onclick="goToMenu(7)">08. AI thay đổi rất nhanh</button>
+
+  <button class="menu-item" onclick="goToMenu(4)">
+    05. AI giúp lấy lại thời gian
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(5)">
+    06. Thời gian để làm việc có giá trị hơn
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(6)">
+    07. Muốn nhanh phải học
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(7)">
+    08. AI thay đổi rất nhanh
+  </button>
 
   <div class="menu-section">3 · LÀM CÙNG AI</div>
-  <button class="menu-item" onclick="goToMenu(8)">09. Một vài công cụ hiện nay</button>
-  <button class="menu-item" onclick="goToMenu(9)">10. Hiểu việc</button>
-  <button class="menu-item" onclick="goToMenu(10)">11. Chia việc</button>
-  <button class="menu-item" onclick="goToMenu(11)">12. Tìm – đọc – phân tích</button>
-  <button class="menu-item" onclick="goToMenu(12)">13. Tạo – phản biện</button>
+
+  <button class="menu-item" onclick="goToMenu(8)">
+    09. Một vài công cụ hiện nay
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(9)">
+    10. Hiểu việc
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(10)">
+    11. Chia việc
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(11)">
+    12. Tìm – đọc – phân tích
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(12)">
+    13. Tạo – phản biện
+  </button>
 
   <div class="menu-section">4 · KIỂM SOÁT</div>
-  <button class="menu-item" onclick="goToMenu(13)">14. Nguyên tắc sử dụng AI</button>
-  <button class="menu-item" onclick="goToMenu(14)">15. Quy định nội bộ</button>
-  <button class="menu-item" onclick="goToMenu(15)">16. Xanh – Vàng – Đỏ</button>
-  <button class="menu-item" onclick="goToMenu(16)">17. Kiểm chứng</button>
 
-  <div class="menu-section">5 · CHECK NGƯỢC</div>
-  <button class="menu-item" onclick="goToMenu(17)">18. Góc nhìn người nhận sản phẩm</button>
-  <button class="menu-item" onclick="goToMenu(18)">19. 6 câu hỏi kiểm tra ngược</button>
-  <button class="menu-item" onclick="goToMenu(19)">20. AI phản biện ngược</button>
+  <button class="menu-item" onclick="goToMenu(13)">
+    14. Nguyên tắc sử dụng AI
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(14)">
+    15. Quy định nội bộ
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(15)">
+    16. Xanh – Vàng – Đỏ
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(16)">
+    17. Kiểm chứng
+  </button>
+
+  <div class="menu-section">5 · KIỂM TRA NGƯỢC</div>
+
+  <button class="menu-item" onclick="goToMenu(17)">
+    18. Góc nhìn người nhận sản phẩm
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(18)">
+    19. 6 câu hỏi kiểm tra ngược
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(19)">
+    20. AI phản biện ngược
+  </button>
 
   <div class="menu-section">6 · QUYẾT ĐỊNH</div>
-  <button class="menu-item" onclick="goToMenu(20)">21. AI dừng ở đâu?</button>
-  <button class="menu-item" onclick="goToMenu(21)">22. 5 kiểm tra cuối</button>
-  <button class="menu-item" onclick="goToMenu(22)">23. Con người quyết định</button>
+
+  <button class="menu-item" onclick="goToMenu(20)">
+    21. AI dừng ở đâu?
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(21)">
+    22. 5 kiểm tra cuối
+  </button>
+
+  <button class="menu-item" onclick="goToMenu(22)">
+    23. Con người quyết định
+  </button>
 
 </div>
 </div>
@@ -1123,6 +1551,7 @@ h3{
 <div class="qr-card">
 
   <div class="eyebrow">Tương tác với lớp học</div>
+
   <h2>Quét QR để tham gia</h2>
 
   <div class="qr-box">
@@ -1143,10 +1572,15 @@ h3{
 
 <!-- ===================== 01 ===================== -->
 
-<section class="scene active" data-part="1" data-title="Mở đầu">
+<section class="scene active"
+         data-part="1"
+         data-title="Mở đầu">
+
 <div class="inner">
 
-  <div class="eyebrow reveal d1">AI trong công việc</div>
+  <div class="eyebrow reveal d1">
+    AI trong công việc
+  </div>
 
   <h1 class="reveal d2">
     AI có thể giúp gì<br>
@@ -1158,52 +1592,72 @@ h3{
     Hãy bắt đầu từ một công việc thực tế cần giải quyết.
   </p>
 
-  <button class="btn reveal d4" onclick="nextScene()">Bắt đầu →</button>
+  <button class="btn reveal d4"
+          onclick="nextScene()">
+    Bắt đầu →
+  </button>
 
 </div>
 </section>
 
 <!-- ===================== 02 ===================== -->
 
-<section class="scene" data-part="1" data-title="Một nhiệm vụ mới">
+<section class="scene"
+         data-part="1"
+         data-title="Một việc cần giải quyết">
+
 <div class="inner">
 
 <div class="task-layout">
 
   <div>
-    <div class="eyebrow reveal d1">08:32 · Thứ Hai</div>
+
+    <div class="eyebrow reveal d1">
+      Một tình huống rất quen thuộc
+    </div>
 
     <h2 class="reveal d2">
-      Một nhiệm vụ<br>
-      vừa được giao.
+      Một việc cần<br>
+      <span class="highlight">giải quyết nhanh.</span>
     </h2>
+
   </div>
 
   <div class="task reveal d3">
 
-    <div class="task-label">● NHIỆM VỤ MỚI</div>
+    <div class="task-label">
+      ● YÊU CẦU CÔNG VIỆC
+    </div>
 
     <div class="task-text">
-      “Nghiên cứu vấn đề X, tổng hợp thông tin
-      và đề xuất phương án xử lý.”
+      “Chiều nay có cuộc họp.
+      Hãy chuẩn bị cho tôi một báo cáo ngắn:
+      thông tin chính, những điểm cần lưu ý
+      và đề xuất hướng xử lý.”
     </div>
 
     <div class="task-note">
-      Hạn hoàn thành: 16:00 Thứ Sáu
+      AI có thể giúp ở đâu — và con người cần làm gì?
     </div>
 
   </div>
 
 </div>
+
 </div>
 </section>
 
 <!-- ===================== 03 ===================== -->
 
-<section class="scene" data-part="1" data-title="Bạn bắt đầu từ đâu?">
+<section class="scene"
+         data-part="1"
+         data-title="Bạn bắt đầu từ đâu?">
+
 <div class="inner center">
 
-  <div class="eyebrow reveal d1">Câu hỏi tương tác 01</div>
+  <div class="eyebrow reveal d1">
+    Câu hỏi tương tác 01
+  </div>
 
   <h2 class="reveal d2">
     Việc đầu tiên<br>
@@ -1213,10 +1667,27 @@ h3{
   <div class="vote-area reveal d3">
 
     <div class="vote-options">
-      <button class="vote" onclick="startVote(this)">Tìm tài liệu</button>
-      <button class="vote" onclick="startVote(this)">Hỏi AI ngay</button>
-      <button class="vote" onclick="startVote(this)">Làm rõ yêu cầu</button>
-      <button class="vote" onclick="startVote(this)">Lập kế hoạch</button>
+
+      <button class="vote"
+              onclick="startVote(this)">
+        Tìm tài liệu
+      </button>
+
+      <button class="vote"
+              onclick="startVote(this)">
+        Hỏi AI ngay
+      </button>
+
+      <button class="vote"
+              onclick="startVote(this)">
+        Làm rõ yêu cầu
+      </button>
+
+      <button class="vote"
+              onclick="startVote(this)">
+        Lập kế hoạch
+      </button>
+
     </div>
 
     <div class="result" id="startResult">
@@ -1231,10 +1702,15 @@ h3{
 
 <!-- ===================== 04 ===================== -->
 
-<section class="scene" data-part="1" data-title="Bản đồ công việc">
+<section class="scene"
+         data-part="1"
+         data-title="Bản đồ công việc">
+
 <div class="inner">
 
-  <div class="eyebrow reveal d1">Bản đồ toàn bài</div>
+  <div class="eyebrow reveal d1">
+    Bản đồ toàn bài
+  </div>
 
   <h2 class="reveal d2">
     Từ lúc nhận việc<br>
@@ -1298,10 +1774,15 @@ h3{
 
 <!-- ===================== 05 ===================== -->
 
-<section class="scene" data-part="2" data-title="AI giúp lấy lại thời gian">
+<section class="scene"
+         data-part="2"
+         data-title="AI giúp lấy lại thời gian">
+
 <div class="inner center">
 
-  <div class="eyebrow reveal d1">AI giúp chúng ta lấy lại thời gian</div>
+  <div class="eyebrow reveal d1">
+    AI giúp chúng ta lấy lại thời gian
+  </div>
 
   <h2 class="reveal d2">
     Có những việc từng mất<br>
@@ -1311,25 +1792,39 @@ h3{
   <div class="time-compare reveal d3">
 
     <div class="time-box">
-      <div class="time-label">VÍ DỤ · LÀM BẢN TRÌNH BÀY NÀY</div>
-      <div class="time-number">1 ngày</div>
+
+      <div class="time-label">
+        VÍ DỤ · LÀM BẢN TRÌNH BÀY NÀY
+      </div>
+
+      <div class="time-number">
+        1 ngày
+      </div>
 
       <div class="time-description">
         Lên ý tưởng · bố cục · viết nội dung ·
         thiết kế · chỉnh sửa · hoàn thiện
       </div>
+
     </div>
 
     <div class="time-arrow">→</div>
 
     <div class="time-box ai">
-      <div class="time-label">KHI CÓ AI HỖ TRỢ</div>
-      <div class="time-number">10 phút</div>
+
+      <div class="time-label">
+        KHI CÓ AI HỖ TRỢ
+      </div>
+
+      <div class="time-number">
+        10 phút
+      </div>
 
       <div class="time-description">
         Có thể tạo rất nhanh một bản đầu tiên
         để tiếp tục kiểm tra và hoàn thiện.
       </div>
+
     </div>
 
   </div>
@@ -1345,10 +1840,15 @@ h3{
 
 <!-- ===================== 06 ===================== -->
 
-<section class="scene" data-part="2" data-title="Lấy lại thời gian">
+<section class="scene"
+         data-part="2"
+         data-title="Lấy lại thời gian">
+
 <div class="inner">
 
-  <div class="eyebrow reveal d1">Không phải để làm nhiều việc hơn</div>
+  <div class="eyebrow reveal d1">
+    Không phải để làm nhiều việc hơn
+  </div>
 
   <h2 class="reveal d2">
     Mà để dành thời gian<br>
@@ -1361,15 +1861,31 @@ h3{
 
       <h3>AI có thể hỗ trợ</h3>
 
-      <div class="routine-item">Tìm và tổng hợp thông tin</div>
-      <div class="routine-item">Soạn bản nháp đầu tiên</div>
-      <div class="routine-item">Định dạng và cấu trúc</div>
-      <div class="routine-item">Cập nhật nội dung lặp lại</div>
-      <div class="routine-item">Các thao tác routine</div>
+      <div class="routine-item">
+        Tìm và tổng hợp thông tin
+      </div>
+
+      <div class="routine-item">
+        Soạn bản nháp đầu tiên
+      </div>
+
+      <div class="routine-item">
+        Định dạng và cấu trúc
+      </div>
+
+      <div class="routine-item">
+        Cập nhật nội dung lặp lại
+      </div>
+
+      <div class="routine-item">
+        Các thao tác lặp lại
+      </div>
 
     </div>
 
-    <div class="routine-arrow reveal d4">→</div>
+    <div class="routine-arrow reveal d4">
+      →
+    </div>
 
     <div class="routine-side reveal d5">
 
@@ -1388,7 +1904,9 @@ h3{
   <div class="bigline reveal d6">
     AI giúp giảm thời gian cho việc lặp lại,
     để con người tập trung vào việc cần
-    <span class="highlight">phán đoán và trách nhiệm.</span>
+    <span class="highlight">
+      phán đoán và trách nhiệm.
+    </span>
   </div>
 
 </div>
@@ -1396,10 +1914,15 @@ h3{
 
 <!-- ===================== 07 ===================== -->
 
-<section class="scene" data-part="2" data-title="Muốn nhanh phải học">
+<section class="scene"
+         data-part="2"
+         data-title="Muốn nhanh phải học">
+
 <div class="inner center">
 
-  <div class="eyebrow reveal d1">Nhưng có một điều kiện</div>
+  <div class="eyebrow reveal d1">
+    Nhưng có một điều kiện
+  </div>
 
   <h2 class="reveal d2">
     AI không tự nhiên<br>
@@ -1431,21 +1954,29 @@ h3{
   </div>
 
   <div class="learning-chain reveal d4">
+
     <div class="learn-step">HỌC</div>
     <div class="learn-arrow">→</div>
+
     <div class="learn-step">THỬ</div>
     <div class="learn-arrow">→</div>
+
     <div class="learn-step">ÁP DỤNG</div>
     <div class="learn-arrow">→</div>
+
     <div class="learn-step">RÚT KINH NGHIỆM</div>
     <div class="learn-arrow">→</div>
+
     <div class="learn-step">NHANH HƠN</div>
+
   </div>
 
   <div class="bigline reveal d5">
     Thời gian dành cho việc học hôm nay<br>
     có thể tiết kiệm rất nhiều
-    <span class="highlight">thời gian làm việc về sau.</span>
+    <span class="highlight">
+      thời gian làm việc về sau.
+    </span>
   </div>
 
 </div>
@@ -1453,10 +1984,15 @@ h3{
 
 <!-- ===================== 08 ===================== -->
 
-<section class="scene" data-part="2" data-title="AI thay đổi rất nhanh">
+<section class="scene"
+         data-part="2"
+         data-title="AI thay đổi rất nhanh">
+
 <div class="inner center">
 
-  <div class="eyebrow reveal d1">Và việc học không dừng lại</div>
+  <div class="eyebrow reveal d1">
+    Và việc học không dừng lại
+  </div>
 
   <h2 class="reveal d2">
     Vì AI thay đổi<br>
@@ -1466,31 +2002,56 @@ h3{
   <div class="change-line reveal d3">
 
     <div class="change-box">
+
       <small>HÔM NAY</small>
-      <strong>Một công cụ đang rất mạnh</strong>
-      <p>Ta học và sử dụng.</p>
+
+      <strong>
+        Một công cụ đang rất mạnh
+      </strong>
+
+      <p>
+        Ta học và sử dụng.
+      </p>
+
     </div>
 
     <div class="arrow">→</div>
 
     <div class="change-box">
+
       <small>NGÀY MAI</small>
-      <strong>Công cụ khác tốt hơn</strong>
-      <p>Nhanh hơn hoặc phù hợp hơn.</p>
+
+      <strong>
+        Công cụ khác tốt hơn
+      </strong>
+
+      <p>
+        Nhanh hơn hoặc phù hợp hơn.
+      </p>
+
     </div>
 
     <div class="arrow">→</div>
 
     <div class="change-box">
+
       <small>TIẾP THEO</small>
-      <strong>Cách làm việc thay đổi</strong>
-      <p>Ta tiếp tục học và thích nghi.</p>
+
+      <strong>
+        Cách làm việc thay đổi
+      </strong>
+
+      <p>
+        Ta tiếp tục học và thích nghi.
+      </p>
+
     </div>
 
   </div>
 
   <div class="bigline reveal d4">
     Công cụ thay đổi, cách làm việc cũng thay đổi.<br>
+
     <span class="highlight">
       Điều cần duy trì là khả năng học hỏi và thích nghi.
     </span>
@@ -1498,7 +2059,7 @@ h3{
 
   <p class="subtitle reveal d5">
     Học tập liên tục giúp chúng ta sẵn sàng
-    ứng dụng những công cụ phù hợp khi công việc cần đến.
+    ứng dụng công cụ phù hợp khi công việc cần đến.
   </p>
 
 </div>
@@ -1506,38 +2067,95 @@ h3{
 
 <!-- ===================== 09 ===================== -->
 
-<section class="scene" data-part="3" data-title="Một vài công cụ">
+<section class="scene"
+         data-part="3"
+         data-title="Một vài công cụ">
+
 <div class="inner center">
 
-  <div class="eyebrow reveal d1">Một vài công cụ ở thời điểm hiện tại</div>
+  <div class="eyebrow reveal d1">
+    Một vài công cụ ở thời điểm hiện tại
+  </div>
 
   <h2 class="reveal d2">
     Mỗi công cụ có một thế mạnh.<br>
-    <span class="highlight">Lựa chọn theo việc cần giải quyết.</span>
+    <span class="highlight">
+      Lựa chọn theo việc cần giải quyết.
+    </span>
   </h2>
 
   <div class="tool-cloud reveal d3">
 
-    <a class="tool-link" href="https://chatgpt.com/" target="_blank" rel="noopener">ChatGPT ↗</a>
-    <a class="tool-link" href="https://claude.ai/" target="_blank" rel="noopener">Claude ↗</a>
-    <a class="tool-link" href="https://gemini.google.com/" target="_blank" rel="noopener">Gemini ↗</a>
-    <a class="tool-link" href="https://notebooklm.google.com/" target="_blank" rel="noopener">NotebookLM ↗</a>
-    <a class="tool-link" href="https://www.microsoft.com/microsoft-copilot" target="_blank" rel="noopener">Copilot ↗</a>
-    <a class="tool-link" href="https://manus.im/" target="_blank" rel="noopener">Manus ↗</a>
-    <a class="tool-link" href="https://xmind.com/ai" target="_blank" rel="noopener">XMind AI ↗</a>
-    <a class="tool-link" href="https://app.diagrams.net/" target="_blank" rel="noopener">draw.io ↗</a>
-    <a class="tool-link" href="https://www.microsoft.com/power-platform/products/power-bi" target="_blank" rel="noopener">Power BI ↗</a>
-    <a class="tool-link" href="https://www.canva.com/canva-ai/" target="_blank" rel="noopener">Canva AI ↗</a>
-    <a class="tool-link" href="https://github.com/" target="_blank" rel="noopener">GitHub ↗</a>
+    <a class="tool-link"
+       href="https://chatgpt.com/"
+       target="_blank">
+      ChatGPT ↗
+    </a>
+
+    <a class="tool-link"
+       href="https://claude.ai/"
+       target="_blank">
+      Claude ↗
+    </a>
+
+    <a class="tool-link"
+       href="https://gemini.google.com/"
+       target="_blank">
+      Gemini ↗
+    </a>
+
+    <a class="tool-link"
+       href="https://notebooklm.google.com/"
+       target="_blank">
+      NotebookLM ↗
+    </a>
+
+    <a class="tool-link"
+       href="https://manus.im/"
+       target="_blank">
+      Manus ↗
+    </a>
+
+    <a class="tool-link"
+       href="https://xmind.com/ai"
+       target="_blank">
+      XMind AI ↗
+    </a>
+
+    <a class="tool-link"
+       href="https://app.diagrams.net/"
+       target="_blank">
+      draw.io ↗
+    </a>
+
+    <a class="tool-link"
+       href="https://www.microsoft.com/power-platform/products/power-bi"
+       target="_blank">
+      Power BI ↗
+    </a>
+
+    <a class="tool-link"
+       href="https://www.canva.com/canva-ai/"
+       target="_blank">
+      Canva AI ↗
+    </a>
+
+    <a class="tool-link"
+       href="https://github.com/"
+       target="_blank">
+      GitHub ↗
+    </a>
 
   </div>
 
   <div class="tool-note reveal d4">
-    Đây chỉ là một số công cụ để tham khảo.
-    Danh sách này sẽ tiếp tục thay đổi.
-    Quan trọng hơn tên công cụ là biết
-    <strong style="color:white">mình cần giải quyết việc gì</strong>
-    và lựa chọn công cụ phù hợp.
+    Đây chỉ là một vài ví dụ ở thời điểm hiện tại.
+    Công cụ sẽ tiếp tục thay đổi.
+    Điều quan trọng là
+    <strong style="color:white">
+      hiểu việc cần làm
+    </strong>
+    rồi lựa chọn công cụ phù hợp.
   </div>
 
 </div>
@@ -1545,14 +2163,21 @@ h3{
 
 <!-- ===================== 10 ===================== -->
 
-<section class="scene" data-part="3" data-title="Hiểu việc">
+<section class="scene"
+         data-part="3"
+         data-title="Hiểu việc">
+
 <div class="inner">
 
-  <div class="eyebrow reveal d1">Bước 01 · Hiểu việc</div>
+  <div class="eyebrow reveal d1">
+    Bước 01 · Hiểu việc
+  </div>
 
   <h2 class="reveal d2">
     Khoan hỏi AI.<br>
-    <span class="highlight">Hãy hiểu việc trước.</span>
+    <span class="highlight">
+      Hãy hiểu việc trước.
+    </span>
   </h2>
 
   <div class="grid3">
@@ -1589,38 +2214,62 @@ h3{
 
   </div>
 
-  <div class="tool-note reveal d6">
-    <strong style="color:white">Case minh họa · Cập nhật sản lượng khai thác:</strong>
-    yêu cầu không chỉ là “tổng hợp số liệu”, mà cần làm rõ nguồn dữ liệu, kỳ báo cáo,
-    cách so sánh với kế hoạch và thông tin nào cần đưa đến người ra quyết định.
-  </div>
-
 </div>
 </section>
 
 <!-- ===================== 11 ===================== -->
 
-<section class="scene" data-part="3" data-title="Chia việc">
+<section class="scene"
+         data-part="3"
+         data-title="Chia việc">
+
 <div class="inner">
 
-  <div class="eyebrow reveal d1">Bước 02 · Chia việc</div>
+  <div class="eyebrow reveal d1">
+    Bước 02 · Chia việc
+  </div>
 
   <h2 class="reveal d2">
     Biến nhiệm vụ lớn thành<br>
-    <span class="highlight">những việc có thể làm.</span>
+    <span class="highlight">
+      những việc có thể làm.
+    </span>
   </h2>
 
   <div class="pipeline reveal d3">
 
-    <div class="pipe"><strong>1</strong><p>Tìm thông tin</p></div>
+    <div class="pipe">
+      <strong>1</strong>
+      <p>Tìm thông tin</p>
+    </div>
+
     <div class="pipe-arrow">→</div>
-    <div class="pipe"><strong>2</strong><p>Chọn lọc</p></div>
+
+    <div class="pipe">
+      <strong>2</strong>
+      <p>Chọn lọc</p>
+    </div>
+
     <div class="pipe-arrow">→</div>
-    <div class="pipe"><strong>3</strong><p>Phân tích</p></div>
+
+    <div class="pipe">
+      <strong>3</strong>
+      <p>Phân tích</p>
+    </div>
+
     <div class="pipe-arrow">→</div>
-    <div class="pipe"><strong>4</strong><p>Xây phương án</p></div>
+
+    <div class="pipe">
+      <strong>4</strong>
+      <p>Xây phương án</p>
+    </div>
+
     <div class="pipe-arrow">→</div>
-    <div class="pipe"><strong>5</strong><p>Hoàn thiện</p></div>
+
+    <div class="pipe">
+      <strong>5</strong>
+      <p>Hoàn thiện</p>
+    </div>
 
   </div>
 
@@ -1630,25 +2279,26 @@ h3{
     cần thông tin gì và kết quả cần có.
   </div>
 
-  <div class="tool-note reveal d5">
-    <strong style="color:white">Ví dụ với báo cáo sản lượng:</strong>
-    nhận dữ liệu → chuẩn hóa → tổng hợp → so sánh kế hoạch → phát hiện điểm cần chú ý → cập nhật báo cáo.
-    Những bước lặp lại có thể được số hóa; phần nhận định vẫn cần bối cảnh chuyên môn.
-  </div>
-
 </div>
 </section>
 
 <!-- ===================== 12 ===================== -->
 
-<section class="scene" data-part="3" data-title="Tìm – đọc – phân tích">
+<section class="scene"
+         data-part="3"
+         data-title="Tìm – đọc – phân tích">
+
 <div class="inner">
 
-  <div class="eyebrow reveal d1">Bước 03 · Tìm – đọc – phân tích</div>
+  <div class="eyebrow reveal d1">
+    Bước 03 · Tìm – đọc – phân tích
+  </div>
 
   <h2 class="reveal d2">
     AI có thể giúp nhìn vấn đề<br>
-    <span class="highlight">từ nhiều góc.</span>
+    <span class="highlight">
+      từ nhiều góc.
+    </span>
   </h2>
 
   <div class="grid3">
@@ -1660,12 +2310,17 @@ h3{
 
     <div class="card reveal d4">
       <h3>Vì sao?</h3>
-      <p>Tìm nguyên nhân, mối liên hệ và điểm bất thường.</p>
+      <p>
+        Tìm nguyên nhân, mối liên hệ
+        và điểm bất thường.
+      </p>
     </div>
 
     <div class="card reveal d5">
       <h3>Có thể làm gì?</h3>
-      <p>Đưa ra các phương án để xem xét.</p>
+      <p>
+        Đưa ra các phương án để xem xét.
+      </p>
     </div>
 
   </div>
@@ -1677,58 +2332,59 @@ h3{
     </span>
   </div>
 
-  <div class="tool-note reveal d6">
-    <strong style="color:white">Case minh họa:</strong>
-    AI có thể chỉ ra mỏ nào lệch kế hoạch nhiều nhất hoặc xu hướng nào đáng chú ý.
-    Nhưng nguyên nhân của biến động phải được kiểm tra bằng dữ liệu nguồn và bối cảnh kỹ thuật.
-  </div>
-
 </div>
 </section>
 
 <!-- ===================== 13 ===================== -->
 
-<section class="scene" data-part="3" data-title="Tạo – phản biện">
+<section class="scene"
+         data-part="3"
+         data-title="Tạo – phản biện">
+
 <div class="inner">
 
-  <div class="eyebrow reveal d1">Bước 04 · Tạo – phản biện</div>
+  <div class="eyebrow reveal d1">
+    Bước 04 · Tạo – phản biện
+  </div>
 
   <h2 class="reveal d2">
     Đừng dừng ở<br>
-    <span class="highlight">bản AI tạo đầu tiên.</span>
+    <span class="highlight">
+      bản AI tạo đầu tiên.
+    </span>
   </h2>
 
   <div class="grid2">
 
     <div class="card reveal d3">
+
       <h3>AI tạo</h3>
+
       <p>
-        Báo cáo, email, phương án, slide,
+        Báo cáo, email, phương án, bản trình bày,
         bảng so sánh hoặc bản nháp.
       </p>
+
     </div>
 
     <div class="card reveal d4">
+
       <h3>AI phản biện</h3>
+
       <p>
         Tìm điểm yếu, giả định, dữ liệu còn thiếu
         và rủi ro chưa được xem xét.
       </p>
+
     </div>
 
   </div>
 
   <div class="prompt reveal d5">
-    Đóng vai người phản biện.
-    Hãy chỉ ra những điểm chưa thuyết phục,
+    Hãy phản biện đề xuất này.
+    Chỉ ra những điểm chưa thuyết phục,
     dữ liệu còn thiếu và những câu hỏi
     người phê duyệt có thể đặt ra.
-  </div>
-
-  <div class="tool-note reveal d6">
-    <strong style="color:white">Một cách kết hợp công cụ trong case sản lượng:</strong>
-    Power BI hỗ trợ tổng hợp và trực quan hóa; Copilot có thể hỗ trợ tóm tắt, tìm điểm bất thường
-    và gợi ý câu hỏi — trên môi trường được phép. Con người kiểm chứng trước khi sử dụng.
   </div>
 
 </div>
@@ -1736,40 +2392,73 @@ h3{
 
 <!-- ===================== 14 ===================== -->
 
-<section class="scene" data-part="4" data-title="Nguyên tắc sử dụng AI">
+<section class="scene"
+         data-part="4"
+         data-title="Nguyên tắc sử dụng AI">
+
 <div class="inner">
 
-  <div class="eyebrow reveal d1">Sử dụng AI có trách nhiệm</div>
+  <div class="eyebrow reveal d1">
+    Sử dụng AI có trách nhiệm
+  </div>
 
   <h2 class="reveal d2">
     4 nguyên tắc<br>
-    <span class="highlight">khi sử dụng AI</span>
+    <span class="highlight">
+      để dùng AI đúng
+    </span>
   </h2>
 
   <div class="rules">
 
     <div class="rule reveal d3">
+
       <div class="rule-num">01</div>
+
       <h3>Đúng công cụ</h3>
-      <p>Chọn công cụ phù hợp với việc cần làm.</p>
+
+      <p>
+        Chọn công cụ phù hợp với việc cần làm.
+      </p>
+
     </div>
 
     <div class="rule reveal d4">
+
       <div class="rule-num">02</div>
+
       <h3>Đúng dữ liệu</h3>
-      <p>Chỉ đưa dữ liệu vào khi được phép.</p>
+
+      <p>
+        Chỉ đưa dữ liệu vào khi được phép.
+      </p>
+
     </div>
 
     <div class="rule reveal d5">
+
       <div class="rule-num">03</div>
+
       <h3>Kiểm chứng</h3>
-      <p>Không sử dụng kết quả AI mà chưa kiểm tra.</p>
+
+      <p>
+        Không sử dụng kết quả AI
+        mà chưa kiểm tra.
+      </p>
+
     </div>
 
     <div class="rule reveal d6">
+
       <div class="rule-num">04</div>
+
       <h3>Con người quyết định</h3>
-      <p>AI hỗ trợ. Con người chịu trách nhiệm.</p>
+
+      <p>
+        AI hỗ trợ.
+        Con người chịu trách nhiệm.
+      </p>
+
     </div>
 
   </div>
@@ -1779,38 +2468,63 @@ h3{
 
 <!-- ===================== 15 ===================== -->
 
-<section class="scene" data-part="4" data-title="Quy định nội bộ">
+<section class="scene"
+         data-part="4"
+         data-title="Quy định nội bộ">
+
 <div class="inner center">
 
-  <div class="eyebrow reveal d1">Quy định nội bộ</div>
+  <div class="eyebrow reveal d1">
+    Sử dụng AI trong công việc
+  </div>
 
   <h2 class="reveal d2">
-    Trước khi hỏi “AI làm được không?”<br>
-    hãy hỏi <span class="highlight">“Có được phép không?”</span>
+    AI làm được rất nhiều.<br>
+    <span class="highlight">
+      Nhưng cần dùng đúng phạm vi.
+    </span>
   </h2>
 
   <div class="grid3">
 
     <div class="card reveal d3">
-      <h3>Công cụ</h3>
-      <p>Công cụ này có được tổ chức cho phép sử dụng không?</p>
+
+      <h3>Công việc gì?</h3>
+
+      <p>
+        AI đang được dùng để hỗ trợ việc gì?
+      </p>
+
     </div>
 
     <div class="card reveal d4">
-      <h3>Dữ liệu</h3>
-      <p>Loại thông tin này có được đưa vào công cụ đó không?</p>
+
+      <h3>Dữ liệu gì?</h3>
+
+      <p>
+        Thông tin đang sử dụng thuộc phạm vi nào?
+      </p>
+
     </div>
 
     <div class="card reveal d5">
-      <h3>Cách sử dụng</h3>
-      <p>Công việc này có yêu cầu hoặc giới hạn nội bộ nào không?</p>
+
+      <h3>Công cụ nào?</h3>
+
+      <p>
+        Công cụ và môi trường này
+        có phù hợp với dữ liệu đó không?
+      </p>
+
     </div>
 
   </div>
 
   <div class="bigline reveal d6">
-    Quy định nội bộ được ưu tiên
-    trước sự tiện lợi của công cụ.
+    Dùng AI nhanh hơn là tốt.
+    <span class="highlight">
+      Dùng đúng mới có giá trị lâu dài.
+    </span>
   </div>
 
 </div>
@@ -1818,40 +2532,68 @@ h3{
 
 <!-- ===================== 16 ===================== -->
 
-<section class="scene" data-part="4" data-title="Xanh – Vàng – Đỏ">
+<section class="scene"
+         data-part="4"
+         data-title="Dữ liệu và công cụ">
+
 <div class="inner">
 
-  <div class="eyebrow reveal d1">Đúng dữ liệu</div>
+  <div class="eyebrow reveal d1">
+    Một nguyên tắc dễ nhớ
+  </div>
 
   <h2 class="reveal d2">
-    Thông tin này có được<br>
-    <span class="highlight">đưa vào AI không?</span>
+    Không phải AI nào cũng dùng<br>
+    <span class="highlight">
+      với mọi loại dữ liệu.
+    </span>
   </h2>
 
   <div class="security">
 
     <div class="sec green reveal d3">
+
       <div class="light"></div>
-      <h3>Xanh</h3>
-      <p>Thông tin công khai. Có thể sử dụng theo quy định.</p>
+
+      <h3>
+        Thông tin công khai
+      </h3>
+
+      <p>
+        Có thể khai thác bằng công cụ phù hợp.
+      </p>
+
     </div>
 
     <div class="sec yellow reveal d4">
+
       <div class="light"></div>
-      <h3>Vàng</h3>
+
+      <h3>
+        Thông tin nội bộ
+      </h3>
+
       <p>
-        Thông tin nội bộ.
-        Cần kiểm tra quy định và công cụ được phép.
+        Dùng trong công cụ và môi trường
+        được đơn vị cho phép,
+        đúng phạm vi được cấp.
       </p>
+
     </div>
 
     <div class="sec red reveal d5">
+
       <div class="light"></div>
-      <h3>Đỏ</h3>
+
+      <h3>
+        Thông tin hạn chế
+      </h3>
+
       <p>
-        Thông tin mật, nhạy cảm hoặc hạn chế.
-        Không đưa vào công cụ chưa được phép.
+        Cần tuân thủ quy định
+        và kiểm tra trước khi sử dụng với AI.
       </p>
+
     </div>
 
   </div>
@@ -1859,29 +2601,41 @@ h3{
   <div class="vote-area reveal d6">
 
     <div class="vote-question">
-      Số liệu sản lượng khai thác chưa công bố — bạn chọn màu nào?
+      Một tài liệu nội bộ cần được AI hỗ trợ —
+      việc đầu tiên cần kiểm tra là gì?
     </div>
 
     <div class="vote-options">
 
       <button class="vote"
-        onclick="securityVote(this,'Không nên mặc định là Xanh.')">
-        Xanh
+        onclick="securityVote(
+          this,
+          'Đúng một phần. Cần biết loại dữ liệu, nhưng cũng phải kiểm tra công cụ và môi trường sử dụng.'
+        )">
+        Loại dữ liệu
       </button>
 
       <button class="vote"
-        onclick="securityVote(this,'Cần kiểm tra quy định nội bộ và công cụ được phép sử dụng.')">
-        Vàng
+        onclick="securityVote(
+          this,
+          'Đúng một phần. Công cụ phù hợp phải đi cùng việc hiểu loại dữ liệu đang sử dụng.'
+        )">
+        Công cụ được phép
       </button>
 
       <button class="vote"
-        onclick="securityVote(this,'Có thể là Đỏ nếu thuộc diện mật, nhạy cảm hoặc hạn chế.')">
-        Đỏ
+        onclick="securityVote(
+          this,
+          'Đúng. Cần xem đồng thời loại dữ liệu và công cụ/môi trường được phép sử dụng.'
+        )">
+        Cả hai
       </button>
 
     </div>
 
-    <div class="result" id="securityResult"></div>
+    <div class="result"
+         id="securityResult">
+    </div>
 
   </div>
 
@@ -1890,35 +2644,55 @@ h3{
 
 <!-- ===================== 17 ===================== -->
 
-<section class="scene" data-part="4" data-title="Kiểm chứng">
+<section class="scene"
+         data-part="4"
+         data-title="Kiểm chứng">
+
 <div class="inner center">
 
-  <div class="eyebrow reveal d1">Câu hỏi tương tác 02 · dữ liệu giả lập</div>
+  <div class="eyebrow reveal d1">
+    Câu hỏi tương tác 02
+  </div>
 
   <h2 class="reveal d2">
-    Kế hoạch Gamma: 6.200 · Thực hiện: 5.950.<br>
-    AI kết luận: <span class="highlight">“Gamma đã vượt kế hoạch.”</span>
+    AI đưa ra một con số rất cụ thể.<br>
+    <span class="highlight">
+      Bạn làm gì tiếp?
+    </span>
   </h2>
 
   <div class="vote-area reveal d3">
 
-    <div class="vote-question">
-      Bạn làm gì tiếp?
-    </div>
-
     <div class="vote-options">
-      <button class="vote" onclick="checkVote(false,this)">Dùng luôn</button>
-      <button class="vote" onclick="checkVote(true,this)">Kiểm tra lại dữ liệu nguồn</button>
-      <button class="vote" onclick="checkVote(false,this)">Hỏi AI “có chắc không?”</button>
+
+      <button class="vote"
+              onclick="checkVote(false,this)">
+        Dùng luôn
+      </button>
+
+      <button class="vote"
+              onclick="checkVote(true,this)">
+        Mở nguồn kiểm tra
+      </button>
+
+      <button class="vote"
+              onclick="checkVote(false,this)">
+        Hỏi AI “có chắc không?”
+      </button>
+
     </div>
 
-    <div class="result" id="checkResult"></div>
+    <div class="result"
+         id="checkResult">
+    </div>
 
   </div>
 
   <div class="bigline reveal d4">
-    AI có thể rất nhanh và rất thuyết phục.
-    <span class="highlight">Nhưng một kết luận sai vẫn là sai.</span>
+    AI tự khẳng định lại câu trả lời
+    <span class="highlight">
+      không phải là kiểm chứng.
+    </span>
   </div>
 
 </div>
@@ -1926,32 +2700,40 @@ h3{
 
 <!-- ===================== 18 ===================== -->
 
-<section class="scene" data-part="5" data-title="Góc nhìn người nhận sản phẩm">
+<section class="scene"
+         data-part="5"
+         data-title="Góc nhìn người nhận sản phẩm">
+
 <div class="inner center">
 
-  <div class="eyebrow reveal d1">Một góc nhìn khác</div>
+  <div class="eyebrow reveal d1">
+    Một góc nhìn khác
+  </div>
 
   <h2 class="reveal d2">
     Khi một sản phẩm được trình lên,<br>
-    <span class="highlight">cách sử dụng AI cũng có thể thay đổi.</span>
+    <span class="highlight">
+      câu hỏi quan trọng mới bắt đầu.
+    </span>
   </h2>
 
   <div class="decision-box reveal d3">
 
-    <p class="subtitle" style="margin-top:0">
-      Ví dụ từ case giả lập:
+    <p class="subtitle"
+       style="margin-top:0">
+      Một kết luận được trình:
     </p>
 
     <div class="bigline">
-      “Gamma là điểm cần ưu tiên xử lý do sản lượng thấp hơn kế hoạch.”
+      “Theo phân tích,
+      phương án B là phương án tối ưu.”
     </div>
 
   </div>
 
   <p class="subtitle reveal d4">
-    Người nhận sản phẩm không chỉ cần một kết luận ngắn gọn.
-    Điều quan trọng là kiểm tra căn cứ, giả định, điểm chưa chắc chắn
-    và những thông tin còn thiếu trước khi sử dụng kết luận đó.
+    Một sản phẩm tốt không chỉ cần có câu trả lời.
+    Nó phải chịu được những câu hỏi ngược.
   </p>
 
 </div>
@@ -1959,52 +2741,95 @@ h3{
 
 <!-- ===================== 19 ===================== -->
 
-<section class="scene" data-part="5" data-title="6 câu hỏi kiểm tra ngược">
+<section class="scene"
+         data-part="5"
+         data-title="6 câu hỏi kiểm tra ngược">
+
 <div class="inner">
 
-  <div class="eyebrow reveal d1">Check ngược</div>
+  <div class="eyebrow reveal d1">
+    Kiểm tra ngược
+  </div>
 
   <h2 class="reveal d2">
     6 câu hỏi để<br>
-    <span class="highlight">kiểm tra một đề xuất</span>
+    <span class="highlight">
+      kiểm tra một đề xuất
+    </span>
   </h2>
 
   <div class="boss-buttons reveal d3">
 
     <button class="boss-btn active"
-      onclick="bossQuestion(this,'Căn cứ ở đâu?','Cho tôi xem nguồn của những số liệu quan trọng nhất.')">
+      onclick="bossQuestion(
+        this,
+        'Căn cứ ở đâu?',
+        'Cho tôi xem nguồn của những số liệu quan trọng nhất.'
+      )">
+
       <small>01</small>
       <strong>Căn cứ ở đâu?</strong>
+
     </button>
 
     <button class="boss-btn"
-      onclick="bossQuestion(this,'Vì sao chọn phương án này?','Nếu không chọn phương án này, phương án phù hợp tiếp theo là gì?')">
+      onclick="bossQuestion(
+        this,
+        'Vì sao chọn phương án này?',
+        'Nếu không chọn phương án này, phương án phù hợp tiếp theo là gì?'
+      )">
+
       <small>02</small>
       <strong>Vì sao chọn?</strong>
+
     </button>
 
     <button class="boss-btn"
-      onclick="bossQuestion(this,'Những giả định nào đang được sử dụng?','Nếu một giả định quan trọng không còn đúng, kết luận thay đổi như thế nào?')">
+      onclick="bossQuestion(
+        this,
+        'Giả định nào đang được dùng?',
+        'Nếu một giả định quan trọng thay đổi, kết luận thay đổi thế nào?'
+      )">
+
       <small>03</small>
       <strong>Giả định gì?</strong>
+
     </button>
 
     <button class="boss-btn"
-      onclick="bossQuestion(this,'Điều gì chưa chắc chắn?','Đâu là dữ liệu, đâu là nhận định và đâu là dự báo?')">
+      onclick="bossQuestion(
+        this,
+        'Điều gì chưa chắc chắn?',
+        'Đâu là dữ liệu, đâu là nhận định và đâu là dự báo?'
+      )">
+
       <small>04</small>
       <strong>Chưa chắc ở đâu?</strong>
+
     </button>
 
     <button class="boss-btn"
-      onclick="bossQuestion(this,'Đã phản biện chưa?','Hãy chỉ ra những lý do có thể khiến phương án đang đề xuất không còn phù hợp.')">
+      onclick="bossQuestion(
+        this,
+        'Đã phản biện chưa?',
+        'Điều gì có thể khiến phương án đang đề xuất không còn phù hợp?'
+      )">
+
       <small>05</small>
       <strong>Đã phản biện?</strong>
+
     </button>
 
     <button class="boss-btn"
-      onclick="bossQuestion(this,'Người trình có thực sự hiểu kết luận?','Không nhìn báo cáo. Hãy giải thích kết luận này trong 60 giây.')">
+      onclick="bossQuestion(
+        this,
+        'Người trình có thực sự hiểu?',
+        'Không nhìn báo cáo. Hãy giải thích kết luận này trong 60 giây.'
+      )">
+
       <small>06</small>
       <strong>Có thực sự hiểu?</strong>
+
     </button>
 
   </div>
@@ -2015,11 +2840,13 @@ h3{
       CÂU HỎI ĐANG CHỌN
     </div>
 
-    <div class="boss-focus-question" id="bossTitle">
+    <div class="boss-focus-question"
+         id="bossTitle">
       Căn cứ ở đâu?
     </div>
 
-    <div class="boss-focus-help" id="bossHelp">
+    <div class="boss-focus-help"
+         id="bossHelp">
       Cho tôi xem nguồn của những số liệu quan trọng nhất.
     </div>
 
@@ -2030,38 +2857,62 @@ h3{
 
 <!-- ===================== 20 ===================== -->
 
-<section class="scene" data-part="5" data-title="AI phản biện ngược">
+<section class="scene"
+         data-part="5"
+         data-title="AI phản biện ngược">
+
 <div class="inner">
 
-  <div class="eyebrow reveal d1">AI cho người nhận sản phẩm</div>
+  <div class="eyebrow reveal d1">
+    AI cho người nhận sản phẩm
+  </div>
 
   <h2 class="reveal d2">
     Có thể dùng AI<br>
-    để <span class="highlight">đặt câu hỏi tốt hơn.</span>
+    để <span class="highlight">
+      đặt câu hỏi tốt hơn.
+    </span>
   </h2>
 
   <div class="prompt reveal d3">
-    Đóng vai người phê duyệt.
     Đừng tóm tắt tài liệu này.
-    Hãy tìm 5 điểm tôi cần hỏi lại người trình
-    trước khi ra quyết định.
+    Hãy chỉ ra 5 điểm cần hỏi lại người trình
+    trước khi sử dụng kết luận để ra quyết định.
   </div>
 
   <div class="grid3">
 
     <div class="card reveal d4">
+
       <h3>Tìm điểm yếu</h3>
-      <p>Nguồn, giả định, logic, rủi ro và chỗ thiếu.</p>
+
+      <p>
+        Nguồn, giả định, logic,
+        rủi ro và chỗ còn thiếu.
+      </p>
+
     </div>
 
     <div class="card reveal d5">
-      <h3>Hỏi người trình</h3>
-      <p>Dùng AI để tạo câu hỏi, không dùng AI để thay người trình trả lời.</p>
+
+      <h3>Đặt câu hỏi</h3>
+
+      <p>
+        Dùng AI để gợi ý câu hỏi,
+        không dùng AI để thay người trình trả lời.
+      </p>
+
     </div>
 
     <div class="card reveal d6">
+
       <h3>Ra quyết định</h3>
-      <p>Kết quả AI chỉ là một đầu vào để xem xét.</p>
+
+      <p>
+        Kết quả AI chỉ là một đầu vào
+        để xem xét.
+      </p>
+
     </div>
 
   </div>
@@ -2071,14 +2922,21 @@ h3{
 
 <!-- ===================== 21 ===================== -->
 
-<section class="scene" data-part="6" data-title="AI dừng ở đâu?">
+<section class="scene"
+         data-part="6"
+         data-title="AI dừng ở đâu?">
+
 <div class="inner center">
 
-  <div class="eyebrow reveal d1">Ranh giới quan trọng</div>
+  <div class="eyebrow reveal d1">
+    Ranh giới quan trọng
+  </div>
 
   <h2 class="reveal d2">
     AI có thể phân tích và đề xuất.<br>
-    <span class="highlight">Nhưng AI không quyết định thay bạn.</span>
+    <span class="highlight">
+      Nhưng AI không quyết định thay bạn.
+    </span>
   </h2>
 
   <div class="grid3">
@@ -2092,7 +2950,9 @@ h3{
     </div>
 
     <div class="card reveal d5">
-      <h3>AI không chịu trách nhiệm thay bạn</h3>
+      <h3>
+        AI không chịu trách nhiệm thay bạn
+      </h3>
     </div>
 
   </div>
@@ -2102,10 +2962,15 @@ h3{
 
 <!-- ===================== 22 ===================== -->
 
-<section class="scene" data-part="6" data-title="5 kiểm tra cuối">
+<section class="scene"
+         data-part="6"
+         data-title="5 kiểm tra cuối">
+
 <div class="inner">
 
-  <div class="eyebrow reveal d1">Trước khi gửi · trình · sử dụng</div>
+  <div class="eyebrow reveal d1">
+    Trước khi gửi · trình · sử dụng
+  </div>
 
   <h2 class="reveal d2">
     5 điều cần kiểm tra
@@ -2114,33 +2979,74 @@ h3{
   <div class="journey">
 
     <div class="node reveal d3">
+
       <small>01</small>
-      <strong>Sự thật</strong>
-      <p>Đúng sự thật chưa?</p>
+
+      <strong>
+        Sự thật
+      </strong>
+
+      <p>
+        Đúng sự thật chưa?
+      </p>
+
     </div>
 
     <div class="node reveal d3">
+
       <small>02</small>
-      <strong>Nguồn</strong>
-      <p>Nguồn ở đâu?</p>
+
+      <strong>
+        Nguồn
+      </strong>
+
+      <p>
+        Nguồn ở đâu?
+      </p>
+
     </div>
 
     <div class="node reveal d4">
+
       <small>03</small>
-      <strong>Bối cảnh</strong>
-      <p>Có đúng bối cảnh không?</p>
+
+      <strong>
+        Bối cảnh
+      </strong>
+
+      <p>
+        Có đúng bối cảnh không?
+      </p>
+
     </div>
 
     <div class="node reveal d4">
+
       <small>04</small>
-      <strong>An toàn</strong>
-      <p>Có an toàn thông tin / đúng quy định không?</p>
+
+      <strong>
+        An toàn
+      </strong>
+
+      <p>
+        Có an toàn thông tin
+        và đúng quy định không?
+      </p>
+
     </div>
 
     <div class="node reveal d5">
+
       <small>05</small>
-      <strong>Trách nhiệm</strong>
-      <p>Ai chịu trách nhiệm?</p>
+
+      <strong>
+        Trách nhiệm
+      </strong>
+
+      <p>
+        Ai chịu trách nhiệm?
+      </p>
+
     </div>
 
   </div>
@@ -2150,10 +3056,15 @@ h3{
 
 <!-- ===================== 23 ===================== -->
 
-<section class="scene" data-part="6" data-title="Con người quyết định">
+<section class="scene"
+         data-part="6"
+         data-title="Con người quyết định">
+
 <div class="inner center">
 
-  <div class="eyebrow reveal d1">Điểm cuối của hành trình</div>
+  <div class="eyebrow reveal d1">
+    Điểm cuối của hành trình
+  </div>
 
   <div class="decision-box reveal d2">
 
@@ -2169,6 +3080,7 @@ h3{
 
   <div class="bigline reveal d3">
     AI có thể giúp bạn làm nhanh hơn.<br>
+
     <span class="highlight">
       Nhưng người chịu trách nhiệm cuối cùng vẫn là bạn.
     </span>
@@ -2180,7 +3092,8 @@ h3{
     và phán đoán mới là năng lực cần giữ lại.
   </p>
 
-  <button class="btn reveal d5" onclick="goTo(3)">
+  <button class="btn reveal d5"
+          onclick="goTo(3)">
     Quay lại bản đồ ↑
   </button>
 
@@ -2189,186 +3102,340 @@ h3{
 
 <!-- ===================== BOTTOM ===================== -->
 
-<div class="location" id="location">
+<div class="location"
+     id="location">
   PHẦN 1 · NHẬN VIỆC
 </div>
 
 <div class="bottom-nav">
-  <button class="nav-btn" onclick="previousScene()">←</button>
-  <div class="counter" id="counter">01 / 23</div>
-  <button class="nav-btn" onclick="nextScene()">→</button>
+
+  <button class="nav-btn"
+          onclick="previousScene()">
+    ←
+  </button>
+
+  <div class="counter"
+       id="counter">
+    01 / 23
+  </div>
+
+  <button class="nav-btn"
+          onclick="nextScene()">
+    →
+  </button>
+
 </div>
 
 <script>
-const scenes=document.querySelectorAll(".scene");
-const parts=document.querySelectorAll(".part");
-const menuItems=document.querySelectorAll(".menu-item");
 
-let currentScene=0;
+const scenes =
+  document.querySelectorAll(".scene");
 
-const partNames={
+const parts =
+  document.querySelectorAll(".part");
+
+const menuItems =
+  document.querySelectorAll(".menu-item");
+
+let currentScene = 0;
+
+const partNames = {
+
   1:"PHẦN 1 · NHẬN VIỆC",
+
   2:"PHẦN 2 · HỌC & THÍCH NGHI",
+
   3:"PHẦN 3 · LÀM CÙNG AI",
+
   4:"PHẦN 4 · KIỂM SOÁT",
-  5:"PHẦN 5 · CHECK NGƯỢC",
+
+  5:"PHẦN 5 · KIỂM TRA NGƯỢC",
+
   6:"PHẦN 6 · QUYẾT ĐỊNH"
+
 };
 
 function showScene(index){
 
-  if(index<0) index=0;
-  if(index>=scenes.length) index=scenes.length-1;
+  if(index < 0){
+    index = 0;
+  }
 
-  scenes.forEach(s=>s.classList.remove("active"));
+  if(index >= scenes.length){
+    index = scenes.length - 1;
+  }
 
-  currentScene=index;
-  const scene=scenes[index];
+  scenes.forEach(
+    s => s.classList.remove("active")
+  );
+
+  currentScene = index;
+
+  const scene = scenes[index];
+
+  scene.scrollTop = 0;
 
   void scene.offsetWidth;
+
   scene.classList.add("active");
 
-  const part=Number(scene.dataset.part);
+  const part =
+    Number(scene.dataset.part);
 
   parts.forEach(x=>{
+
     x.classList.toggle(
       "active",
-      Number(x.dataset.part)===part
+      Number(x.dataset.part) === part
     );
+
   });
 
   menuItems.forEach((x,i)=>{
-    x.classList.toggle("current",i===index);
+
+    x.classList.toggle(
+      "current",
+      i === index
+    );
+
   });
 
-  document.getElementById("counter").innerText=
-    String(index+1).padStart(2,"0")+" / "+scenes.length;
+  document
+    .getElementById("counter")
+    .innerText =
+      String(index+1).padStart(2,"0")
+      + " / "
+      + scenes.length;
 
-  document.getElementById("progress").style.width=
-    ((index+1)/scenes.length*100)+"%";
+  document
+    .getElementById("progress")
+    .style.width =
+      ((index+1)/scenes.length*100)
+      + "%";
 
-  document.getElementById("location").innerText=
-    partNames[part]+" · "+scene.dataset.title;
+  document
+    .getElementById("location")
+    .innerText =
+      partNames[part]
+      + " · "
+      + scene.dataset.title;
+
 }
 
 function nextScene(){
-  if(currentScene<scenes.length-1){
-    showScene(currentScene+1);
+
+  if(currentScene < scenes.length-1){
+
+    showScene(
+      currentScene + 1
+    );
+
   }
+
 }
 
 function previousScene(){
-  if(currentScene>0){
-    showScene(currentScene-1);
+
+  if(currentScene > 0){
+
+    showScene(
+      currentScene - 1
+    );
+
   }
+
 }
 
 function goTo(i){
+
   showScene(i);
+
 }
 
-/* KEYBOARD */
+/* ===================== KEYBOARD ===================== */
 
-document.addEventListener("keydown",e=>{
+document.addEventListener(
+  "keydown",
+  e => {
 
-  if(e.key==="ArrowRight" || e.key==="PageDown"){
-    nextScene();
+    if(
+      e.key === "ArrowRight"
+      ||
+      e.key === "PageDown"
+    ){
+      nextScene();
+    }
+
+    if(
+      e.key === "ArrowLeft"
+      ||
+      e.key === "PageUp"
+    ){
+      previousScene();
+    }
+
+    if(e.key === "Escape"){
+
+      document
+        .getElementById("overlay")
+        .classList.remove("open");
+
+      closeQR();
+
+    }
+
   }
+);
 
-  if(e.key==="ArrowLeft" || e.key==="PageUp"){
-    previousScene();
-  }
-
-  if(e.key==="Escape"){
-    document.getElementById("overlay").classList.remove("open");
-    closeQR();
-  }
-});
-
-/* MENU */
+/* ===================== MENU ===================== */
 
 function toggleMenu(){
-  document.getElementById("overlay").classList.toggle("open");
+
+  document
+    .getElementById("overlay")
+    .classList.toggle("open");
+
 }
 
 function goToMenu(i){
-  document.getElementById("overlay").classList.remove("open");
-  setTimeout(()=>showScene(i),120);
+
+  document
+    .getElementById("overlay")
+    .classList.remove("open");
+
+  setTimeout(
+    ()=>showScene(i),
+    120
+  );
+
 }
 
 function overlayClick(e){
-  if(e.target.id==="overlay"){
+
+  if(e.target.id === "overlay"){
     toggleMenu();
   }
+
 }
 
-/* QR */
+/* ===================== QR ===================== */
 
 function openQR(){
-  document.getElementById("qrModal").classList.add("open");
+
+  document
+    .getElementById("qrModal")
+    .classList.add("open");
+
 }
 
 function closeQR(){
-  document.getElementById("qrModal").classList.remove("open");
+
+  document
+    .getElementById("qrModal")
+    .classList.remove("open");
+
 }
 
 function qrOutside(e){
-  if(e.target.id==="qrModal"){
+
+  if(e.target.id === "qrModal"){
     closeQR();
   }
+
 }
 
-/* VOTE */
+/* ===================== VOTE ===================== */
 
 function selectVote(button){
-  button.parentElement
+
+  button
+    .parentElement
     .querySelectorAll(".vote")
-    .forEach(x=>x.classList.remove("selected"));
+    .forEach(
+      x => x.classList.remove("selected")
+    );
 
   button.classList.add("selected");
+
 }
 
 function startVote(button){
+
   selectVote(button);
-  document.getElementById("startResult").style.display="block";
+
+  document
+    .getElementById("startResult")
+    .style.display = "block";
+
 }
 
 function securityVote(button,text){
+
   selectVote(button);
 
-  const result=document.getElementById("securityResult");
-  result.innerText=text;
-  result.style.display="block";
+  const result =
+    document.getElementById(
+      "securityResult"
+    );
+
+  result.innerText = text;
+
+  result.style.display =
+    "block";
+
 }
 
 function checkVote(correct,button){
+
   selectVote(button);
 
-  const result=document.getElementById("checkResult");
+  const result =
+    document.getElementById(
+      "checkResult"
+    );
 
-  result.innerText=correct
+  result.innerText =
+    correct
+
     ? "Đúng. Hãy mở nguồn gốc và tự kiểm tra trước khi sử dụng."
+
     : "Chưa đủ. Cần kiểm tra bằng nguồn và bằng chứng độc lập.";
 
-  result.style.display="block";
+  result.style.display =
+    "block";
+
 }
 
-/* CHECK NGƯỢC */
+/* ===================== QUESTIONS ===================== */
 
-function bossQuestion(button,title,help){
+function bossQuestion(
+  button,
+  title,
+  help
+){
 
-  document.querySelectorAll(".boss-btn")
-    .forEach(x=>x.classList.remove("active"));
+  document
+    .querySelectorAll(".boss-btn")
+    .forEach(
+      x => x.classList.remove("active")
+    );
 
   button.classList.add("active");
 
-  document.getElementById("bossTitle").innerText=title;
-  document.getElementById("bossHelp").innerText=help;
+  document
+    .getElementById("bossTitle")
+    .innerText = title;
+
+  document
+    .getElementById("bossHelp")
+    .innerText = help;
+
 }
 
-/* START */
+/* ===================== START ===================== */
 
 showScene(0);
+
 </script>
 
 </body>
