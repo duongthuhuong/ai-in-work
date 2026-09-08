@@ -1031,6 +1031,17 @@ h3{
     transition:none!important;
   }
 }
+
+
+/* SLIDES 17–19 · TEST / RESULTS / HOMEWORK */
+.quiz-wrap{margin-top:24px;display:grid;grid-template-columns:1.5fr .55fr;gap:18px}
+.quiz-card,.quiz-side,.result-card,.home-card{padding:22px;border-radius:22px;border:1px solid rgba(255,255,255,.09);background:rgba(12,34,55,.76)}
+.quiz-meta{color:var(--cyan);font-weight:900;font-size:14px;letter-spacing:.08em}.quiz-question{font-size:24px;font-weight:850;line-height:1.4;margin:14px 0 18px}.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}.quiz-option{padding:14px;text-align:left;color:white;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.045)}.quiz-option.selected{border-color:var(--cyan);background:rgba(101,221,255,.12)}
+.quiz-nav{display:flex;justify-content:space-between;margin-top:16px}.quiz-nav button,.quiz-submit,.result-refresh{padding:10px 15px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.055);color:white}.quiz-submit{width:100%;margin-top:18px;border-color:rgba(103,232,177,.3);background:rgba(103,232,177,.1);font-weight:900}.quiz-submit:disabled{opacity:.4}.quiz-count{font-size:42px;color:var(--cyan);font-weight:900}.quiz-dots{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:15px}.quiz-dot{height:34px;border-radius:9px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--muted)}.quiz-dot.done{color:white;border-color:rgba(103,232,177,.4)}.quiz-dot.current{color:var(--cyan);border-color:var(--cyan)}.quiz-status{margin-top:12px;color:var(--muted);line-height:1.45}
+.result-head{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.result-kpi{padding:18px;border-radius:18px;border:1px solid rgba(255,255,255,.09);background:rgba(12,34,55,.76)}.result-kpi strong{display:block;color:var(--cyan);font-size:34px}.result-kpi span{color:var(--muted)}.results-list{margin-top:16px;display:grid;gap:8px;max-height:47vh;overflow:auto}.result-card{display:grid;grid-template-columns:48px 1fr 95px;gap:12px;align-items:center;padding:14px 17px}.result-no{color:var(--cyan);font-weight:900}.result-text{font-size:15px;line-height:1.4}.result-text small{display:block;color:var(--muted);margin-top:5px}.result-pct{text-align:right;font-size:20px;font-weight:900}.result-bar-track{height:7px;background:rgba(255,255,255,.08);border-radius:99px;margin-top:8px;overflow:hidden}.result-bar-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--green))}.result-actions{margin-top:12px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:14px}
+.home-grid{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.home-card small{color:var(--cyan);font-weight:900}.home-card h3{margin-top:10px}.home-card p{color:var(--muted);line-height:1.5}.home-output{margin-top:20px;padding:19px 22px;border-left:4px solid var(--cyan);background:rgba(101,221,255,.06);border-radius:0 18px 18px 0;line-height:1.55}.home-output strong{color:var(--cyan)}
+@media(max-width:720px){.quiz-wrap,.quiz-options,.result-head,.home-grid{grid-template-columns:1fr}.result-card{grid-template-columns:40px 1fr 70px}}
+
 </style>
 </head>
 
@@ -2038,6 +2049,62 @@ h3{
 </div>
 </section>
 
+
+
+<!-- 17 TEST -->
+<section class="scene" id="quizScene">
+<div class="slide-inner">
+  <div class="eyebrow">16 · KIỂM TRA NHANH</div>
+  <h2>Cùng test chút nhé!</h2>
+  <p class="lead">10 câu để kiểm tra lại những gì chúng ta vừa trao đổi. Kết quả được tổng hợp ngay ở Slide 18.</p>
+  <div class="quiz-wrap">
+    <div class="quiz-card">
+      <div class="quiz-meta" id="quizProgress">CÂU 1 / 10</div>
+      <div class="quiz-question" id="quizQuestion"></div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-nav"><button onclick="prevQuizQuestion()">← Câu trước</button><button onclick="nextQuizQuestion()">Câu tiếp →</button></div>
+    </div>
+    <div class="quiz-side">
+      <div class="quiz-meta">TIẾN ĐỘ</div>
+      <div class="quiz-count" id="quizAnswered">0/10</div>
+      <div class="quiz-dots" id="quizDots"></div>
+      <button class="quiz-submit" id="quizSubmit" onclick="submitQuiz()" disabled>NỘP BÀI</button>
+      <div class="quiz-status" id="quizStatus">Trả lời đủ 10 câu để nộp bài.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 18 RESULTS -->
+<section class="scene" id="resultsScene">
+<div class="slide-inner">
+  <div class="eyebrow">17 · KẾT QUẢ CẢ LỚP</div>
+  <h2>Chúng ta đã hiểu đến đâu?</h2>
+  <div class="result-head">
+    <div class="result-kpi"><strong id="resultParticipants">0</strong><span>người đã nộp</span></div>
+    <div class="result-kpi"><strong id="resultAverage">–</strong><span>điểm trung bình / 10</span></div>
+    <div class="result-kpi"><strong id="resultConsensus">–</strong><span>mức đồng thuận</span></div>
+  </div>
+  <div class="results-list" id="resultsList"><div class="result-card">Đang chờ câu trả lời…</div></div>
+  <div class="result-actions"><span id="resultsStatus">Tự động cập nhật khi mở Slide 18</span><button class="result-refresh" onclick="loadQuizResults()">↻ Cập nhật</button></div>
+</div>
+</section>
+
+<!-- 19 HOMEWORK -->
+<section class="scene">
+<div class="slide-inner">
+  <div class="eyebrow">18 · BÀI TẬP VỀ NHÀ</div>
+  <h2>1 việc thật · 1 cách làm mới</h2>
+  <div class="home-grid">
+    <div class="home-card"><small>01 · CHỌN VIỆC</small><h3>Một việc bạn đang làm thật</h3><p>Chọn một đầu việc lặp lại hoặc tốn thời gian: tổng hợp, phân tích, soạn thảo, kiểm tra, chuẩn bị họp…</p></div>
+    <div class="home-card"><small>02 · THỬ VỚI AI</small><h3>Thiết kế lại cách làm</h3><p>Chỉ dùng dữ liệu được phép hoặc dữ liệu giả lập. Ghi lại prompt, đầu ra AI và cách bạn kiểm chứng.</p></div>
+    <div class="home-card"><small>03 · ĐO GIÁ TRỊ</small><h3>Cho thấy AI giúp gì</h3><p>So sánh trước – sau: thời gian, chất lượng, số bước, rủi ro và phần việc vẫn cần con người quyết định.</p></div>
+  </div>
+  <div class="home-output"><strong>Sản phẩm nộp:</strong> 01 trang hoặc 03 slide: Việc đã chọn → Cách làm cũ → Cách dùng AI → Cách kiểm chứng → Kết quả/giá trị tạo ra → Điều sẽ làm khác đi lần sau.</div>
+  <div class="callout">Mục tiêu không phải “dùng AI cho có”, mà là làm công việc tốt hơn và vẫn chịu trách nhiệm với kết quả.</div>
+</div>
+</section>
+
 </main>
 
 
@@ -2048,7 +2115,7 @@ h3{
   </button>
 
   <div class="counter">
-    <span id="currentSlide">1</span> · 16
+    <span id="currentSlide">1</span> · <span id="totalSlides">19</span>
   </div>
 
   <button class="nav-arrow" onclick="nextSlide()">
@@ -2113,6 +2180,9 @@ document.getElementById("progress");
 
 const currentSlide =
 document.getElementById("currentSlide");
+
+const totalSlides = document.getElementById("totalSlides");
+totalSlides.textContent = scenes.length;
 
 let finalTimers = [];
 
@@ -2221,7 +2291,7 @@ function showSlide(index){
     index = scenes.length - 1;
   }
 
-  if(current === scenes.length - 1){
+  if(scenes[current].id === "finalScene"){
     resetFinalSlide();
   }
 
@@ -2250,8 +2320,15 @@ function showSlide(index){
     )
     + "%";
 
-  if(current === scenes.length - 1){
+  if(scenes[current].id === "finalScene"){
     startFinalSequence();
+  }
+
+  if(scenes[current].id === "resultsScene"){
+    loadQuizResults();
+    startResultsRefresh();
+  }else{
+    stopResultsRefresh();
   }
 
 }
@@ -2330,7 +2407,10 @@ const menuNames = [
   "Draft 1 đến Draft 2",
   "Kiểm chứng",
   "Nhìn từ phía người nhận",
-  "Con người chịu trách nhiệm"
+  "Con người chịu trách nhiệm",
+  "Cùng test chút nhé",
+  "Kết quả cả lớp",
+  "Bài tập về nhà"
 
 ];
 
@@ -2792,6 +2872,8 @@ document
 
   });
 
+
+\n\n/* QUIZ 17–18 */\nconst quizQuestions=[\n {q:"Khi bắt đầu dùng AI cho một công việc, bước đầu tiên nên là gì?",o:["Chọn AI mạnh nhất","Hiểu công việc, dữ liệu và đầu ra cần có","Upload toàn bộ tài liệu","Viết prompt thật dài"],a:1},\n {q:"Với dữ liệu nội bộ hoặc nhạy cảm, nguyên tắc đúng là gì?",o:["Có thể đưa vào AI nếu xóa tên file","Chỉ sử dụng trong công cụ/môi trường được đơn vị cho phép và đúng quy định","AI nào cũng bảo mật như nhau","Có thể dùng nếu chỉ tóm tắt"],a:1},\n {q:"Khi cần thực hành nhưng dữ liệu thật không phù hợp để đưa vào AI, nên làm gì?",o:["Dùng dữ liệu giả lập","Chụp màn hình dữ liệu thật","Đổi tên đơn vị là đủ","Bỏ qua bước kiểm tra"],a:0},\n {q:"AI phù hợp nhất với vai trò nào?",o:["Tự phê duyệt quyết định","Hỗ trợ tra cứu, tổng hợp, phân tích và phản biện","Thay hệ thống phân quyền","Chịu trách nhiệm thay người dùng"],a:1},\n {q:"AI đưa ra một con số khác bảng dữ liệu nguồn. Bạn nên làm gì trước?",o:["Tin AI vì câu trả lời tự tin","Kiểm tra nguồn, phép tính và kỳ so sánh","Yêu cầu AI viết lại","Bỏ bảng dữ liệu"],a:1},\n {q:"Một kết luận do AI tạo ra nên được sử dụng thế nào?",o:["Dùng ngay nếu nghe hợp lý","Kiểm chứng bằng nguồn và bối cảnh công việc","Chỉ cần hỏi lại AI lần hai","Coi như ý kiến chuyên gia"],a:1},\n {q:"Người quản lý có thể dùng AI hiệu quả hơn bằng cách nào?",o:["Chỉ yêu cầu tóm tắt","Yêu cầu AI đóng vai người phê duyệt, tìm điểm cần hỏi lại","Giao AI quyết định phương án cuối","Yêu cầu AI ký xác nhận"],a:1},\n {q:"Dữ liệu cho thấy một chỉ tiêu thấp hơn kế hoạch. Có đủ để kết luận nguyên nhân không?",o:["Luôn đủ","Chưa đủ; cần thêm bối cảnh và chuyên môn","Đủ nếu dashboard màu đỏ","Đủ nếu AI đồng ý"],a:1},\n {q:"Vì sao cần tiếp tục học AI?",o:["Để thuộc tên mọi công cụ","Vì công cụ và cách làm việc thay đổi liên tục","Vì mọi việc đều bắt buộc dùng AI","Vì AI luôn đúng hơn con người"],a:1},\n {q:"Ai chịu trách nhiệm cuối cùng với sản phẩm công việc và quyết định?",o:["AI","Nhà cung cấp phần mềm","Con người trong phạm vi trách nhiệm và thẩm quyền của mình","Công cụ có benchmark cao nhất"],a:2}\n];\nlet quizIndex=0;\nlet quizAnswers=Array(quizQuestions.length).fill(null);\nlet resultsRefreshTimer=null;\nfunction renderQuiz(){\n const q=quizQuestions[quizIndex];\n document.getElementById("quizProgress").textContent=`CÂU ${quizIndex+1} / ${quizQuestions.length}`;\n document.getElementById("quizQuestion").textContent=q.q;\n document.getElementById("quizOptions").innerHTML=q.o.map((x,i)=>`<button class="quiz-option ${quizAnswers[quizIndex]===i?'selected':''}" onclick="chooseQuizAnswer(${i})">${String.fromCharCode(65+i)}. ${escapeHTML(x)}</button>`).join("");\n const done=quizAnswers.filter(x=>x!==null).length;\n document.getElementById("quizAnswered").textContent=`${done}/10`;\n document.getElementById("quizDots").innerHTML=quizQuestions.map((_,i)=>`<button class="quiz-dot ${quizAnswers[i]!==null?'done':''} ${i===quizIndex?'current':''}" onclick="goQuizQuestion(${i})">${i+1}</button>`).join("");\n document.getElementById("quizSubmit").disabled=done!==10 || localStorage.getItem("ai_work_test_submitted")==="1";\n}\nfunction chooseQuizAnswer(i){quizAnswers[quizIndex]=i;renderQuiz();if(quizIndex<9)setTimeout(()=>{quizIndex++;renderQuiz()},160)}\nfunction prevQuizQuestion(){quizIndex=Math.max(0,quizIndex-1);renderQuiz()}\nfunction nextQuizQuestion(){quizIndex=Math.min(9,quizIndex+1);renderQuiz()}\nfunction goQuizQuestion(i){quizIndex=i;renderQuiz()}\nwindow.chooseQuizAnswer=chooseQuizAnswer;window.prevQuizQuestion=prevQuizQuestion;window.nextQuizQuestion=nextQuizQuestion;window.goQuizQuestion=goQuizQuestion;\nasync function submitQuiz(){\n const status=document.getElementById("quizStatus");\n if(quizAnswers.some(x=>x===null)){status.textContent="Bạn còn câu chưa trả lời.";return}\n if(localStorage.getItem("ai_work_test_submitted")==="1"){status.textContent="Thiết bị này đã nộp bài.";return}\n status.textContent="Đang gửi câu trả lời…";\n const payload={};quizAnswers.forEach((a,i)=>payload[`q${i+1}`]=String(a));\n const {error}=await supabase.from("test_answers").insert(payload);\n if(error){console.error(error);status.textContent="Không gửi được dữ liệu. Kiểm tra Supabase.";return}\n localStorage.setItem("ai_work_test_submitted","1");localStorage.setItem("ai_work_test_answers",JSON.stringify(quizAnswers));\n document.getElementById("quizSubmit").disabled=true;status.textContent="✓ Đã nộp bài. Cả lớp cùng xem Slide 18.";\n}\nwindow.submitQuiz=submitQuiz;\nfunction consensusLabel(v){return v>=85?"Rất cao":v>=75?"Cao":v>=60?"Khá":"Phân tán"}\nasync function loadQuizResults(){\n const {data,error}=await supabase.from("test_answers").select("q1,q2,q3,q4,q5,q6,q7,q8,q9,q10");\n const list=document.getElementById("resultsList"),status=document.getElementById("resultsStatus");\n if(error){console.error(error);status.textContent="Không đọc được dữ liệu Supabase.";return}\n const rows=data||[];document.getElementById("resultParticipants").textContent=rows.length;\n if(!rows.length){document.getElementById("resultAverage").textContent="–";document.getElementById("resultConsensus").textContent="–";list.innerHTML='<div class="result-card">Đang chờ câu trả lời…</div>';return}\n let totalCorrect=0,totalConsensus=0;\n list.innerHTML=quizQuestions.map((q,qi)=>{\n   const vals=rows.map(r=>Number(r[`q${qi+1}`])).filter(Number.isInteger);\n   const correct=vals.filter(v=>v===q.a).length;totalCorrect+=correct;\n   const counts=q.o.map((_,oi)=>vals.filter(v=>v===oi).length);const max=Math.max(...counts,0);const consensus=vals.length?Math.round(max/vals.length*100):0;totalConsensus+=consensus;const pct=vals.length?Math.round(correct/vals.length*100):0;\n   return `<div class="result-card"><div class="result-no">${String(qi+1).padStart(2,"0")}</div><div class="result-text">${escapeHTML(q.q)}<small>Đáp án: ${String.fromCharCode(65+q.a)}. ${escapeHTML(q.o[q.a])} · Đồng thuận ${consensus}%</small><div class="result-bar-track"><div class="result-bar-fill" style="width:${pct}%"></div></div></div><div class="result-pct">${pct}%</div></div>`;\n }).join("");\n document.getElementById("resultAverage").textContent=(totalCorrect/rows.length).toFixed(1);\n document.getElementById("resultConsensus").textContent=consensusLabel(Math.round(totalConsensus/quizQuestions.length));\n status.textContent="Cập nhật lúc "+new Date().toLocaleTimeString("vi-VN");\n}\nwindow.loadQuizResults=loadQuizResults;\nfunction startResultsRefresh(){stopResultsRefresh();resultsRefreshTimer=setInterval(loadQuizResults,3000)}\nfunction stopResultsRefresh(){if(resultsRefreshTimer){clearInterval(resultsRefreshTimer);resultsRefreshTimer=null}}\nconst savedQuiz=localStorage.getItem("ai_work_test_answers");if(savedQuiz){try{const parsed=JSON.parse(savedQuiz);if(Array.isArray(parsed)&&parsed.length===10)quizAnswers=parsed}catch(e){}}\nrenderQuiz();\n
 
 /* START */
 
