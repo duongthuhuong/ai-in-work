@@ -53,7 +53,9 @@ button{cursor:pointer}
 .topbar{
   position:fixed;
   z-index:100;
-  top:0;left:0;right:0;
+  top:0;
+  left:0;
+  right:0;
   height:70px;
   display:flex;
   align-items:center;
@@ -74,7 +76,8 @@ button{cursor:pointer}
 }
 
 .brand-dot{
-  width:13px;height:13px;
+  width:13px;
+  height:13px;
   border-radius:50%;
   background:var(--cyan);
   box-shadow:0 0 22px rgba(101,221,255,.8);
@@ -92,7 +95,8 @@ button{cursor:pointer}
 .progress{
   position:fixed;
   z-index:105;
-  top:69px;left:0;
+  top:69px;
+  left:0;
   height:3px;
   background:linear-gradient(90deg,var(--cyan),var(--green));
   transition:.35s;
@@ -148,7 +152,10 @@ h2{
   max-width:1100px;
 }
 
-h3{margin:0;font-size:23px}
+h3{
+  margin:0;
+  font-size:23px;
+}
 
 .lead{
   max-width:920px;
@@ -220,18 +227,21 @@ h3{margin:0;font-size:23px}
   font-weight:700;
 }
 
-/* LIVE SLIDE */
+
+/* =========================
+   LIVE
+========================= */
 
 .live-layout{
   margin-top:28px;
   display:grid;
-  grid-template-columns:310px 1fr;
+  grid-template-columns:290px 1fr;
   gap:28px;
   align-items:stretch;
 }
 
 .qr-panel{
-  padding:24px;
+  padding:22px;
   border-radius:25px;
   background:rgba(12,34,55,.8);
   border:1px solid rgba(101,221,255,.18);
@@ -240,21 +250,21 @@ h3{margin:0;font-size:23px}
 
 .qr-box{
   background:white;
-  padding:13px;
+  padding:12px;
   border-radius:18px;
   display:inline-flex;
 }
 
 .qr-box img{
-  width:205px;
-  height:205px;
+  width:195px;
+  height:195px;
   display:block;
 }
 
 .qr-title{
-  margin-top:16px;
+  margin-top:15px;
   font-weight:900;
-  font-size:18px;
+  font-size:17px;
 }
 
 .qr-sub{
@@ -290,7 +300,8 @@ h3{margin:0;font-size:23px}
 }
 
 .live-dot{
-  width:9px;height:9px;
+  width:9px;
+  height:9px;
   border-radius:50%;
   background:var(--green);
   box-shadow:0 0 15px var(--green);
@@ -301,6 +312,9 @@ h3{margin:0;font-size:23px}
   font-size:14px;
 }
 
+
+/* CLOUD */
+
 .word-cloud{
   min-height:270px;
   display:flex;
@@ -308,25 +322,66 @@ h3{margin:0;font-size:23px}
   justify-content:center;
   align-content:center;
   align-items:center;
-  gap:14px 18px;
+  gap:13px;
 }
 
 .ai-word{
   display:inline-flex;
   align-items:center;
   gap:7px;
-  padding:9px 15px;
+
+  padding:10px 16px;
+
   border-radius:999px;
-  border:1px solid rgba(101,221,255,.18);
-  background:rgba(101,221,255,.065);
-  font-weight:900;
-  animation:pop .35s ease;
-  transition:.3s;
+
+  border:1px solid rgba(101,221,255,.22);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(101,221,255,.09),
+      rgba(101,221,255,.035)
+    );
+
+  font-weight:850;
+
+  line-height:1;
+
+  white-space:nowrap;
+
+  transition:
+    font-size .35s ease,
+    transform .35s ease,
+    border-color .35s ease,
+    box-shadow .35s ease,
+    background .35s ease;
 }
 
 .ai-word .count{
   color:var(--cyan);
-  font-size:.62em;
+  font-size:.68em;
+  font-weight:900;
+}
+
+.ai-word.just-updated{
+  animation:voteUp .72s ease;
+}
+
+@keyframes voteUp{
+  0%{
+    transform:scale(1);
+  }
+
+  38%{
+    transform:scale(1.10);
+    border-color:rgba(101,221,255,.8);
+    background:rgba(101,221,255,.16);
+    box-shadow:0 0 28px rgba(101,221,255,.28);
+  }
+
+  100%{
+    transform:scale(1);
+  }
 }
 
 .empty-cloud{
@@ -342,7 +397,10 @@ h3{margin:0;font-size:23px}
   margin-top:12px;
 }
 
-/* OTHER SLIDES */
+
+/* =========================
+   AI GRID
+========================= */
 
 .ai-grid{
   margin-top:28px;
@@ -361,7 +419,10 @@ h3{margin:0;font-size:23px}
   background:rgba(12,34,55,.78);
 }
 
-.ai-name{font-weight:900;font-size:18px}
+.ai-name{
+  font-weight:900;
+  font-size:18px;
+}
 
 .ai-strength{
   display:none;
@@ -376,7 +437,12 @@ h3{margin:0;font-size:23px}
   background:rgba(101,221,255,.08);
 }
 
-.ai-card.open .ai-strength{display:block}
+.ai-card.open .ai-strength{
+  display:block;
+}
+
+
+/* ========================= */
 
 .cycle{
   margin-top:34px;
@@ -451,7 +517,9 @@ h3{margin:0;font-size:23px}
   color:#d9e8f2;
 }
 
-.item:last-child{border-bottom:0}
+.item:last-child{
+  border-bottom:0;
+}
 
 .stack{
   margin-top:30px;
@@ -470,8 +538,13 @@ h3{margin:0;font-size:23px}
   background:rgba(101,221,255,.055);
 }
 
-.stack-row strong{color:var(--cyan)}
-.stack-row span{color:var(--muted)}
+.stack-row strong{
+  color:var(--cyan);
+}
+
+.stack-row span{
+  color:var(--muted);
+}
 
 .version-flow{
   margin-top:35px;
@@ -558,7 +631,9 @@ h3{margin:0;font-size:23px}
   line-height:1.5;
 }
 
-.question.open .q-detail{display:block}
+.question.open .q-detail{
+  display:block;
+}
 
 .end-stack{
   margin-top:35px;
@@ -584,7 +659,9 @@ h3{margin:0;font-size:23px}
   transform:none;
 }
 
-.end-line.last{color:var(--amber)}
+.end-line.last{
+  color:var(--amber);
+}
 
 .final-message{
   display:none;
@@ -596,7 +673,9 @@ h3{margin:0;font-size:23px}
   line-height:1.15;
 }
 
-.final-message.show{display:block}
+.final-message.show{
+  display:block;
+}
 
 .action{
   margin-top:18px;
@@ -607,6 +686,9 @@ h3{margin:0;font-size:23px}
   color:#032030;
   font-weight:900;
 }
+
+
+/* NAV */
 
 .bottom-nav{
   position:fixed;
@@ -624,7 +706,8 @@ h3{margin:0;font-size:23px}
 }
 
 .nav-arrow{
-  width:46px;height:46px;
+  width:46px;
+  height:46px;
   border:0;
   border-radius:50%;
   background:rgba(255,255,255,.065);
@@ -639,6 +722,9 @@ h3{margin:0;font-size:23px}
   font-weight:800;
 }
 
+
+/* DRAWER */
+
 .drawer{
   position:fixed;
   z-index:200;
@@ -646,7 +732,9 @@ h3{margin:0;font-size:23px}
   display:none;
 }
 
-.drawer.open{display:block}
+.drawer.open{
+  display:block;
+}
 
 .drawer-bg{
   position:absolute;
@@ -656,7 +744,8 @@ h3{margin:0;font-size:23px}
 
 .drawer-panel{
   position:absolute;
-  top:0;right:0;
+  top:0;
+  right:0;
   width:min(430px,91vw);
   height:100%;
   padding:28px;
@@ -672,7 +761,8 @@ h3{margin:0;font-size:23px}
 }
 
 .close{
-  width:40px;height:40px;
+  width:40px;
+  height:40px;
   border-radius:50%;
   border:1px solid rgba(255,255,255,.1);
   background:rgba(255,255,255,.05);
@@ -689,7 +779,9 @@ h3{margin:0;font-size:23px}
   color:#d9e8f2;
 }
 
-.menu-item:hover{background:rgba(101,221,255,.07)}
+.menu-item:hover{
+  background:rgba(101,221,255,.07);
+}
 
 .menu-item span{
   color:var(--cyan);
@@ -698,21 +790,39 @@ h3{margin:0;font-size:23px}
   width:30px;
 }
 
-@keyframes pop{
-  from{opacity:0;transform:scale(.7)}
-  to{opacity:1;transform:scale(1)}
-}
+
+/* RESPONSIVE */
 
 @media(max-width:900px){
-  .cards{grid-template-columns:repeat(2,1fr)}
-  .ai-grid{grid-template-columns:repeat(3,1fr)}
-  .cycle{grid-template-columns:repeat(2,1fr)}
-  .chain{grid-template-columns:repeat(2,1fr)}
+
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .ai-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .cycle{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .chain{
+    grid-template-columns:repeat(2,1fr);
+  }
+
 }
 
 @media(max-width:720px){
-  .topbar{height:60px;padding:0 14px}
-  .progress{top:59px}
+
+  .topbar{
+    height:60px;
+    padding:0 14px;
+  }
+
+  .progress{
+    top:59px;
+  }
 
   .scene{
     inset:60px 0 0;
@@ -724,9 +834,17 @@ h3{margin:0;font-size:23px}
     justify-content:flex-start;
   }
 
-  h1{font-size:43px}
-  h2{font-size:35px}
-  .lead{font-size:18px}
+  h1{
+    font-size:43px;
+  }
+
+  h2{
+    font-size:35px;
+  }
+
+  .lead{
+    font-size:18px;
+  }
 
   .live-layout,
   .cards,
@@ -738,11 +856,13 @@ h3{margin:0;font-size:23px}
   }
 
   .qr-box img{
-    width:180px;
-    height:180px;
+    width:175px;
+    height:175px;
   }
 
-  .ai-grid{grid-template-columns:repeat(2,1fr)}
+  .ai-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
 
   .stack-row{
     grid-template-columns:1fr;
@@ -763,121 +883,188 @@ h3{margin:0;font-size:23px}
     justify-content:space-between;
     bottom:12px;
   }
+
 }
 
 @media(prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important}
+  *{
+    animation:none!important;
+    transition:none!important;
+  }
 }
 </style>
 </head>
 
+
 <body>
 
 <header class="topbar">
+
   <div class="brand">
     <span class="brand-dot"></span>
     AI TRONG CÔNG VIỆC
   </div>
-  <button class="top-btn" onclick="openMenu()">MỤC LỤC</button>
+
+  <button class="top-btn" onclick="openMenu()">
+    MỤC LỤC
+  </button>
+
 </header>
 
 <div class="progress" id="progress"></div>
 
+
 <main>
 
-<!-- SLIDE 1 -->
+
+<!-- 1 -->
+
 <section class="scene active">
 <div class="slide-inner">
-  <div class="eyebrow">AI TRONG CÔNG VIỆC</div>
-  <h1>Từ một yêu cầu công việc đến một kết quả có thể sử dụng</h1>
+
+  <div class="eyebrow">
+    AI TRONG CÔNG VIỆC
+  </div>
+
+  <h1>
+    Từ một yêu cầu công việc đến một kết quả có thể sử dụng
+  </h1>
 
   <p class="lead">
-    AI có thể hỗ trợ ở rất nhiều bước. Quan trọng là biết mình cần giải quyết việc gì
+    AI có thể hỗ trợ ở rất nhiều bước.
+    Quan trọng là biết mình cần giải quyết việc gì
     và sử dụng AI như thế nào trong cả quá trình.
   </p>
 
   <div class="flow">
+
     <div class="flow-box">HIỂU VIỆC</div>
     <div class="arrow">→</div>
+
     <div class="flow-box">LÀM CÙNG AI</div>
     <div class="arrow">→</div>
+
     <div class="flow-box">TẠO KẾT QUẢ</div>
     <div class="arrow">→</div>
+
     <div class="flow-box">KIỂM TRA</div>
     <div class="arrow">→</div>
+
     <div class="flow-box">QUYẾT ĐỊNH</div>
+
   </div>
+
 </div>
 </section>
 
-<!-- SLIDE 2 -->
+
+<!-- 2 -->
+
 <section class="scene">
 <div class="slide-inner">
-  <div class="eyebrow">01 · HIỂU VIỆC</div>
-  <h2>Trước khi hỏi AI, hãy hiểu việc mình đang cần giải quyết</h2>
+
+  <div class="eyebrow">
+    01 · HIỂU VIỆC
+  </div>
+
+  <h2>
+    Trước khi hỏi AI, hãy hiểu việc mình đang cần giải quyết
+  </h2>
 
   <div class="cards">
+
     <div class="card">
       <strong>YÊU CẦU</strong>
       <p>Mình thực sự được giao việc gì</p>
     </div>
+
     <div class="card">
       <strong>TÌNH HÌNH</strong>
       <p>Đang có dữ liệu, vấn đề và hạn chế gì</p>
     </div>
+
     <div class="card">
       <strong>MỤC TIÊU</strong>
       <p>Kết quả cuối cùng cần giúp ích cho việc gì</p>
     </div>
+
     <div class="card">
       <strong>NGƯỜI NHẬN</strong>
       <p>Ai sẽ đọc, sử dụng hoặc ra quyết định</p>
     </div>
+
   </div>
 
   <div class="callout">
-    AI có thể hỏi ngược để giúp làm rõ yêu cầu và phát hiện những điều mình chưa nghĩ tới.
+    AI có thể hỏi ngược để giúp làm rõ yêu cầu
+    và phát hiện những điều mình chưa nghĩ tới.
   </div>
+
 </div>
 </section>
 
-<!-- SLIDE 3 -->
+
+<!-- 3 -->
+
 <section class="scene">
 <div class="slide-inner">
-  <div class="eyebrow">02 · NGHĨ CÙNG AI</div>
-  <h2>Nghĩ cùng AI và tạo Draft 1 thật sớm</h2>
+
+  <div class="eyebrow">
+    02 · NGHĨ CÙNG AI
+  </div>
+
+  <h2>
+    Nghĩ cùng AI và tạo Draft 1 thật sớm
+  </h2>
 
   <p class="lead">
-    Trao đổi với AI để mở rộng góc nhìn, sắp xếp suy nghĩ và tạo một bản nháp đầu tiên.
+    Trao đổi với AI để mở rộng góc nhìn,
+    sắp xếp suy nghĩ và tạo một bản nháp đầu tiên.
   </p>
 
   <div class="flow">
+
     <div class="flow-box">YÊU CẦU</div>
     <div class="arrow">→</div>
+
     <div class="flow-box">TRAO ĐỔI</div>
     <div class="arrow">→</div>
+
     <div class="flow-box">Ý TƯỞNG</div>
     <div class="arrow">→</div>
+
     <div class="flow-box">CẤU TRÚC</div>
     <div class="arrow">→</div>
+
     <div class="flow-box">DRAFT 1</div>
+
   </div>
 
   <div class="callout">
-    Có bản nháp sớm giúp chúng ta có thứ để nhìn, phản biện và nâng cấp.
+    Có bản nháp sớm giúp chúng ta có thứ để nhìn,
+    phản biện và nâng cấp.
   </div>
+
 </div>
 </section>
 
-<!-- SLIDE 4 LIVE -->
+
+<!-- 4 LIVE -->
+
 <section class="scene">
 <div class="slide-inner">
 
-  <div class="eyebrow">03 · TƯƠNG TÁC TRỰC TIẾP</div>
-  <h2>Bạn đang sử dụng AI nào?</h2>
+  <div class="eyebrow">
+    03 · TƯƠNG TÁC TRỰC TIẾP
+  </div>
+
+  <h2>
+    Bạn đang sử dụng AI nào?
+  </h2>
 
   <p class="lead">
-    Quét QR và nhập tên một công cụ AI bạn đang sử dụng trong công việc hoặc học tập.
+    Quét QR và nhập các công cụ AI bạn đang sử dụng
+    trong công việc hoặc học tập.
   </p>
 
   <div class="live-layout">
@@ -885,13 +1072,17 @@ h3{margin:0;font-size:23px}
     <div class="qr-panel">
 
       <div class="qr-box">
+
         <img
           src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fduongthuhuong.github.io%2Fai-in-work%2Ftham-gia.html"
           alt="QR tham gia"
         >
+
       </div>
 
-      <div class="qr-title">QUÉT QR ĐỂ THAM GIA</div>
+      <div class="qr-title">
+        QUÉT QR ĐỂ THAM GIA
+      </div>
 
       <div class="qr-sub">
         Không cần đăng nhập<br>
@@ -899,6 +1090,7 @@ h3{margin:0;font-size:23px}
       </div>
 
     </div>
+
 
     <div class="live-panel">
 
@@ -910,19 +1102,24 @@ h3{margin:0;font-size:23px}
         </div>
 
         <div class="total">
-          <span id="totalAnswers">0</span> lượt trả lời
+          <span id="totalAnswers">0</span>
+          lượt trả lời
         </div>
 
       </div>
 
+
       <div class="word-cloud" id="wordCloud">
+
         <div class="empty-cloud">
           Đang chờ câu trả lời đầu tiên
         </div>
+
       </div>
 
+
       <div class="live-note">
-        Tên giống nhau được tự động gộp và cộng số lượt
+        AI được nhắc nhiều hơn sẽ lớn hơn một chút
       </div>
 
     </div>
@@ -932,12 +1129,19 @@ h3{margin:0;font-size:23px}
 </div>
 </section>
 
-<!-- SLIDE 5 -->
+
+<!-- 5 -->
+
 <section class="scene">
 <div class="slide-inner">
 
-  <div class="eyebrow">04 · KHÁM PHÁ</div>
-  <h2>Còn rất nhiều AI khác</h2>
+  <div class="eyebrow">
+    04 · KHÁM PHÁ
+  </div>
+
+  <h2>
+    Còn rất nhiều AI khác
+  </h2>
 
   <p class="lead">
     Bấm từng công cụ để xem điểm mạnh chính.
@@ -947,101 +1151,160 @@ h3{margin:0;font-size:23px}
 
     <button class="ai-card">
       <div class="ai-name">ChatGPT</div>
-      <div class="ai-strength">Trao đổi · phân tích · tạo nội dung · làm việc đa dạng</div>
+      <div class="ai-strength">
+        Trao đổi · phân tích · tạo nội dung · làm việc đa dạng
+      </div>
     </button>
 
     <button class="ai-card">
       <div class="ai-name">Claude</div>
-      <div class="ai-strength">Tài liệu dài · viết · phân tích · lập luận</div>
+      <div class="ai-strength">
+        Tài liệu dài · viết · phân tích · lập luận
+      </div>
     </button>
 
     <button class="ai-card">
       <div class="ai-name">Gemini</div>
-      <div class="ai-strength">Đa phương thức · tìm hiểu · hệ sinh thái Google</div>
+      <div class="ai-strength">
+        Đa phương thức · tìm hiểu · hệ sinh thái Google
+      </div>
     </button>
 
     <button class="ai-card">
       <div class="ai-name">Microsoft Copilot</div>
-      <div class="ai-strength">AI trong hệ sinh thái làm việc Microsoft</div>
+      <div class="ai-strength">
+        AI trong hệ sinh thái làm việc Microsoft
+      </div>
     </button>
 
     <button class="ai-card">
       <div class="ai-name">NotebookLM</div>
-      <div class="ai-strength">Làm việc dựa trên bộ tài liệu và nguồn đã chọn</div>
+      <div class="ai-strength">
+        Làm việc dựa trên bộ tài liệu và nguồn đã chọn
+      </div>
     </button>
 
     <button class="ai-card">
       <div class="ai-name">Perplexity</div>
-      <div class="ai-strength">Tìm kiếm · nghiên cứu · theo dõi nguồn</div>
+      <div class="ai-strength">
+        Tìm kiếm · nghiên cứu · theo dõi nguồn
+      </div>
     </button>
 
     <button class="ai-card">
       <div class="ai-name">Manus</div>
-      <div class="ai-strength">Nghiên cứu sâu và nhiệm vụ nhiều bước</div>
+      <div class="ai-strength">
+        Nghiên cứu sâu và nhiệm vụ nhiều bước
+      </div>
     </button>
 
     <button class="ai-card">
       <div class="ai-name">DeepSeek</div>
-      <div class="ai-strength">Lập luận · kỹ thuật · hỗ trợ lập trình</div>
+      <div class="ai-strength">
+        Lập luận · kỹ thuật · hỗ trợ lập trình
+      </div>
     </button>
 
     <button class="ai-card">
       <div class="ai-name">Grok</div>
-      <div class="ai-strength">Tìm hiểu thông tin và nội dung cập nhật</div>
+      <div class="ai-strength">
+        Tìm hiểu thông tin và nội dung cập nhật
+      </div>
     </button>
 
     <button class="ai-card">
       <div class="ai-name">XMind AI</div>
-      <div class="ai-strength">Mindmap và cấu trúc ý tưởng</div>
+      <div class="ai-strength">
+        Mindmap và cấu trúc ý tưởng
+      </div>
     </button>
 
     <button class="ai-card">
-      <div class="ai-name">Napkin AI</div>
-      <div class="ai-strength">Biến nội dung thành hình ảnh trực quan</div>
+      <div class="ai-name">draw.io</div>
+      <div class="ai-strength">
+        Sơ đồ · quy trình · kiến trúc
+      </div>
     </button>
 
     <button class="ai-card">
       <div class="ai-name">Canva AI</div>
-      <div class="ai-strength">Thiết kế · hình ảnh · trình bày</div>
+      <div class="ai-strength">
+        Thiết kế · hình ảnh · trình bày
+      </div>
     </button>
 
     <button class="ai-card">
       <div class="ai-name">Moda</div>
-      <div class="ai-strength">Tạo sản phẩm trình bày trực quan</div>
+      <div class="ai-strength">
+        Tạo sản phẩm trình bày trực quan
+      </div>
     </button>
 
     <button class="ai-card">
       <div class="ai-name">Gamma</div>
-      <div class="ai-strength">Tạo bài trình bày nhanh</div>
+      <div class="ai-strength">
+        Tạo bài trình bày nhanh
+      </div>
     </button>
 
     <button class="ai-card">
       <div class="ai-name">GitHub Copilot</div>
-      <div class="ai-strength">Hỗ trợ lập trình và làm việc với code</div>
+      <div class="ai-strength">
+        Hỗ trợ lập trình và làm việc với code
+      </div>
     </button>
 
   </div>
 
   <div class="callout">
-    15 AI này cũng có thể sẽ thay đổi hoặc bị thay thế. Công cụ mới sẽ tiếp tục xuất hiện.
+    15 AI này cũng có thể sẽ thay đổi hoặc bị thay thế.
+    Công cụ mới sẽ tiếp tục xuất hiện.
   </div>
 
 </div>
 </section>
 
-<!-- SLIDE 6 -->
+
+<!-- 6 -->
+
 <section class="scene">
 <div class="slide-inner">
 
-  <div class="eyebrow">05 · HỌC LIÊN TỤC</div>
-  <h2>Công cụ thay đổi thì cách làm việc cũng phải thay đổi</h2>
+  <div class="eyebrow">
+    05 · HỌC LIÊN TỤC
+  </div>
+
+  <h2>
+    Công cụ thay đổi thì cách làm việc cũng phải thay đổi
+  </h2>
 
   <div class="cycle">
-    <div class="cycle-card"><strong>HỌC</strong><p>Biết khả năng mới</p></div>
-    <div class="cycle-card"><strong>THỬ</strong><p>Đưa vào việc thật</p></div>
-    <div class="cycle-card"><strong>TRAINING</strong><p>Phản hồi và điều chỉnh</p></div>
-    <div class="cycle-card"><strong>ÁP DỤNG</strong><p>Giữ cách làm có giá trị</p></div>
-    <div class="cycle-card"><strong>CẬP NHẬT</strong><p>Tiếp tục học khi AI thay đổi</p></div>
+
+    <div class="cycle-card">
+      <strong>HỌC</strong>
+      <p>Biết khả năng mới</p>
+    </div>
+
+    <div class="cycle-card">
+      <strong>THỬ</strong>
+      <p>Đưa vào việc thật</p>
+    </div>
+
+    <div class="cycle-card">
+      <strong>TRAINING</strong>
+      <p>Phản hồi và điều chỉnh</p>
+    </div>
+
+    <div class="cycle-card">
+      <strong>ÁP DỤNG</strong>
+      <p>Giữ cách làm có giá trị</p>
+    </div>
+
+    <div class="cycle-card">
+      <strong>CẬP NHẬT</strong>
+      <p>Tiếp tục học khi AI thay đổi</p>
+    </div>
+
   </div>
 
   <div class="callout">
@@ -1051,20 +1314,46 @@ h3{margin:0;font-size:23px}
 </div>
 </section>
 
-<!-- SLIDE 7 -->
+
+<!-- 7 -->
+
 <section class="scene">
 <div class="slide-inner">
 
-  <div class="eyebrow">06 · NHÌN LẠI</div>
-  <h2>Nhưng chúng ta có đang dùng AI hơi lộn xộn?</h2>
+  <div class="eyebrow">
+    06 · NHÌN LẠI
+  </div>
+
+  <h2>
+    Nhưng chúng ta có đang dùng AI hơi lộn xộn?
+  </h2>
 
   <div class="problem-grid">
-    <div class="problem">Mỗi câu hỏi lại mở một chat mới</div>
-    <div class="problem">Đưa lại cùng một bối cảnh nhiều lần</div>
-    <div class="problem">Sửa một phần nhưng yêu cầu làm lại toàn bộ</div>
-    <div class="problem">Đổi AI liên tục mà không rõ lý do</div>
-    <div class="problem">Không lưu lại cách làm đã tốt</div>
-    <div class="problem">Việc đơn giản cũng dùng công cụ mạnh nhất</div>
+
+    <div class="problem">
+      Mỗi câu hỏi lại mở một chat mới
+    </div>
+
+    <div class="problem">
+      Đưa lại cùng một bối cảnh nhiều lần
+    </div>
+
+    <div class="problem">
+      Sửa một phần nhưng yêu cầu làm lại toàn bộ
+    </div>
+
+    <div class="problem">
+      Đổi AI liên tục mà không rõ lý do
+    </div>
+
+    <div class="problem">
+      Không lưu lại cách làm đã tốt
+    </div>
+
+    <div class="problem">
+      Việc đơn giản cũng dùng công cụ mạnh nhất
+    </div>
+
   </div>
 
   <div class="callout">
@@ -1074,80 +1363,150 @@ h3{margin:0;font-size:23px}
 </div>
 </section>
 
-<!-- SLIDE 8 -->
+
+<!-- 8 -->
+
 <section class="scene">
 <div class="slide-inner">
 
-  <div class="eyebrow">07 · QUY HOẠCH</div>
-  <h2>Dùng AI có quy hoạch</h2>
+  <div class="eyebrow">
+    07 · QUY HOẠCH
+  </div>
+
+  <h2>
+    Dùng AI có quy hoạch
+  </h2>
 
   <div class="two-col">
 
     <div class="col">
-      <div class="col-title">DỄ TỐN LƯỢT</div>
-      <div class="item">Hỏi từng câu rời rạc</div>
-      <div class="item">Mỗi lần lại bắt đầu từ đầu</div>
-      <div class="item">Sửa ít nhưng tạo lại toàn bộ</div>
-      <div class="item">Một AI làm mọi việc</div>
-      <div class="item">Không giữ cách làm tốt</div>
+
+      <div class="col-title">
+        DỄ TỐN LƯỢT
+      </div>
+
+      <div class="item">
+        Hỏi từng câu rời rạc
+      </div>
+
+      <div class="item">
+        Mỗi lần lại bắt đầu từ đầu
+      </div>
+
+      <div class="item">
+        Sửa ít nhưng tạo lại toàn bộ
+      </div>
+
+      <div class="item">
+        Một AI làm mọi việc
+      </div>
+
+      <div class="item">
+        Không giữ cách làm tốt
+      </div>
+
     </div>
 
+
     <div class="col good">
-      <div class="col-title" style="color:var(--green)">CÓ QUY HOẠCH</div>
-      <div class="item">Một việc giữ trong một luồng hợp lý</div>
-      <div class="item">Đưa đủ bối cảnh ngay từ đầu</div>
-      <div class="item">Chỉ sửa đúng phần cần sửa</div>
-      <div class="item">Chọn AI theo điểm mạnh</div>
-      <div class="item">Giữ lại cách làm có thể dùng lại</div>
+
+      <div class="col-title" style="color:var(--green)">
+        CÓ QUY HOẠCH
+      </div>
+
+      <div class="item">
+        Một việc giữ trong một luồng hợp lý
+      </div>
+
+      <div class="item">
+        Đưa đủ bối cảnh ngay từ đầu
+      </div>
+
+      <div class="item">
+        Chỉ sửa đúng phần cần sửa
+      </div>
+
+      <div class="item">
+        Chọn AI theo điểm mạnh
+      </div>
+
+      <div class="item">
+        Giữ lại cách làm có thể dùng lại
+      </div>
+
     </div>
 
   </div>
 
   <div class="callout">
-    Dùng AI hiệu quả không phải gửi nhiều câu hỏi hơn, mà là giảm những lượt hỏi không tạo thêm giá trị.
+    Dùng AI hiệu quả không phải gửi nhiều câu hỏi hơn,
+    mà là giảm những lượt hỏi không tạo thêm giá trị.
   </div>
 
 </div>
 </section>
 
-<!-- SLIDE 9 -->
+
+<!-- 9 -->
+
 <section class="scene">
 <div class="slide-inner">
 
-  <div class="eyebrow">08 · TRAINING HẰNG NGÀY</div>
-  <h2>Training không phải tích trữ thật nhiều prompt</h2>
+  <div class="eyebrow">
+    08 · TRAINING HẰNG NGÀY
+  </div>
+
+  <h2>
+    Training không phải tích trữ thật nhiều prompt
+  </h2>
 
   <p class="lead">
-    Qua mỗi lần làm việc, chúng ta biết thêm cách nào hiệu quả và cách nào không.
+    Qua mỗi lần làm việc,
+    chúng ta biết thêm cách nào hiệu quả và cách nào không.
   </p>
 
   <div class="flow">
+
     <div class="flow-box">DÙNG</div>
     <div class="arrow">→</div>
+
     <div class="flow-box">PHẢN HỒI</div>
     <div class="arrow">→</div>
+
     <div class="flow-box">CHỈNH</div>
     <div class="arrow">→</div>
+
     <div class="flow-box">THỬ LẠI</div>
     <div class="arrow">→</div>
+
     <div class="flow-box">GIỮ CÁCH TỐT</div>
+
   </div>
 
   <div class="callout">
-    Điều đáng giữ lại là những cách làm thực sự giúp công việc tốt hơn.
+    Điều đáng giữ lại là những cách làm
+    thực sự giúp công việc tốt hơn.
   </div>
 
 </div>
 </section>
 
-<!-- SLIDE 10 -->
+
+<!-- 10 -->
+
 <section class="scene">
 <div class="slide-inner">
 
-  <div class="eyebrow">09 · HỆ THỐNG HÓA</div>
-  <h2>Từ cách làm tốt đến hệ thống có thể dùng lại</h2>
+  <div class="eyebrow">
+    09 · HỆ THỐNG HÓA
+  </div>
+
+  <h2>
+    Từ cách làm tốt đến hệ thống có thể dùng lại
+  </h2>
 
   <div class="stack">
+
     <div class="stack-row">
       <strong>CÁCH LÀM TỐT</strong>
       <span>Một phương pháp đã thử và có kết quả</span>
@@ -1170,89 +1529,168 @@ h3{margin:0;font-size:23px}
 
     <div class="stack-row">
       <strong>AI AGENT</strong>
-      <span>Dành cho công việc đủ ổn định, lặp lại và thực sự cần nhiều bước</span>
+      <span>Dành cho công việc ổn định, lặp lại và cần nhiều bước</span>
     </div>
+
   </div>
 
 </div>
 </section>
 
-<!-- SLIDE 11 -->
+
+<!-- 11 -->
+
 <section class="scene">
 <div class="slide-inner">
 
-  <div class="eyebrow">10 · AI NGAY TRONG CÔNG VIỆC</div>
-  <h2>Hãy khai thác tốt AI được phép sử dụng trong môi trường công việc</h2>
+  <div class="eyebrow">
+    10 · AI NGAY TRONG CÔNG VIỆC
+  </div>
+
+  <h2>
+    Hãy khai thác tốt AI được phép sử dụng trong môi trường công việc
+  </h2>
 
   <p class="lead">
-    Có thể chúng ta đã có Copilot, AI Assistant hoặc công cụ AI được đơn vị cung cấp,
+    Có thể chúng ta đã có Copilot,
+    AI Assistant hoặc công cụ AI được đơn vị cung cấp,
     nhưng chưa khai thác hết khả năng của nó.
   </p>
 
   <div class="cards">
-    <div class="card"><strong>WORD</strong><p>Soạn thảo · tóm tắt · rà soát</p></div>
-    <div class="card"><strong>EXCEL</strong><p>Phân tích · công thức · dữ liệu</p></div>
-    <div class="card"><strong>POWERPOINT</strong><p>Dàn ý · cấu trúc · trình bày</p></div>
-    <div class="card"><strong>HỆ THỐNG CÔNG VIỆC</strong><p>Assistant · Agent · nguồn nội bộ</p></div>
+
+    <div class="card">
+      <strong>WORD</strong>
+      <p>Soạn thảo · tóm tắt · rà soát</p>
+    </div>
+
+    <div class="card">
+      <strong>EXCEL</strong>
+      <p>Phân tích · công thức · dữ liệu</p>
+    </div>
+
+    <div class="card">
+      <strong>POWERPOINT</strong>
+      <p>Dàn ý · cấu trúc · trình bày</p>
+    </div>
+
+    <div class="card">
+      <strong>HỆ THỐNG CÔNG VIỆC</strong>
+      <p>Assistant · Agent · nguồn nội bộ</p>
+    </div>
+
   </div>
 
   <div class="callout">
-    Trước khi mang công việc sang một AI khác, hãy xem công cụ mình được phép sử dụng đã làm được việc đó chưa.
+    Trước khi mang công việc sang một AI khác,
+    hãy xem công cụ mình được phép sử dụng
+    đã làm được việc đó chưa.
   </div>
 
 </div>
 </section>
 
-<!-- SLIDE 12 -->
+
+<!-- 12 -->
+
 <section class="scene">
 <div class="slide-inner">
 
-  <div class="eyebrow">11 · TỪ PHÂN TÍCH ĐẾN SẢN PHẨM</div>
-  <h2>Khi cần một đầu ra khác, chọn công cụ đúng lúc</h2>
+  <div class="eyebrow">
+    11 · TỪ PHÂN TÍCH ĐẾN SẢN PHẨM
+  </div>
+
+  <h2>
+    Khi cần một đầu ra khác, chọn công cụ đúng lúc
+  </h2>
 
   <div class="cards">
-    <div class="card"><strong>CẤU TRÚC Ý TƯỞNG</strong><p>XMind AI</p></div>
-    <div class="card"><strong>QUY TRÌNH</strong><p>draw.io</p></div>
-    <div class="card"><strong>BỘ TÀI LIỆU</strong><p>NotebookLM</p></div>
-    <div class="card"><strong>TRÌNH BÀY</strong><p>Moda · Canva · Gamma · GitHub</p></div>
+
+    <div class="card">
+      <strong>CẤU TRÚC Ý TƯỞNG</strong>
+      <p>XMind AI</p>
+    </div>
+
+    <div class="card">
+      <strong>QUY TRÌNH</strong>
+      <p>draw.io</p>
+    </div>
+
+    <div class="card">
+      <strong>BỘ TÀI LIỆU</strong>
+      <p>NotebookLM</p>
+    </div>
+
+    <div class="card">
+      <strong>TRÌNH BÀY</strong>
+      <p>Moda · Canva · Gamma · GitHub</p>
+    </div>
+
   </div>
 
   <div class="callout">
-    Không cần dùng nhiều công cụ trong một việc. Chỉ dùng thêm khi nó tạo ra giá trị rõ ràng.
+    Không cần dùng nhiều công cụ trong một việc.
+    Chỉ dùng thêm khi nó tạo ra giá trị rõ ràng.
   </div>
 
 </div>
 </section>
 
-<!-- SLIDE 13 -->
+
+<!-- 13 -->
+
 <section class="scene">
 <div class="slide-inner">
 
-  <div class="eyebrow">12 · NÂNG CẤP</div>
-  <h2>Draft 1 không phải sản phẩm cuối cùng</h2>
+  <div class="eyebrow">
+    12 · NÂNG CẤP
+  </div>
+
+  <h2>
+    Draft 1 không phải sản phẩm cuối cùng
+  </h2>
 
   <div class="version-flow">
 
     <div class="version">
+
       <strong>DRAFT 1</strong>
+
       <h3>Có bản đầu tiên</h3>
-      <p>Đã có cấu trúc và ý chính.</p>
+
+      <p>
+        Đã có cấu trúc và ý chính.
+      </p>
+
     </div>
 
     <div class="arrow">→</div>
 
     <div class="version">
+
       <strong>PHẢN BIỆN</strong>
+
       <h3>Tìm điểm yếu</h3>
-      <p>Thiếu gì · thừa gì · logic nào yếu · chỗ nào chưa đủ căn cứ.</p>
+
+      <p>
+        Thiếu gì · thừa gì · logic nào yếu ·
+        chỗ nào chưa đủ căn cứ.
+      </p>
+
     </div>
 
     <div class="arrow">→</div>
 
     <div class="version">
+
       <strong>DRAFT 2</strong>
+
       <h3>Nâng cấp</h3>
-      <p>Bổ sung bối cảnh và chỉnh lại nội dung.</p>
+
+      <p>
+        Bổ sung bối cảnh và chỉnh lại nội dung.
+      </p>
+
     </div>
 
   </div>
@@ -1260,12 +1698,19 @@ h3{margin:0;font-size:23px}
 </div>
 </section>
 
-<!-- SLIDE 14 -->
+
+<!-- 14 -->
+
 <section class="scene">
 <div class="slide-inner">
 
-  <div class="eyebrow">13 · KIỂM CHỨNG</div>
-  <h2>Có kết quả rồi, bây giờ mới đến bước không được bỏ qua</h2>
+  <div class="eyebrow">
+    13 · KIỂM CHỨNG
+  </div>
+
+  <h2>
+    Có kết quả rồi, bây giờ mới đến bước không được bỏ qua
+  </h2>
 
   <div class="chain">
 
@@ -1303,38 +1748,89 @@ h3{margin:0;font-size:23px}
 </div>
 </section>
 
-<!-- SLIDE 15 -->
+
+<!-- 15 -->
+
 <section class="scene">
 <div class="slide-inner">
 
-  <div class="eyebrow">14 · ĐỔI GÓC NHÌN</div>
-  <h2>Bản cuối đã có. Người nhận sẽ hỏi gì?</h2>
+  <div class="eyebrow">
+    14 · ĐỔI GÓC NHÌN
+  </div>
+
+  <h2>
+    Bản cuối đã có. Người nhận sẽ hỏi gì?
+  </h2>
 
   <div class="questions">
 
     <div class="question">
-      <button>1 · Nguồn ở đâu?</button>
-      <div class="q-detail">Có thể quay lại và kiểm tra những nguồn quan trọng làm cơ sở cho kết luận không?</div>
+
+      <button>
+        1 · Nguồn ở đâu?
+      </button>
+
+      <div class="q-detail">
+        Có thể quay lại và kiểm tra những nguồn quan trọng
+        làm cơ sở cho kết luận không?
+      </div>
+
     </div>
 
-    <div class="question">
-      <button>2 · Nguồn và dữ liệu đáng tin đến mức nào?</button>
-      <div class="q-detail">Ai công bố, khi nào và còn phù hợp với bối cảnh hiện tại không?</div>
-    </div>
 
     <div class="question">
-      <button>3 · Giả định quan trọng nhất là gì?</button>
-      <div class="q-detail">Nếu giả định này thay đổi thì kết luận có thay đổi không?</div>
+
+      <button>
+        2 · Nguồn và dữ liệu đáng tin đến mức nào?
+      </button>
+
+      <div class="q-detail">
+        Ai công bố, khi nào
+        và còn phù hợp với bối cảnh hiện tại không?
+      </div>
+
     </div>
 
-    <div class="question">
-      <button>4 · Còn thiếu thông tin nào có thể làm thay đổi kết luận?</button>
-      <div class="q-detail">Đâu là dữ liệu đã xác nhận và đâu vẫn là khoảng trống thông tin?</div>
-    </div>
 
     <div class="question">
-      <button>5 · Điều gì có thể khiến kết luận này sai?</button>
-      <div class="q-detail">Điểm yếu nào cần kiểm tra thêm trước khi sử dụng kết quả để quyết định?</div>
+
+      <button>
+        3 · Giả định quan trọng nhất là gì?
+      </button>
+
+      <div class="q-detail">
+        Nếu giả định này thay đổi
+        thì kết luận có thay đổi không?
+      </div>
+
+    </div>
+
+
+    <div class="question">
+
+      <button>
+        4 · Còn thiếu thông tin nào có thể làm thay đổi kết luận?
+      </button>
+
+      <div class="q-detail">
+        Đâu là dữ liệu đã xác nhận
+        và đâu vẫn là khoảng trống thông tin?
+      </div>
+
+    </div>
+
+
+    <div class="question">
+
+      <button>
+        5 · Điều gì có thể khiến kết luận này sai?
+      </button>
+
+      <div class="q-detail">
+        Điểm yếu nào cần kiểm tra thêm
+        trước khi sử dụng kết quả để quyết định?
+      </div>
+
     </div>
 
   </div>
@@ -1342,47 +1838,110 @@ h3{margin:0;font-size:23px}
 </div>
 </section>
 
-<!-- SLIDE 16 -->
+
+<!-- 16 -->
+
 <section class="scene">
 <div class="slide-inner">
 
-  <div class="eyebrow">15 · CUỐI CÙNG</div>
-  <h2>AI có thể hỗ trợ rất nhiều. Nhưng có những việc AI không làm thay chúng ta.</h2>
-
-  <div class="end-stack">
-    <div class="end-line">AI KHÔNG KÝ</div>
-    <div class="end-line">AI KHÔNG PHÊ DUYỆT</div>
-    <div class="end-line">AI KHÔNG RA QUYẾT ĐỊNH THAY BẠN</div>
-    <div class="end-line last">AI KHÔNG CHỊU TRÁCH NHIỆM THAY BẠN</div>
+  <div class="eyebrow">
+    15 · CUỐI CÙNG
   </div>
 
-  <button class="action" onclick="revealEnding()">TIẾP TỤC</button>
+  <h2>
+    AI có thể hỗ trợ rất nhiều.
+    Nhưng có những việc AI không làm thay chúng ta.
+  </h2>
 
-  <div class="final-message" id="finalMessage">
-    QUYẾT ĐỊNH LÀ CỦA CON NGƯỜI<br>
-    <span style="color:var(--amber)">TRÁCH NHIỆM CŨNG LÀ CỦA CON NGƯỜI</span>
+  <div class="end-stack">
+
+    <div class="end-line">
+      AI KHÔNG KÝ
+    </div>
+
+    <div class="end-line">
+      AI KHÔNG PHÊ DUYỆT
+    </div>
+
+    <div class="end-line">
+      AI KHÔNG RA QUYẾT ĐỊNH THAY BẠN
+    </div>
+
+    <div class="end-line last">
+      AI KHÔNG CHỊU TRÁCH NHIỆM THAY BẠN
+    </div>
+
+  </div>
+
+  <button
+    class="action"
+    onclick="revealEnding()"
+  >
+    TIẾP TỤC
+  </button>
+
+  <div
+    class="final-message"
+    id="finalMessage"
+  >
+    NGƯỜI QUYẾT ĐỊNH<br>
+    <span style="color:var(--amber)">
+      LÀ NGƯỜI CHỊU TRÁCH NHIỆM
+    </span>
   </div>
 
 </div>
 </section>
 
+
 </main>
 
+
 <div class="bottom-nav">
-  <button class="nav-arrow" onclick="prevSlide()">←</button>
-  <div class="counter"><span id="currentSlide">1</span> · 16</div>
-  <button class="nav-arrow" onclick="nextSlide()">→</button>
+
+  <button
+    class="nav-arrow"
+    onclick="prevSlide()"
+  >
+    ←
+  </button>
+
+  <div class="counter">
+    <span id="currentSlide">1</span> · 16
+  </div>
+
+  <button
+    class="nav-arrow"
+    onclick="nextSlide()"
+  >
+    →
+  </button>
+
 </div>
+
 
 <div class="drawer" id="drawer">
 
-  <div class="drawer-bg" onclick="closeMenu()"></div>
+  <div
+    class="drawer-bg"
+    onclick="closeMenu()"
+  ></div>
 
   <div class="drawer-panel">
 
     <div class="drawer-head">
-      <strong>MỤC LỤC</strong>
-      <button class="close" onclick="closeMenu()">×</button>
+
+      <strong>
+        MỤC LỤC
+      </strong>
+
+      <button
+        class="close"
+        onclick="closeMenu()"
+      >
+        ×
+      </button>
+
     </div>
 
     <div id="menuList"></div>
@@ -1390,6 +1949,7 @@ h3{margin:0;font-size:23px}
   </div>
 
 </div>
+
 
 <script type="module">
 
@@ -1409,7 +1969,10 @@ const SUPABASE_KEY =
 "sb_publishable_6I8RxZdVpu2Aj3q5qKsAwA_xv3SojaH";
 
 const supabase =
-createClient(SUPABASE_URL,SUPABASE_KEY);
+createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
 
 /* ================================
@@ -1430,16 +1993,23 @@ document.getElementById("currentSlide");
 
 function showSlide(index){
 
-  if(index < 0) index = 0;
+  if(index < 0){
+    index = 0;
+  }
 
-  if(index >= scenes.length)
+  if(index >= scenes.length){
     index = scenes.length - 1;
+  }
 
-  scenes[current].classList.remove("active");
+  scenes[current]
+    .classList
+    .remove("active");
 
   current = index;
 
-  scenes[current].classList.add("active");
+  scenes[current]
+    .classList
+    .add("active");
 
   scenes[current].scrollTop = 0;
 
@@ -1447,8 +2017,12 @@ function showSlide(index){
     current + 1;
 
   progress.style.width =
-    ((current + 1) / scenes.length * 100) + "%";
-
+    (
+      (current + 1)
+      / scenes.length
+      * 100
+    )
+    + "%";
 }
 
 
@@ -1456,47 +2030,73 @@ function nextSlide(){
   showSlide(current + 1);
 }
 
+
 function prevSlide(){
   showSlide(current - 1);
 }
 
-window.nextSlide = nextSlide;
-window.prevSlide = prevSlide;
+
+window.nextSlide =
+nextSlide;
+
+window.prevSlide =
+prevSlide;
 
 
 /* ================================
    KEYBOARD
 ================================ */
 
-document.addEventListener("keydown",event=>{
+document.addEventListener(
+  "keydown",
+  event=>{
 
-  if(
-    event.key === "ArrowRight" ||
-    event.key === "PageDown" ||
-    event.key === " "
-  ){
-    event.preventDefault();
-    nextSlide();
+    if(
+      event.key === "ArrowRight"
+      ||
+      event.key === "PageDown"
+      ||
+      event.key === " "
+    ){
+
+      event.preventDefault();
+
+      nextSlide();
+
+    }
+
+
+    if(
+      event.key === "ArrowLeft"
+      ||
+      event.key === "PageUp"
+    ){
+
+      event.preventDefault();
+
+      prevSlide();
+
+    }
+
+
+    if(event.key === "Home"){
+      showSlide(0);
+    }
+
+
+    if(event.key === "End"){
+      showSlide(
+        scenes.length - 1
+      );
+    }
+
+
+    if(event.key === "Escape"){
+      closeMenu();
+    }
+
   }
-
-  if(
-    event.key === "ArrowLeft" ||
-    event.key === "PageUp"
-  ){
-    event.preventDefault();
-    prevSlide();
-  }
-
-  if(event.key === "Home")
-    showSlide(0);
-
-  if(event.key === "End")
-    showSlide(15);
-
-  if(event.key === "Escape")
-    closeMenu();
-
-});
+);
 
 
 /* ================================
@@ -1504,139 +2104,217 @@ document.addEventListener("keydown",event=>{
 ================================ */
 
 const menuNames = [
-"AI trong công việc",
-"Hiểu việc trước",
-"Nghĩ cùng AI",
-"Tương tác trực tiếp",
-"15 AI và điểm mạnh",
-"Học liên tục",
-"Dùng AI lộn xộn",
-"Dùng AI có quy hoạch",
-"Training hằng ngày",
-"Hệ thống hóa",
-"AI ngay trong công việc",
-"Từ phân tích đến sản phẩm",
-"Draft 1 đến Draft 2",
-"Kiểm chứng",
-"Nhìn từ phía người nhận",
-"Con người chịu trách nhiệm"
+
+  "AI trong công việc",
+
+  "Hiểu việc trước",
+
+  "Nghĩ cùng AI",
+
+  "Tương tác trực tiếp",
+
+  "15 AI và điểm mạnh",
+
+  "Học liên tục",
+
+  "Dùng AI lộn xộn",
+
+  "Dùng AI có quy hoạch",
+
+  "Training hằng ngày",
+
+  "Hệ thống hóa",
+
+  "AI ngay trong công việc",
+
+  "Từ phân tích đến sản phẩm",
+
+  "Draft 1 đến Draft 2",
+
+  "Kiểm chứng",
+
+  "Nhìn từ phía người nhận",
+
+  "Con người chịu trách nhiệm"
+
 ];
+
 
 const menuList =
 document.getElementById("menuList");
 
-menuNames.forEach((name,index)=>{
 
-  const btn =
-    document.createElement("button");
+menuNames.forEach(
+  (name,index)=>{
 
-  btn.className =
-    "menu-item";
+    const btn =
+      document.createElement("button");
 
-  btn.innerHTML =
-    "<span>" +
-    (index + 1) +
-    "</span>" +
-    name;
+    btn.className =
+      "menu-item";
 
-  btn.onclick = ()=>{
+    btn.innerHTML =
+      "<span>"
+      + (index + 1)
+      + "</span>"
+      + name;
 
-    closeMenu();
+    btn.onclick = ()=>{
 
-    showSlide(index);
+      closeMenu();
 
-  };
+      showSlide(index);
 
-  menuList.appendChild(btn);
+    };
 
-});
+    menuList.appendChild(btn);
+
+  }
+);
 
 
 function openMenu(){
+
   document
     .getElementById("drawer")
-    .classList.add("open");
+    .classList
+    .add("open");
+
 }
+
 
 function closeMenu(){
+
   document
     .getElementById("drawer")
-    .classList.remove("open");
+    .classList
+    .remove("open");
+
 }
 
-window.openMenu = openMenu;
-window.closeMenu = closeMenu;
+
+window.openMenu =
+openMenu;
+
+window.closeMenu =
+closeMenu;
 
 
 /* ================================
-   NORMALIZE AI NAMES
+   TÁCH CÂU TRẢ LỜI
 ================================ */
 
-function cleanText(value){
+function splitAnswers(value){
 
-  return String(value || "")
-    .trim()
-    .replace(/\s+/g," ");
+  const clean =
+    String(value || "")
+
+      .replace(/\n/g,",")
+
+      .replace(/;/g,",")
+
+      .replace(/\|/g,",")
+
+      .replace(/，/g,",");
+
+
+  return clean
+
+    .split(",")
+
+    .map(
+      item =>
+        item.trim()
+    )
+
+    .filter(Boolean);
 
 }
 
+
+/* ================================
+   CHUẨN HÓA TÊN AI
+================================ */
 
 function normalizeAI(value){
 
   const clean =
-    cleanText(value);
+    String(value || "")
+
+      .trim()
+
+      .replace(/\s+/g," ");
+
 
   const key =
     clean
+
       .toLowerCase()
+
       .replace(/[\s._-]/g,"");
 
 
   const known = {
 
     "chatgpt":"ChatGPT",
+    "chatgptai":"ChatGPT",
 
     "claude":"Claude",
+    "claudeai":"Claude",
 
     "gemini":"Gemini",
+    "geminiai":"Gemini",
 
     "copilot":"Copilot",
-
+    "copilotai":"Copilot",
     "microsoftcopilot":"Copilot",
+    "microsoftcopilotai":"Copilot",
 
     "githubcopilot":"GitHub Copilot",
 
     "notebooklm":"NotebookLM",
 
     "perplexity":"Perplexity",
+    "perplexityai":"Perplexity",
 
     "manus":"Manus",
+    "manusai":"Manus",
 
     "deepseek":"DeepSeek",
+    "deepseekai":"DeepSeek",
 
     "grok":"Grok",
+    "grokai":"Grok",
 
     "xmind":"XMind AI",
-
     "xmindai":"XMind AI",
 
     "canva":"Canva AI",
-
     "canvaai":"Canva AI",
 
     "gamma":"Gamma",
+    "gammaai":"Gamma",
 
     "napkin":"Napkin AI",
-
     "napkinai":"Napkin AI",
 
-    "moda":"Moda"
+    "moda":"Moda",
+    "modaai":"Moda",
+
+    "drawio":"draw.io",
+    "drawai":"draw.io",
+    "diagramsnet":"draw.io",
+
+    "1assistant":"1Assistant",
+    "1officeassistant":"1Assistant"
 
   };
 
 
-  if(known[key])
+  if(known[key]){
     return known[key];
+  }
+
 
   return clean;
 
@@ -1644,21 +2322,38 @@ function normalizeAI(value){
 
 
 /* ================================
-   LIVE ANSWERS
+   LIVE DATA
 ================================ */
 
 let answers = [];
 
+let previousCounts = {};
+
+
+/* ================================
+   LOAD
+================================ */
 
 async function loadAnswers(){
 
-  const {data,error} =
+  const {
+    data,
+    error
+  } =
     await supabase
+
       .from("ai_answers")
-      .select("id,answer,created_at")
-      .order("created_at",{
-        ascending:true
-      });
+
+      .select(
+        "id,answer,created_at"
+      )
+
+      .order(
+        "created_at",
+        {
+          ascending:true
+        }
+      );
 
 
   if(error){
@@ -1676,23 +2371,32 @@ async function loadAnswers(){
   answers =
     data || [];
 
+
   renderCloud();
 
 }
 
 
 /* ================================
-   GROUP ANSWERS
+   RENDER CLOUD
 ================================ */
 
 function renderCloud(){
 
   const cloud =
-    document.getElementById("wordCloud");
+    document.getElementById(
+      "wordCloud"
+    );
 
   const total =
-    document.getElementById("totalAnswers");
+    document.getElementById(
+      "totalAnswers"
+    );
 
+
+  /*
+    Đây là số lượt gửi
+  */
 
   total.textContent =
     answers.length;
@@ -1701,9 +2405,14 @@ function renderCloud(){
   if(!answers.length){
 
     cloud.innerHTML =
-      '<div class="empty-cloud">' +
-      'Đang chờ câu trả lời đầu tiên' +
+      '<div class="empty-cloud">'
+      +
+      'Đang chờ câu trả lời đầu tiên'
+      +
       '</div>';
+
+
+    previousCounts = {};
 
     return;
 
@@ -1715,41 +2424,126 @@ function renderCloud(){
 
   answers.forEach(row=>{
 
-    const name =
-      normalizeAI(row.answer);
 
-    if(!name) return;
+    /*
+      Một người có thể nhập
 
-    const key =
-      name.toLowerCase();
+      Chat GPT, Claude, Gemini
 
+      Ta tách thành 3 AI
+    */
 
-    if(!grouped[key]){
-
-      grouped[key] = {
-        name:name,
-        count:0
-      };
-
-    }
+    const tools =
+      splitAnswers(
+        row.answer
+      );
 
 
-    grouped[key].count++;
+    /*
+      Một người nếu nhập
+
+      ChatGPT, Chat GPT
+
+      thì trong chính lượt đó
+      chỉ tính ChatGPT một lần
+    */
+
+    const uniqueTools =
+      new Set();
+
+
+    tools.forEach(tool=>{
+
+      const name =
+        normalizeAI(tool);
+
+
+      if(!name){
+        return;
+      }
+
+
+      const key =
+        name.toLowerCase();
+
+
+      if(
+        uniqueTools.has(key)
+      ){
+        return;
+      }
+
+
+      uniqueTools.add(key);
+
+
+      if(!grouped[key]){
+
+        grouped[key] = {
+
+          name:name,
+
+          count:0
+
+        };
+
+      }
+
+
+      grouped[key].count++;
+
+    });
 
   });
 
 
+  /*
+    Nhiều lượt nhất lên trước
+  */
+
   const items =
-    Object.values(grouped)
-      .sort((a,b)=>
-        b.count - a.count
+    Object
+      .values(grouped)
+
+      .sort(
+        (a,b)=>{
+
+          if(
+            b.count !== a.count
+          ){
+
+            return (
+              b.count
+              -
+              a.count
+            );
+
+          }
+
+
+          return a.name.localeCompare(
+            b.name,
+            "vi"
+          );
+
+        }
       );
 
 
+  /*
+    Tìm số lượt cao nhất
+  */
+
   const maxCount =
     Math.max(
-      ...items.map(item=>item.count)
+      ...items.map(
+        item =>
+          item.count
+      )
     );
+
+
+  const newCounts = {};
 
 
   cloud.innerHTML = "";
@@ -1757,42 +2551,138 @@ function renderCloud(){
 
   items.forEach(item=>{
 
+    const key =
+      item.name
+        .toLowerCase();
+
+
+    newCounts[key] =
+      item.count;
+
+
     const word =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
+
 
     word.className =
       "ai-word";
 
 
     /*
-       Chữ càng nhiều người chọn
-       càng lớn
+      QUAN TRỌNG
+
+      Chênh lệch kích thước nhỏ.
+
+      AI ít người chọn
+      khoảng 20px.
+
+      AI được chọn nhiều nhất
+      tối đa khoảng 29px.
+
+      Vì vậy dù 20 người chọn
+      cũng không phóng to đùng.
     */
 
-    const ratio =
-      item.count / maxCount;
+    let ratio = 0;
+
+
+    if(maxCount > 1){
+
+      ratio =
+        (item.count - 1)
+        /
+        (maxCount - 1);
+
+    }
+
 
     const size =
-      18 + ratio * 25;
+      20
+      +
+      ratio * 9;
 
 
     word.style.fontSize =
-      size + "px";
+      size.toFixed(1)
+      +
+      "px";
+
+
+    /*
+      AI nhiều lượt hơn
+      sáng hơn một chút
+    */
+
+    const glow =
+      0.06
+      +
+      ratio * 0.08;
+
+
+    word.style.background =
+      "rgba(101,221,255,"
+      +
+      glow.toFixed(3)
+      +
+      ")";
 
 
     word.innerHTML =
-      "<span>" +
-      escapeHTML(item.name) +
-      "</span>" +
 
-      '<span class="count">× ' +
-      item.count +
+      "<span>"
+      +
+      escapeHTML(
+        item.name
+      )
+      +
+      "</span>"
+
+      +
+
+      '<span class="count">'
+      +
+      "× "
+      +
+      item.count
+      +
       "</span>";
 
 
-    cloud.appendChild(word);
+    /*
+      Nếu vừa có thêm lượt
+      thì chính AI đó nhảy nhẹ
+    */
+
+    if(
+
+      previousCounts[key]
+
+      &&
+
+      item.count
+      >
+      previousCounts[key]
+
+    ){
+
+      word.classList.add(
+        "just-updated"
+      );
+
+    }
+
+
+    cloud.appendChild(
+      word
+    );
 
   });
+
+
+  previousCounts =
+    newCounts;
 
 }
 
@@ -1802,28 +2692,34 @@ function renderCloud(){
 ================================ */
 
 supabase
-  .channel("ai_answers_live")
+
+  .channel(
+    "ai_answers_live"
+  )
 
   .on(
+
     "postgres_changes",
 
     {
+
       event:"INSERT",
+
       schema:"public",
+
       table:"ai_answers"
+
     },
 
     payload=>{
 
-      /*
-        tránh trùng nếu realtime
-        nhận lại một id đã có
-      */
 
       const exists =
         answers.some(
           row =>
-            row.id === payload.new.id
+            row.id
+            ===
+            payload.new.id
         );
 
 
@@ -1833,6 +2729,7 @@ supabase
           payload.new
         );
 
+
         renderCloud();
 
       }
@@ -1841,14 +2738,16 @@ supabase
 
   )
 
-  .subscribe(status=>{
+  .subscribe(
+    status=>{
 
-    console.log(
-      "Realtime status",
-      status
-    );
+      console.log(
+        "Realtime status",
+        status
+      );
 
-  });
+    }
+  );
 
 
 /* ================================
@@ -1858,7 +2757,9 @@ supabase
 function escapeHTML(text){
 
   const div =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   div.textContent =
     text;
@@ -1873,19 +2774,25 @@ function escapeHTML(text){
 ================================ */
 
 document
-.querySelectorAll(".ai-card")
-.forEach(card=>{
 
-  card.addEventListener(
-    "click",
-    ()=>{
+  .querySelectorAll(
+    ".ai-card"
+  )
 
-      card.classList.toggle("open");
+  .forEach(card=>{
 
-    }
-  );
+    card.addEventListener(
+      "click",
+      ()=>{
 
-});
+        card
+          .classList
+          .toggle("open");
+
+      }
+    );
+
+  });
 
 
 /* ================================
@@ -1893,25 +2800,33 @@ document
 ================================ */
 
 document
-.querySelectorAll(".question")
-.forEach(question=>{
 
-  question
-    .querySelector("button")
-    .addEventListener(
-      "click",
-      ()=>{
+  .querySelectorAll(
+    ".question"
+  )
 
-        question.classList.toggle("open");
+  .forEach(question=>{
 
-      }
-    );
+    question
 
-});
+      .querySelector("button")
+
+      .addEventListener(
+        "click",
+        ()=>{
+
+          question
+            .classList
+            .toggle("open");
+
+        }
+      );
+
+  });
 
 
 /* ================================
-   FINAL REVEAL
+   FINAL
 ================================ */
 
 let endingStep = 0;
@@ -1920,18 +2835,35 @@ let endingStep = 0;
 function revealEnding(){
 
   const lines =
-    [...document.querySelectorAll(".end-line")];
+    [
+      ...document
+        .querySelectorAll(
+          ".end-line"
+        )
+    ];
+
 
   const finalMessage =
-    document.getElementById("finalMessage");
+    document.getElementById(
+      "finalMessage"
+    );
 
 
-  if(endingStep < lines.length){
+  if(
+    endingStep
+    <
+    lines.length
+  ){
 
-    lines[endingStep]
-      .classList.add("show");
+    lines[
+      endingStep
+    ]
+      .classList
+      .add("show");
+
 
     endingStep++;
+
 
     return;
 
@@ -1939,12 +2871,14 @@ function revealEnding(){
 
 
   finalMessage
-    .classList.add("show");
+    .classList
+    .add("show");
 
 }
 
+
 window.revealEnding =
-  revealEnding;
+revealEnding;
 
 
 /* ================================
