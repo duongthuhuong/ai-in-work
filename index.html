@@ -2873,7 +2873,75 @@ document
   });
 
 
-\n\n/* QUIZ 17–18 */\nconst quizQuestions=[\n {q:"Khi bắt đầu dùng AI cho một công việc, bước đầu tiên nên là gì?",o:["Chọn AI mạnh nhất","Hiểu công việc, dữ liệu và đầu ra cần có","Upload toàn bộ tài liệu","Viết prompt thật dài"],a:1},\n {q:"Với dữ liệu nội bộ hoặc nhạy cảm, nguyên tắc đúng là gì?",o:["Có thể đưa vào AI nếu xóa tên file","Chỉ sử dụng trong công cụ/môi trường được đơn vị cho phép và đúng quy định","AI nào cũng bảo mật như nhau","Có thể dùng nếu chỉ tóm tắt"],a:1},\n {q:"Khi cần thực hành nhưng dữ liệu thật không phù hợp để đưa vào AI, nên làm gì?",o:["Dùng dữ liệu giả lập","Chụp màn hình dữ liệu thật","Đổi tên đơn vị là đủ","Bỏ qua bước kiểm tra"],a:0},\n {q:"AI phù hợp nhất với vai trò nào?",o:["Tự phê duyệt quyết định","Hỗ trợ tra cứu, tổng hợp, phân tích và phản biện","Thay hệ thống phân quyền","Chịu trách nhiệm thay người dùng"],a:1},\n {q:"AI đưa ra một con số khác bảng dữ liệu nguồn. Bạn nên làm gì trước?",o:["Tin AI vì câu trả lời tự tin","Kiểm tra nguồn, phép tính và kỳ so sánh","Yêu cầu AI viết lại","Bỏ bảng dữ liệu"],a:1},\n {q:"Một kết luận do AI tạo ra nên được sử dụng thế nào?",o:["Dùng ngay nếu nghe hợp lý","Kiểm chứng bằng nguồn và bối cảnh công việc","Chỉ cần hỏi lại AI lần hai","Coi như ý kiến chuyên gia"],a:1},\n {q:"Người quản lý có thể dùng AI hiệu quả hơn bằng cách nào?",o:["Chỉ yêu cầu tóm tắt","Yêu cầu AI đóng vai người phê duyệt, tìm điểm cần hỏi lại","Giao AI quyết định phương án cuối","Yêu cầu AI ký xác nhận"],a:1},\n {q:"Dữ liệu cho thấy một chỉ tiêu thấp hơn kế hoạch. Có đủ để kết luận nguyên nhân không?",o:["Luôn đủ","Chưa đủ; cần thêm bối cảnh và chuyên môn","Đủ nếu dashboard màu đỏ","Đủ nếu AI đồng ý"],a:1},\n {q:"Vì sao cần tiếp tục học AI?",o:["Để thuộc tên mọi công cụ","Vì công cụ và cách làm việc thay đổi liên tục","Vì mọi việc đều bắt buộc dùng AI","Vì AI luôn đúng hơn con người"],a:1},\n {q:"Ai chịu trách nhiệm cuối cùng với sản phẩm công việc và quyết định?",o:["AI","Nhà cung cấp phần mềm","Con người trong phạm vi trách nhiệm và thẩm quyền của mình","Công cụ có benchmark cao nhất"],a:2}\n];\nlet quizIndex=0;\nlet quizAnswers=Array(quizQuestions.length).fill(null);\nlet resultsRefreshTimer=null;\nfunction renderQuiz(){\n const q=quizQuestions[quizIndex];\n document.getElementById("quizProgress").textContent=`CÂU ${quizIndex+1} / ${quizQuestions.length}`;\n document.getElementById("quizQuestion").textContent=q.q;\n document.getElementById("quizOptions").innerHTML=q.o.map((x,i)=>`<button class="quiz-option ${quizAnswers[quizIndex]===i?'selected':''}" onclick="chooseQuizAnswer(${i})">${String.fromCharCode(65+i)}. ${escapeHTML(x)}</button>`).join("");\n const done=quizAnswers.filter(x=>x!==null).length;\n document.getElementById("quizAnswered").textContent=`${done}/10`;\n document.getElementById("quizDots").innerHTML=quizQuestions.map((_,i)=>`<button class="quiz-dot ${quizAnswers[i]!==null?'done':''} ${i===quizIndex?'current':''}" onclick="goQuizQuestion(${i})">${i+1}</button>`).join("");\n document.getElementById("quizSubmit").disabled=done!==10 || localStorage.getItem("ai_work_test_submitted")==="1";\n}\nfunction chooseQuizAnswer(i){quizAnswers[quizIndex]=i;renderQuiz();if(quizIndex<9)setTimeout(()=>{quizIndex++;renderQuiz()},160)}\nfunction prevQuizQuestion(){quizIndex=Math.max(0,quizIndex-1);renderQuiz()}\nfunction nextQuizQuestion(){quizIndex=Math.min(9,quizIndex+1);renderQuiz()}\nfunction goQuizQuestion(i){quizIndex=i;renderQuiz()}\nwindow.chooseQuizAnswer=chooseQuizAnswer;window.prevQuizQuestion=prevQuizQuestion;window.nextQuizQuestion=nextQuizQuestion;window.goQuizQuestion=goQuizQuestion;\nasync function submitQuiz(){\n const status=document.getElementById("quizStatus");\n if(quizAnswers.some(x=>x===null)){status.textContent="Bạn còn câu chưa trả lời.";return}\n if(localStorage.getItem("ai_work_test_submitted")==="1"){status.textContent="Thiết bị này đã nộp bài.";return}\n status.textContent="Đang gửi câu trả lời…";\n const payload={};quizAnswers.forEach((a,i)=>payload[`q${i+1}`]=String(a));\n const {error}=await supabase.from("test_answers").insert(payload);\n if(error){console.error(error);status.textContent="Không gửi được dữ liệu. Kiểm tra Supabase.";return}\n localStorage.setItem("ai_work_test_submitted","1");localStorage.setItem("ai_work_test_answers",JSON.stringify(quizAnswers));\n document.getElementById("quizSubmit").disabled=true;status.textContent="✓ Đã nộp bài. Cả lớp cùng xem Slide 18.";\n}\nwindow.submitQuiz=submitQuiz;\nfunction consensusLabel(v){return v>=85?"Rất cao":v>=75?"Cao":v>=60?"Khá":"Phân tán"}\nasync function loadQuizResults(){\n const {data,error}=await supabase.from("test_answers").select("q1,q2,q3,q4,q5,q6,q7,q8,q9,q10");\n const list=document.getElementById("resultsList"),status=document.getElementById("resultsStatus");\n if(error){console.error(error);status.textContent="Không đọc được dữ liệu Supabase.";return}\n const rows=data||[];document.getElementById("resultParticipants").textContent=rows.length;\n if(!rows.length){document.getElementById("resultAverage").textContent="–";document.getElementById("resultConsensus").textContent="–";list.innerHTML='<div class="result-card">Đang chờ câu trả lời…</div>';return}\n let totalCorrect=0,totalConsensus=0;\n list.innerHTML=quizQuestions.map((q,qi)=>{\n   const vals=rows.map(r=>Number(r[`q${qi+1}`])).filter(Number.isInteger);\n   const correct=vals.filter(v=>v===q.a).length;totalCorrect+=correct;\n   const counts=q.o.map((_,oi)=>vals.filter(v=>v===oi).length);const max=Math.max(...counts,0);const consensus=vals.length?Math.round(max/vals.length*100):0;totalConsensus+=consensus;const pct=vals.length?Math.round(correct/vals.length*100):0;\n   return `<div class="result-card"><div class="result-no">${String(qi+1).padStart(2,"0")}</div><div class="result-text">${escapeHTML(q.q)}<small>Đáp án: ${String.fromCharCode(65+q.a)}. ${escapeHTML(q.o[q.a])} · Đồng thuận ${consensus}%</small><div class="result-bar-track"><div class="result-bar-fill" style="width:${pct}%"></div></div></div><div class="result-pct">${pct}%</div></div>`;\n }).join("");\n document.getElementById("resultAverage").textContent=(totalCorrect/rows.length).toFixed(1);\n document.getElementById("resultConsensus").textContent=consensusLabel(Math.round(totalConsensus/quizQuestions.length));\n status.textContent="Cập nhật lúc "+new Date().toLocaleTimeString("vi-VN");\n}\nwindow.loadQuizResults=loadQuizResults;\nfunction startResultsRefresh(){stopResultsRefresh();resultsRefreshTimer=setInterval(loadQuizResults,3000)}\nfunction stopResultsRefresh(){if(resultsRefreshTimer){clearInterval(resultsRefreshTimer);resultsRefreshTimer=null}}\nconst savedQuiz=localStorage.getItem("ai_work_test_answers");if(savedQuiz){try{const parsed=JSON.parse(savedQuiz);if(Array.isArray(parsed)&&parsed.length===10)quizAnswers=parsed}catch(e){}}\nrenderQuiz();\n
+
+
+/* QUIZ 17–18 */
+const quizQuestions=[
+ {q:"Khi bắt đầu dùng AI cho một công việc, bước đầu tiên nên là gì?",o:["Chọn AI mạnh nhất","Hiểu công việc, dữ liệu và đầu ra cần có","Upload toàn bộ tài liệu","Viết prompt thật dài"],a:1},
+ {q:"Với dữ liệu nội bộ hoặc nhạy cảm, nguyên tắc đúng là gì?",o:["Có thể đưa vào AI nếu xóa tên file","Chỉ sử dụng trong công cụ/môi trường được đơn vị cho phép và đúng quy định","AI nào cũng bảo mật như nhau","Có thể dùng nếu chỉ tóm tắt"],a:1},
+ {q:"Khi cần thực hành nhưng dữ liệu thật không phù hợp để đưa vào AI, nên làm gì?",o:["Dùng dữ liệu giả lập","Chụp màn hình dữ liệu thật","Đổi tên đơn vị là đủ","Bỏ qua bước kiểm tra"],a:0},
+ {q:"AI phù hợp nhất với vai trò nào?",o:["Tự phê duyệt quyết định","Hỗ trợ tra cứu, tổng hợp, phân tích và phản biện","Thay hệ thống phân quyền","Chịu trách nhiệm thay người dùng"],a:1},
+ {q:"AI đưa ra một con số khác bảng dữ liệu nguồn. Bạn nên làm gì trước?",o:["Tin AI vì câu trả lời tự tin","Kiểm tra nguồn, phép tính và kỳ so sánh","Yêu cầu AI viết lại","Bỏ bảng dữ liệu"],a:1},
+ {q:"Một kết luận do AI tạo ra nên được sử dụng thế nào?",o:["Dùng ngay nếu nghe hợp lý","Kiểm chứng bằng nguồn và bối cảnh công việc","Chỉ cần hỏi lại AI lần hai","Coi như ý kiến chuyên gia"],a:1},
+ {q:"Người quản lý có thể dùng AI hiệu quả hơn bằng cách nào?",o:["Chỉ yêu cầu tóm tắt","Yêu cầu AI đóng vai người phê duyệt, tìm điểm cần hỏi lại","Giao AI quyết định phương án cuối","Yêu cầu AI ký xác nhận"],a:1},
+ {q:"Dữ liệu cho thấy một chỉ tiêu thấp hơn kế hoạch. Có đủ để kết luận nguyên nhân không?",o:["Luôn đủ","Chưa đủ; cần thêm bối cảnh và chuyên môn","Đủ nếu dashboard màu đỏ","Đủ nếu AI đồng ý"],a:1},
+ {q:"Vì sao cần tiếp tục học AI?",o:["Để thuộc tên mọi công cụ","Vì công cụ và cách làm việc thay đổi liên tục","Vì mọi việc đều bắt buộc dùng AI","Vì AI luôn đúng hơn con người"],a:1},
+ {q:"Ai chịu trách nhiệm cuối cùng với sản phẩm công việc và quyết định?",o:["AI","Nhà cung cấp phần mềm","Con người trong phạm vi trách nhiệm và thẩm quyền của mình","Công cụ có benchmark cao nhất"],a:2}
+];
+let quizIndex=0;
+let quizAnswers=Array(quizQuestions.length).fill(null);
+let resultsRefreshTimer=null;
+function renderQuiz(){
+ const q=quizQuestions[quizIndex];
+ document.getElementById("quizProgress").textContent=`CÂU ${quizIndex+1} / ${quizQuestions.length}`;
+ document.getElementById("quizQuestion").textContent=q.q;
+ document.getElementById("quizOptions").innerHTML=q.o.map((x,i)=>`<button class="quiz-option ${quizAnswers[quizIndex]===i?'selected':''}" onclick="chooseQuizAnswer(${i})">${String.fromCharCode(65+i)}. ${escapeHTML(x)}</button>`).join("");
+ const done=quizAnswers.filter(x=>x!==null).length;
+ document.getElementById("quizAnswered").textContent=`${done}/10`;
+ document.getElementById("quizDots").innerHTML=quizQuestions.map((_,i)=>`<button class="quiz-dot ${quizAnswers[i]!==null?'done':''} ${i===quizIndex?'current':''}" onclick="goQuizQuestion(${i})">${i+1}</button>`).join("");
+ document.getElementById("quizSubmit").disabled=done!==10 || localStorage.getItem("ai_work_test_submitted")==="1";
+}
+function chooseQuizAnswer(i){quizAnswers[quizIndex]=i;renderQuiz();if(quizIndex<9)setTimeout(()=>{quizIndex++;renderQuiz()},160)}
+function prevQuizQuestion(){quizIndex=Math.max(0,quizIndex-1);renderQuiz()}
+function nextQuizQuestion(){quizIndex=Math.min(9,quizIndex+1);renderQuiz()}
+function goQuizQuestion(i){quizIndex=i;renderQuiz()}
+window.chooseQuizAnswer=chooseQuizAnswer;window.prevQuizQuestion=prevQuizQuestion;window.nextQuizQuestion=nextQuizQuestion;window.goQuizQuestion=goQuizQuestion;
+async function submitQuiz(){
+ const status=document.getElementById("quizStatus");
+ if(quizAnswers.some(x=>x===null)){status.textContent="Bạn còn câu chưa trả lời.";return}
+ if(localStorage.getItem("ai_work_test_submitted")==="1"){status.textContent="Thiết bị này đã nộp bài.";return}
+ status.textContent="Đang gửi câu trả lời…";
+ const payload={};quizAnswers.forEach((a,i)=>payload[`q${i+1}`]=String(a));
+ const {error}=await supabase.from("test_answers").insert(payload);
+ if(error){console.error(error);status.textContent="Không gửi được dữ liệu. Kiểm tra Supabase.";return}
+ localStorage.setItem("ai_work_test_submitted","1");localStorage.setItem("ai_work_test_answers",JSON.stringify(quizAnswers));
+ document.getElementById("quizSubmit").disabled=true;status.textContent="✓ Đã nộp bài. Cả lớp cùng xem Slide 18.";
+}
+window.submitQuiz=submitQuiz;
+function consensusLabel(v){return v>=85?"Rất cao":v>=75?"Cao":v>=60?"Khá":"Phân tán"}
+async function loadQuizResults(){
+ const {data,error}=await supabase.from("test_answers").select("q1,q2,q3,q4,q5,q6,q7,q8,q9,q10");
+ const list=document.getElementById("resultsList"),status=document.getElementById("resultsStatus");
+ if(error){console.error(error);status.textContent="Không đọc được dữ liệu Supabase.";return}
+ const rows=data||[];document.getElementById("resultParticipants").textContent=rows.length;
+ if(!rows.length){document.getElementById("resultAverage").textContent="–";document.getElementById("resultConsensus").textContent="–";list.innerHTML='<div class="result-card">Đang chờ câu trả lời…</div>';return}
+ let totalCorrect=0,totalConsensus=0;
+ list.innerHTML=quizQuestions.map((q,qi)=>{
+   const vals=rows.map(r=>Number(r[`q${qi+1}`])).filter(Number.isInteger);
+   const correct=vals.filter(v=>v===q.a).length;totalCorrect+=correct;
+   const counts=q.o.map((_,oi)=>vals.filter(v=>v===oi).length);const max=Math.max(...counts,0);const consensus=vals.length?Math.round(max/vals.length*100):0;totalConsensus+=consensus;const pct=vals.length?Math.round(correct/vals.length*100):0;
+   return `<div class="result-card"><div class="result-no">${String(qi+1).padStart(2,"0")}</div><div class="result-text">${escapeHTML(q.q)}<small>Đáp án: ${String.fromCharCode(65+q.a)}. ${escapeHTML(q.o[q.a])} · Đồng thuận ${consensus}%</small><div class="result-bar-track"><div class="result-bar-fill" style="width:${pct}%"></div></div></div><div class="result-pct">${pct}%</div></div>`;
+ }).join("");
+ document.getElementById("resultAverage").textContent=(totalCorrect/rows.length).toFixed(1);
+ document.getElementById("resultConsensus").textContent=consensusLabel(Math.round(totalConsensus/quizQuestions.length));
+ status.textContent="Cập nhật lúc "+new Date().toLocaleTimeString("vi-VN");
+}
+window.loadQuizResults=loadQuizResults;
+function startResultsRefresh(){stopResultsRefresh();resultsRefreshTimer=setInterval(loadQuizResults,3000)}
+function stopResultsRefresh(){if(resultsRefreshTimer){clearInterval(resultsRefreshTimer);resultsRefreshTimer=null}}
+const savedQuiz=localStorage.getItem("ai_work_test_answers");if(savedQuiz){try{const parsed=JSON.parse(savedQuiz);if(Array.isArray(parsed)&&parsed.length===10)quizAnswers=parsed}catch(e){}}
+renderQuiz();
+
 
 /* START */
 
