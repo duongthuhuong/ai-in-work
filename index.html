@@ -854,6 +854,30 @@ h3{
 
 /* NAV */
 
+/* VISIT COUNTER */
+.visit-counter{
+  position:fixed;
+  right:28px;
+  bottom:24px;
+  z-index:120;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 13px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:999px;
+  background:rgba(4,18,34,.72);
+  backdrop-filter:blur(10px);
+  color:rgba(255,255,255,.72);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.02em;
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+}
+.visit-counter strong{color:#fff;font-variant-numeric:tabular-nums;}
+.visit-eye{font-size:14px;opacity:.85;}
+@media(max-width:760px){.visit-counter{right:14px;bottom:14px;font-size:11px;padding:7px 10px;}}
+
 .bottom-nav{
   position:fixed;
   z-index:110;
@@ -2180,6 +2204,13 @@ h3{
 </div>
 
 
+<div class="visit-counter" id="visitCounter" title="Tổng lượt truy cập trang">
+  <span class="visit-eye">◉</span>
+  <strong id="visitCount">—</strong>
+  <span>lượt truy cập</span>
+</div>
+
+
 <div class="bottom-nav">
 
   <button class="nav-arrow" onclick="prevSlide()">
@@ -2238,6 +2269,40 @@ createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
+
+
+/* VISIT COUNTER — chỉ đếm trang trình chiếu, không đếm người mở QR quiz */
+async function updateVisitCounter(){
+  const badge = document.getElementById("visitCounter");
+  const countEl = document.getElementById("visitCount");
+  if(!badge || !countEl) return;
+
+  const isQuizVisit = new URLSearchParams(window.location.search).get("quiz") === "1";
+  if(isQuizVisit){
+    badge.style.display = "none";
+    return;
+  }
+
+  try{
+    const { error: insertError } = await supabase
+      .from("site_visits")
+      .insert({ page: "ai-in-work" });
+    if(insertError) throw insertError;
+
+    const { count, error: countError } = await supabase
+      .from("site_visits")
+      .select("id", { count: "exact", head: true })
+      .eq("page", "ai-in-work");
+    if(countError) throw countError;
+
+    countEl.textContent = Number(count || 0).toLocaleString("vi-VN");
+  }catch(err){
+    console.warn("Visit counter chưa sẵn sàng:", err?.message || err);
+    countEl.textContent = "—";
+  }
+}
+
+updateVisitCounter();
 
 
 /* SLIDES */
@@ -3035,7 +3100,7 @@ function startParticipantMode(){
   document.body.style.overflow="auto";
   const app=document.getElementById("participantQuizApp");
   if(app) app.style.display="block";
-  [document.querySelector(".topbar"),document.getElementById("progress"),document.querySelector("main"),document.querySelector(".bottom-nav"),document.getElementById("drawer")].forEach(el=>{if(el) el.style.display="none"});
+  [document.querySelector(".topbar"),document.getElementById("progress"),document.querySelector("main"),document.querySelector(".bottom-nav"),document.getElementById("drawer"),document.getElementById("visitCounter")].forEach(el=>{if(el) el.style.display="none"});
   const savedQuiz=localStorage.getItem("ai_work_test_answers");
   if(savedQuiz){
     try{
