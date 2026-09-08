@@ -1,1 +1,520 @@
 
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tham gia | AI trong công việc</title>
+
+  <style>
+    :root{
+      --bg:#06111f;
+      --panel:#0b1e32;
+      --cyan:#65ddff;
+      --green:#67e8b1;
+      --text:#f5fbff;
+      --muted:#a9bfd0;
+      --danger:#ff9f9f;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html,body{
+      margin:0;
+      min-height:100%;
+      font-family:"Segoe UI",Arial,sans-serif;
+      background:
+        radial-gradient(circle at 85% 10%,rgba(101,221,255,.14),transparent 28%),
+        radial-gradient(circle at 10% 90%,rgba(103,232,177,.08),transparent 30%),
+        #06111f;
+      color:var(--text);
+    }
+
+    body{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+
+    .wrap{
+      width:min(560px,100%);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--cyan);
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.14em;
+      margin-bottom:24px;
+    }
+
+    .dot{
+      width:11px;
+      height:11px;
+      border-radius:50%;
+      background:var(--cyan);
+      box-shadow:0 0 20px rgba(101,221,255,.8);
+    }
+
+    .card{
+      padding:34px 28px;
+      border-radius:28px;
+      background:rgba(11,30,50,.86);
+      border:1px solid rgba(255,255,255,.09);
+      box-shadow:0 28px 80px rgba(0,0,0,.34);
+      backdrop-filter:blur(16px);
+    }
+
+    .step{
+      font-size:13px;
+      color:var(--cyan);
+      font-weight:800;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(32px,8vw,48px);
+      line-height:1.08;
+      letter-spacing:-.04em;
+    }
+
+    .lead{
+      color:var(--muted);
+      font-size:17px;
+      line-height:1.55;
+      margin:18px 0 28px;
+    }
+
+    label{
+      display:block;
+      font-size:15px;
+      font-weight:700;
+      margin-bottom:9px;
+    }
+
+    input{
+      width:100%;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:16px 17px;
+      background:#061522;
+      color:#fff;
+      outline:none;
+      font-size:18px;
+    }
+
+    input:focus{
+      border-color:var(--cyan);
+      box-shadow:0 0 0 4px rgba(101,221,255,.08);
+    }
+
+    button{
+      width:100%;
+      margin-top:14px;
+      padding:15px 18px;
+      border:0;
+      border-radius:16px;
+      background:var(--cyan);
+      color:#032030;
+      font-size:17px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    button:disabled{
+      opacity:.55;
+      cursor:not-allowed;
+    }
+
+    .message{
+      display:none;
+      margin-top:18px;
+      padding:14px 16px;
+      border-radius:14px;
+      font-size:15px;
+      line-height:1.45;
+    }
+
+    .message.success{
+      display:block;
+      color:#dffff0;
+      background:rgba(103,232,177,.09);
+      border:1px solid rgba(103,232,177,.2);
+    }
+
+    .message.error{
+      display:block;
+      color:#ffe4e4;
+      background:rgba(255,159,159,.08);
+      border:1px solid rgba(255,159,159,.22);
+    }
+
+    .thanks{
+      display:none;
+      text-align:center;
+    }
+
+    .thanks.show{
+      display:block;
+    }
+
+    .form.hide{
+      display:none;
+    }
+
+    .check{
+      width:62px;
+      height:62px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:0 auto 20px;
+      color:#062419;
+      background:var(--green);
+      font-size:30px;
+      font-weight:900;
+      box-shadow:0 0 34px rgba(103,232,177,.28);
+    }
+
+    .thanks h2{
+      font-size:30px;
+      margin:0;
+    }
+
+    .answer-back{
+      margin-top:12px;
+      color:var(--cyan);
+      font-size:22px;
+      font-weight:900;
+    }
+
+    .again{
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.11);
+      color:#fff;
+      margin-top:24px;
+    }
+
+    .foot{
+      text-align:center;
+      margin-top:20px;
+      color:#71899b;
+      font-size:13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="wrap">
+
+    <div class="brand">
+      <span class="dot"></span>
+      AI TRONG CÔNG VIỆC
+    </div>
+
+    <section class="card">
+
+      <div class="form" id="formArea">
+
+        <div class="step">TƯƠNG TÁC TRỰC TIẾP</div>
+
+        <h1>Bạn đang sử dụng AI nào?</h1>
+
+        <p class="lead">
+          Nhập tên một công cụ AI bạn đang sử dụng trong công việc hoặc học tập.
+          Câu trả lời sẽ xuất hiện trên màn hình trình chiếu.
+        </p>
+
+        <label for="answerInput">Tên công cụ AI</label>
+
+        <input
+          id="answerInput"
+          type="text"
+          maxlength="50"
+          autocomplete="off"
+          placeholder="Nhập tên AI"
+        >
+
+        <button id="sendButton" onclick="sendAnswer()">
+          GỬI CÂU TRẢ LỜI
+        </button>
+
+        <div id="message" class="message"></div>
+
+      </div>
+
+      <div class="thanks" id="thanksArea">
+
+        <div class="check">✓</div>
+
+        <h2>Đã nhận câu trả lời</h2>
+
+        <div class="answer-back" id="answerBack"></div>
+
+        <p class="lead">
+          Hãy nhìn lên màn hình trình chiếu.
+        </p>
+
+        <button class="again" onclick="sendAnother()">
+          GỬI CÂU TRẢ LỜI KHÁC
+        </button>
+
+      </div>
+
+    </section>
+
+    <div class="foot">
+      Không yêu cầu tên hoặc tài khoản người tham gia
+    </div>
+
+  </main>
+
+
+  <script type="module">
+
+    import {
+      createClient
+    } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+
+    const SUPABASE_URL =
+      "https://rfrhiexkxztulwauevtf.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_6I8RxZdVpu2Aj3q5qKsAwA_xv3SojaH";
+
+
+    const supabase =
+      createClient(SUPABASE_URL, SUPABASE_KEY);
+
+
+    const input =
+      document.getElementById("answerInput");
+
+    const sendButton =
+      document.getElementById("sendButton");
+
+    const message =
+      document.getElementById("message");
+
+    const formArea =
+      document.getElementById("formArea");
+
+    const thanksArea =
+      document.getElementById("thanksArea");
+
+    const answerBack =
+      document.getElementById("answerBack");
+
+
+    function cleanText(value){
+
+      return value
+        .trim()
+        .replace(/\s+/g," ");
+
+    }
+
+
+    function normalizeAI(value){
+
+      const clean = cleanText(value);
+
+      const key = clean
+        .toLowerCase()
+        .replace(/[\s._-]/g,"");
+
+
+      const known = {
+
+        "chatgpt":"ChatGPT",
+
+        "claude":"Claude",
+
+        "gemini":"Gemini",
+
+        "copilot":"Copilot",
+
+        "microsoftcopilot":"Copilot",
+
+        "githubcopilot":"GitHub Copilot",
+
+        "notebooklm":"NotebookLM",
+
+        "perplexity":"Perplexity",
+
+        "manus":"Manus",
+
+        "deepseek":"DeepSeek",
+
+        "grok":"Grok",
+
+        "xmind":"XMind AI",
+
+        "xmindai":"XMind AI",
+
+        "canva":"Canva AI",
+
+        "canvaai":"Canva AI",
+
+        "gamma":"Gamma",
+
+        "napkin":"Napkin AI",
+
+        "napkinai":"Napkin AI",
+
+        "moda":"Moda"
+
+      };
+
+
+      if(known[key]){
+        return known[key];
+      }
+
+      return clean;
+
+    }
+
+
+    async function sendAnswer(){
+
+      message.className = "message";
+      message.textContent = "";
+
+
+      const raw =
+        input.value;
+
+      const answer =
+        normalizeAI(raw);
+
+
+      if(!answer){
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          "Bạn hãy nhập tên một công cụ AI.";
+
+        input.focus();
+
+        return;
+
+      }
+
+
+      if(answer.length > 50){
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          "Tên công cụ quá dài.";
+
+        return;
+
+      }
+
+
+      sendButton.disabled = true;
+      sendButton.textContent = "ĐANG GỬI";
+
+
+      try{
+
+        const { error } =
+          await supabase
+            .from("ai_answers")
+            .insert([
+              {
+                answer: answer
+              }
+            ]);
+
+
+        if(error){
+          throw error;
+        }
+
+
+        answerBack.textContent =
+          answer;
+
+        formArea.classList.add("hide");
+        thanksArea.classList.add("show");
+
+        input.value = "";
+
+      }
+
+      catch(error){
+
+        console.error(error);
+
+        message.className =
+          "message error";
+
+        message.textContent =
+          "Chưa gửi được câu trả lời. Hãy thử lại.";
+
+      }
+
+      finally{
+
+        sendButton.disabled = false;
+        sendButton.textContent =
+          "GỬI CÂU TRẢ LỜI";
+
+      }
+
+    }
+
+
+    function sendAnother(){
+
+      thanksArea.classList.remove("show");
+      formArea.classList.remove("hide");
+
+      setTimeout(()=>{
+        input.focus();
+      },100);
+
+    }
+
+
+    window.sendAnswer =
+      sendAnswer;
+
+    window.sendAnother =
+      sendAnother;
+
+
+    input.addEventListener(
+      "keydown",
+      function(event){
+
+        if(event.key === "Enter"){
+          sendAnswer();
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
