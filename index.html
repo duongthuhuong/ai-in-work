@@ -17,7 +17,9 @@
   --danger:#ff9f9f;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 html,body{
   margin:0;
@@ -47,8 +49,13 @@ body:before{
   background-size:44px 44px;
 }
 
-button,input{font:inherit}
-button{cursor:pointer}
+button,input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
 
 .topbar{
   position:fixed;
@@ -228,9 +235,7 @@ h3{
 }
 
 
-/* =========================
-   LIVE
-========================= */
+/* LIVE */
 
 .live-layout{
   margin-top:28px;
@@ -312,9 +317,6 @@ h3{
   font-size:14px;
 }
 
-
-/* CLOUD */
-
 .word-cloud{
   min-height:270px;
   display:flex;
@@ -329,26 +331,13 @@ h3{
   display:inline-flex;
   align-items:center;
   gap:7px;
-
   padding:10px 16px;
-
   border-radius:999px;
-
   border:1px solid rgba(101,221,255,.22);
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(101,221,255,.09),
-      rgba(101,221,255,.035)
-    );
-
+  background:rgba(101,221,255,.07);
   font-weight:850;
-
   line-height:1;
-
   white-space:nowrap;
-
   transition:
     font-size .35s ease,
     transform .35s ease,
@@ -398,9 +387,7 @@ h3{
 }
 
 
-/* =========================
-   AI GRID
-========================= */
+/* AI LIST */
 
 .ai-grid{
   margin-top:28px;
@@ -442,7 +429,7 @@ h3{
 }
 
 
-/* ========================= */
+/* GENERAL */
 
 .cycle{
   margin-top:34px;
@@ -546,6 +533,89 @@ h3{
   color:var(--muted);
 }
 
+
+/* SECURITY */
+
+.security-grid{
+  margin-top:30px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.security-card{
+  padding:24px;
+  border-radius:22px;
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(12,34,55,.76);
+}
+
+.security-card.safe{
+  border-color:rgba(103,232,177,.27);
+}
+
+.security-card.caution{
+  border-color:rgba(255,209,102,.24);
+}
+
+.security-card.test{
+  border-color:rgba(101,221,255,.22);
+}
+
+.security-number{
+  width:38px;
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:rgba(101,221,255,.1);
+  color:var(--cyan);
+  font-weight:900;
+  margin-bottom:16px;
+}
+
+.security-card strong{
+  display:block;
+  font-size:20px;
+  margin-bottom:12px;
+}
+
+.security-card p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.55;
+}
+
+.security-bottom{
+  margin-top:22px;
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:16px;
+}
+
+.security-rule{
+  padding:19px 22px;
+  border-radius:19px;
+  background:rgba(101,221,255,.065);
+  border:1px solid rgba(101,221,255,.16);
+  font-size:18px;
+  font-weight:800;
+  line-height:1.5;
+}
+
+.security-warning{
+  padding:19px 22px;
+  border-radius:19px;
+  background:rgba(255,209,102,.07);
+  border:1px solid rgba(255,209,102,.18);
+  color:#f7df9f;
+  line-height:1.5;
+}
+
+
+/* VERSION */
+
 .version-flow{
   margin-top:35px;
   display:grid;
@@ -635,23 +705,37 @@ h3{
   display:block;
 }
 
+
+/* FINAL */
+
+.final-slide-title{
+  transition:.7s ease;
+}
+
+.final-slide-title.fade{
+  opacity:.42;
+}
+
 .end-stack{
-  margin-top:35px;
+  margin-top:34px;
   display:grid;
-  gap:13px;
-  max-width:950px;
+  gap:11px;
+  max-width:980px;
 }
 
 .end-line{
-  opacity:.18;
-  transform:translateX(-10px);
-  padding:17px 22px;
-  border-radius:18px;
+  opacity:0;
+  transform:translateY(12px) scale(.98);
+  padding:15px 21px;
+  border-radius:17px;
   border:1px solid rgba(255,255,255,.08);
   background:rgba(13,33,53,.68);
-  font-size:clamp(23px,3vw,36px);
+  font-size:clamp(22px,2.7vw,34px);
   font-weight:900;
-  transition:.35s;
+  transition:
+    opacity .65s ease,
+    transform .65s ease,
+    color .65s ease;
 }
 
 .end-line.show{
@@ -659,32 +743,31 @@ h3{
   transform:none;
 }
 
+.end-line.dim{
+  opacity:.28;
+}
+
 .end-line.last{
   color:var(--amber);
 }
 
 .final-message{
-  display:none;
-  margin-top:27px;
+  opacity:0;
+  transform:scale(.94);
+  margin-top:28px;
   padding-top:24px;
   border-top:1px solid rgba(255,255,255,.1);
-  font-size:clamp(30px,4vw,50px);
+  font-size:clamp(32px,4.2vw,54px);
   font-weight:900;
-  line-height:1.15;
+  line-height:1.13;
+  transition:
+    opacity .8s ease,
+    transform .8s ease;
 }
 
 .final-message.show{
-  display:block;
-}
-
-.action{
-  margin-top:18px;
-  border:0;
-  border-radius:14px;
-  padding:13px 18px;
-  background:var(--cyan);
-  color:#032030;
-  font-weight:900;
+  opacity:1;
+  transform:scale(1);
 }
 
 
@@ -791,8 +874,6 @@ h3{
 }
 
 
-/* RESPONSIVE */
-
 @media(max-width:900px){
 
   .cards{
@@ -809,6 +890,14 @@ h3{
 
   .chain{
     grid-template-columns:repeat(2,1fr);
+  }
+
+  .security-grid{
+    grid-template-columns:1fr;
+  }
+
+  .security-bottom{
+    grid-template-columns:1fr;
   }
 
 }
@@ -887,10 +976,12 @@ h3{
 }
 
 @media(prefers-reduced-motion:reduce){
+
   *{
     animation:none!important;
     transition:none!important;
   }
+
 }
 </style>
 </head>
@@ -1049,7 +1140,7 @@ h3{
 </section>
 
 
-<!-- 4 LIVE -->
+<!-- 4 -->
 
 <section class="scene">
 <div class="slide-inner">
@@ -1257,8 +1348,8 @@ h3{
   </div>
 
   <div class="callout">
-    15 AI này cũng có thể sẽ thay đổi hoặc bị thay thế.
-    Công cụ mới sẽ tiếp tục xuất hiện.
+    Công cụ có thể thay đổi hoặc bị thay thế.
+    Khả năng học hỏi và thích nghi mới là điều cần giữ lại.
   </div>
 
 </div>
@@ -1325,7 +1416,7 @@ h3{
   </div>
 
   <h2>
-    Nhưng chúng ta có đang dùng AI hơi lộn xộn?
+    Chúng ta có đang dùng AI thiếu hệ thống?
   </h2>
 
   <div class="problem-grid">
@@ -1370,11 +1461,11 @@ h3{
 <div class="slide-inner">
 
   <div class="eyebrow">
-    07 · QUY HOẠCH
+    07 · LÀM VIỆC CÓ HỆ THỐNG
   </div>
 
   <h2>
-    Dùng AI có quy hoạch
+    Dùng AI có hệ thống
   </h2>
 
   <div class="two-col">
@@ -1411,11 +1502,11 @@ h3{
     <div class="col good">
 
       <div class="col-title" style="color:var(--green)">
-        CÓ QUY HOẠCH
+        CÓ HỆ THỐNG
       </div>
 
       <div class="item">
-        Một việc giữ trong một luồng hợp lý
+        Giữ một công việc trong một luồng hợp lý
       </div>
 
       <div class="item">
@@ -1439,8 +1530,8 @@ h3{
   </div>
 
   <div class="callout">
-    Dùng AI hiệu quả không phải gửi nhiều câu hỏi hơn,
-    mà là giảm những lượt hỏi không tạo thêm giá trị.
+    Dùng AI hiệu quả không phải là hỏi nhiều hơn,
+    mà là làm việc với AI ngày càng có hệ thống hơn.
   </div>
 
 </div>
@@ -1514,7 +1605,7 @@ h3{
 
     <div class="stack-row">
       <strong>PROMPT LIBRARY</strong>
-      <span>Chuẩn hóa những câu lệnh và cấu trúc có giá trị</span>
+      <span>Giữ lại những cấu trúc thực sự có giá trị và có thể dùng lại</span>
     </div>
 
     <div class="stack-row">
@@ -1538,53 +1629,95 @@ h3{
 </section>
 
 
-<!-- 11 -->
+<!-- 11 SECURITY -->
 
 <section class="scene">
 <div class="slide-inner">
 
   <div class="eyebrow">
-    10 · AI NGAY TRONG CÔNG VIỆC
+    10 · AI TRONG MÔI TRƯỜNG CÔNG VIỆC
   </div>
 
   <h2>
-    Hãy khai thác tốt AI được phép sử dụng trong môi trường công việc
+    Không phải có dùng AI hay không,
+    mà là dữ liệu nào được dùng với AI nào
   </h2>
 
-  <p class="lead">
-    Có thể chúng ta đã có Copilot,
-    AI Assistant hoặc công cụ AI được đơn vị cung cấp,
-    nhưng chưa khai thác hết khả năng của nó.
-  </p>
+  <div class="security-grid">
 
-  <div class="cards">
+    <div class="security-card safe">
 
-    <div class="card">
-      <strong>WORD</strong>
-      <p>Soạn thảo · tóm tắt · rà soát</p>
+      <div class="security-number">
+        1
+      </div>
+
+      <strong>
+        AI ĐƯỢC PHÉP SỬ DỤNG
+      </strong>
+
+      <p>
+        Khi làm việc trong môi trường AI được đơn vị cho phép,
+        vẫn cần tuân thủ quy định về dữ liệu,
+        tài khoản, phân quyền và phạm vi sử dụng.
+      </p>
+
     </div>
 
-    <div class="card">
-      <strong>EXCEL</strong>
-      <p>Phân tích · công thức · dữ liệu</p>
+
+    <div class="security-card caution">
+
+      <div class="security-number">
+        2
+      </div>
+
+      <strong>
+        AI BÊN NGOÀI
+      </strong>
+
+      <p>
+        Không đưa tài liệu mật, dữ liệu nhạy cảm,
+        thông tin dự án, đối tác, số liệu hoặc điều khoản
+        nếu chưa được phép sử dụng trên công cụ đó.
+      </p>
+
     </div>
 
-    <div class="card">
-      <strong>POWERPOINT</strong>
-      <p>Dàn ý · cấu trúc · trình bày</p>
-    </div>
 
-    <div class="card">
-      <strong>HỆ THỐNG CÔNG VIỆC</strong>
-      <p>Assistant · Agent · nguồn nội bộ</p>
+    <div class="security-card test">
+
+      <div class="security-number">
+        3
+      </div>
+
+      <strong>
+        HỌC VÀ THỬ AI MỚI
+      </strong>
+
+      <p>
+        Khi cần khám phá công cụ mới,
+        nên sử dụng dữ liệu mô phỏng,
+        dữ liệu công khai hoặc dữ liệu đã được xử lý phù hợp.
+      </p>
+
     </div>
 
   </div>
 
-  <div class="callout">
-    Trước khi mang công việc sang một AI khác,
-    hãy xem công cụ mình được phép sử dụng
-    đã làm được việc đó chưa.
+
+  <div class="security-bottom">
+
+    <div class="security-rule">
+      Trước khi đưa công việc sang một AI khác,
+      hãy xem công cụ mình được phép sử dụng
+      đã làm được việc đó chưa.
+    </div>
+
+    <div class="security-warning">
+      Chỉ xóa tên công ty chưa chắc đã đủ.
+      Dự án, đối tác, thời gian, số liệu và nhiều chi tiết kết hợp
+      vẫn có thể làm lộ thông tin.
+    </div>
+
   </div>
 
 </div>
@@ -1601,7 +1734,8 @@ h3{
   </div>
 
   <h2>
-    Khi cần một đầu ra khác, chọn công cụ đúng lúc
+    Khi cần một đầu ra khác,
+    chọn công cụ đúng lúc
   </h2>
 
   <div class="cards">
@@ -1656,7 +1790,9 @@ h3{
 
       <strong>DRAFT 1</strong>
 
-      <h3>Có bản đầu tiên</h3>
+      <h3>
+        Có bản đầu tiên
+      </h3>
 
       <p>
         Đã có cấu trúc và ý chính.
@@ -1670,7 +1806,9 @@ h3{
 
       <strong>PHẢN BIỆN</strong>
 
-      <h3>Tìm điểm yếu</h3>
+      <h3>
+        Tìm điểm yếu
+      </h3>
 
       <p>
         Thiếu gì · thừa gì · logic nào yếu ·
@@ -1685,7 +1823,9 @@ h3{
 
       <strong>DRAFT 2</strong>
 
-      <h3>Nâng cấp</h3>
+      <h3>
+        Nâng cấp
+      </h3>
 
       <p>
         Bổ sung bối cảnh và chỉnh lại nội dung.
@@ -1709,7 +1849,8 @@ h3{
   </div>
 
   <h2>
-    Có kết quả rồi, bây giờ mới đến bước không được bỏ qua
+    Có kết quả rồi,
+    bây giờ mới đến bước không được bỏ qua
   </h2>
 
   <div class="chain">
@@ -1735,7 +1876,9 @@ h3{
     </div>
 
     <div class="chain-card">
-      <strong style="color:var(--green)">FINAL</strong>
+      <strong style="color:var(--green)">
+        FINAL
+      </strong>
       <span>Kết quả đã được xem xét trước khi sử dụng</span>
     </div>
 
@@ -1759,7 +1902,8 @@ h3{
   </div>
 
   <h2>
-    Bản cuối đã có. Người nhận sẽ hỏi gì?
+    Bản cuối đã có.
+    Người nhận sẽ hỏi gì?
   </h2>
 
   <div class="questions">
@@ -1841,17 +1985,21 @@ h3{
 
 <!-- 16 -->
 
-<section class="scene">
+<section class="scene" id="finalScene">
 <div class="slide-inner">
 
   <div class="eyebrow">
     15 · CUỐI CÙNG
   </div>
 
-  <h2>
+  <h2
+    class="final-slide-title"
+    id="finalTitle"
+  >
     AI có thể hỗ trợ rất nhiều.
     Nhưng có những việc AI không làm thay chúng ta.
   </h2>
+
 
   <div class="end-stack">
 
@@ -1873,21 +2021,17 @@ h3{
 
   </div>
 
-  <button
-    class="action"
-    onclick="revealEnding()"
-  >
-    TIẾP TỤC
-  </button>
 
   <div
     class="final-message"
     id="finalMessage"
   >
     NGƯỜI QUYẾT ĐỊNH<br>
+
     <span style="color:var(--amber)">
       LÀ NGƯỜI CHỊU TRÁCH NHIỆM
     </span>
+
   </div>
 
 </div>
@@ -1927,6 +2071,7 @@ h3{
     onclick="closeMenu()"
   ></div>
 
+
   <div class="drawer-panel">
 
     <div class="drawer-head">
@@ -1958,10 +2103,6 @@ import {
 } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 
-/* ================================
-   SUPABASE
-================================ */
-
 const SUPABASE_URL =
 "https://rfrhiexkxztulwauevtf.supabase.co";
 
@@ -1975,9 +2116,7 @@ createClient(
 );
 
 
-/* ================================
-   SLIDES
-================================ */
+/* SLIDES */
 
 const scenes =
 [...document.querySelectorAll(".scene")];
@@ -1990,6 +2129,140 @@ document.getElementById("progress");
 const currentSlide =
 document.getElementById("currentSlide");
 
+let finalTimers = [];
+
+
+function clearFinalTimers(){
+
+  finalTimers.forEach(timer=>{
+    clearTimeout(timer);
+  });
+
+  finalTimers = [];
+
+}
+
+
+function resetFinalSlide(){
+
+  clearFinalTimers();
+
+  const lines =
+    [
+      ...document.querySelectorAll(
+        "#finalScene .end-line"
+      )
+    ];
+
+  lines.forEach(line=>{
+
+    line.classList.remove(
+      "show",
+      "dim"
+    );
+
+  });
+
+  document
+    .getElementById("finalTitle")
+    .classList
+    .remove("fade");
+
+  document
+    .getElementById("finalMessage")
+    .classList
+    .remove("show");
+
+}
+
+
+function startFinalSequence(){
+
+  resetFinalSlide();
+
+  const lines =
+    [
+      ...document.querySelectorAll(
+        "#finalScene .end-line"
+      )
+    ];
+
+  const title =
+    document.getElementById(
+      "finalTitle"
+    );
+
+  const finalMessage =
+    document.getElementById(
+      "finalMessage"
+    );
+
+
+  finalTimers.push(
+
+    setTimeout(()=>{
+      lines[0].classList.add("show");
+    },1200)
+
+  );
+
+
+  finalTimers.push(
+
+    setTimeout(()=>{
+      lines[1].classList.add("show");
+    },2400)
+
+  );
+
+
+  finalTimers.push(
+
+    setTimeout(()=>{
+      lines[2].classList.add("show");
+    },3600)
+
+  );
+
+
+  finalTimers.push(
+
+    setTimeout(()=>{
+      lines[3].classList.add("show");
+    },4800)
+
+  );
+
+
+  finalTimers.push(
+
+    setTimeout(()=>{
+
+      title.classList.add("fade");
+
+      lines.forEach(line=>{
+        line.classList.add("dim");
+      });
+
+    },6200)
+
+  );
+
+
+  finalTimers.push(
+
+    setTimeout(()=>{
+
+      finalMessage.classList.add(
+        "show"
+      );
+
+    },6900)
+
+  );
+
+}
+
 
 function showSlide(index){
 
@@ -1999,6 +2272,10 @@ function showSlide(index){
 
   if(index >= scenes.length){
     index = scenes.length - 1;
+  }
+
+  if(current === scenes.length - 1){
+    resetFinalSlide();
   }
 
   scenes[current]
@@ -2019,10 +2296,21 @@ function showSlide(index){
   progress.style.width =
     (
       (current + 1)
-      / scenes.length
-      * 100
+      /
+      scenes.length
+      *
+      100
     )
-    + "%";
+    +
+    "%";
+
+
+  if(current === scenes.length - 1){
+
+    startFinalSequence();
+
+  }
+
 }
 
 
@@ -2043,9 +2331,7 @@ window.prevSlide =
 prevSlide;
 
 
-/* ================================
-   KEYBOARD
-================================ */
+/* KEYBOARD */
 
 document.addEventListener(
   "keydown",
@@ -2080,28 +2366,32 @@ document.addEventListener(
 
 
     if(event.key === "Home"){
+
       showSlide(0);
+
     }
 
 
     if(event.key === "End"){
+
       showSlide(
         scenes.length - 1
       );
+
     }
 
 
     if(event.key === "Escape"){
+
       closeMenu();
+
     }
 
   }
 );
 
 
-/* ================================
-   MENU
-================================ */
+/* MENU */
 
 const menuNames = [
 
@@ -2113,19 +2403,19 @@ const menuNames = [
 
   "Tương tác trực tiếp",
 
-  "15 AI và điểm mạnh",
+  "Khám phá các công cụ AI",
 
   "Học liên tục",
 
-  "Dùng AI lộn xộn",
+  "AI thiếu hệ thống",
 
-  "Dùng AI có quy hoạch",
+  "Dùng AI có hệ thống",
 
   "Training hằng ngày",
 
   "Hệ thống hóa",
 
-  "AI ngay trong công việc",
+  "Bảo mật và dữ liệu",
 
   "Từ phân tích đến sản phẩm",
 
@@ -2141,23 +2431,30 @@ const menuNames = [
 
 
 const menuList =
-document.getElementById("menuList");
+document.getElementById(
+  "menuList"
+);
 
 
 menuNames.forEach(
   (name,index)=>{
 
     const btn =
-      document.createElement("button");
+      document.createElement(
+        "button"
+      );
 
     btn.className =
       "menu-item";
 
     btn.innerHTML =
       "<span>"
-      + (index + 1)
-      + "</span>"
-      + name;
+      +
+      (index + 1)
+      +
+      "</span>"
+      +
+      name;
 
     btn.onclick = ()=>{
 
@@ -2200,9 +2497,7 @@ window.closeMenu =
 closeMenu;
 
 
-/* ================================
-   TÁCH CÂU TRẢ LỜI
-================================ */
+/* SPLIT ANSWERS */
 
 function splitAnswers(value){
 
@@ -2232,9 +2527,7 @@ function splitAnswers(value){
 }
 
 
-/* ================================
-   CHUẨN HÓA TÊN AI
-================================ */
+/* NORMALIZE */
 
 function normalizeAI(value){
 
@@ -2321,18 +2614,12 @@ function normalizeAI(value){
 }
 
 
-/* ================================
-   LIVE DATA
-================================ */
+/* LIVE */
 
 let answers = [];
 
 let previousCounts = {};
 
-
-/* ================================
-   LOAD
-================================ */
 
 async function loadAnswers(){
 
@@ -2377,10 +2664,6 @@ async function loadAnswers(){
 }
 
 
-/* ================================
-   RENDER CLOUD
-================================ */
-
 function renderCloud(){
 
   const cloud =
@@ -2393,10 +2676,6 @@ function renderCloud(){
       "totalAnswers"
     );
 
-
-  /*
-    Đây là số lượt gửi
-  */
 
   total.textContent =
     answers.length;
@@ -2411,7 +2690,6 @@ function renderCloud(){
       +
       '</div>';
 
-
     previousCounts = {};
 
     return;
@@ -2424,29 +2702,11 @@ function renderCloud(){
 
   answers.forEach(row=>{
 
-
-    /*
-      Một người có thể nhập
-
-      Chat GPT, Claude, Gemini
-
-      Ta tách thành 3 AI
-    */
-
     const tools =
       splitAnswers(
         row.answer
       );
 
-
-    /*
-      Một người nếu nhập
-
-      ChatGPT, Chat GPT
-
-      thì trong chính lượt đó
-      chỉ tính ChatGPT một lần
-    */
 
     const uniqueTools =
       new Set();
@@ -2497,10 +2757,6 @@ function renderCloud(){
   });
 
 
-  /*
-    Nhiều lượt nhất lên trước
-  */
-
   const items =
     Object
       .values(grouped)
@@ -2520,7 +2776,6 @@ function renderCloud(){
 
           }
 
-
           return a.name.localeCompare(
             b.name,
             "vi"
@@ -2529,10 +2784,6 @@ function renderCloud(){
         }
       );
 
-
-  /*
-    Tìm số lượt cao nhất
-  */
 
   const maxCount =
     Math.max(
@@ -2570,21 +2821,6 @@ function renderCloud(){
       "ai-word";
 
 
-    /*
-      QUAN TRỌNG
-
-      Chênh lệch kích thước nhỏ.
-
-      AI ít người chọn
-      khoảng 20px.
-
-      AI được chọn nhiều nhất
-      tối đa khoảng 29px.
-
-      Vì vậy dù 20 người chọn
-      cũng không phóng to đùng.
-    */
-
     let ratio = 0;
 
 
@@ -2598,10 +2834,15 @@ function renderCloud(){
     }
 
 
+    /*
+      Kích thước chỉ chênh nhẹ
+      từ 20 đến 28
+    */
+
     const size =
       20
       +
-      ratio * 9;
+      ratio * 8;
 
 
     word.style.fontSize =
@@ -2610,15 +2851,10 @@ function renderCloud(){
       "px";
 
 
-    /*
-      AI nhiều lượt hơn
-      sáng hơn một chút
-    */
-
     const glow =
       0.06
       +
-      ratio * 0.08;
+      ratio * 0.07;
 
 
     word.style.background =
@@ -2649,11 +2885,6 @@ function renderCloud(){
       +
       "</span>";
 
-
-    /*
-      Nếu vừa có thêm lượt
-      thì chính AI đó nhảy nhẹ
-    */
 
     if(
 
@@ -2687,9 +2918,7 @@ function renderCloud(){
 }
 
 
-/* ================================
-   REALTIME
-================================ */
+/* REALTIME */
 
 supabase
 
@@ -2712,7 +2941,6 @@ supabase
     },
 
     payload=>{
-
 
       const exists =
         answers.some(
@@ -2750,10 +2978,6 @@ supabase
   );
 
 
-/* ================================
-   SAFE TEXT
-================================ */
-
 function escapeHTML(text){
 
   const div =
@@ -2769,9 +2993,7 @@ function escapeHTML(text){
 }
 
 
-/* ================================
-   AI CARDS
-================================ */
+/* AI CARDS */
 
 document
 
@@ -2795,9 +3017,7 @@ document
   });
 
 
-/* ================================
-   QUESTIONS
-================================ */
+/* QUESTIONS */
 
 document
 
@@ -2825,65 +3045,7 @@ document
   });
 
 
-/* ================================
-   FINAL
-================================ */
-
-let endingStep = 0;
-
-
-function revealEnding(){
-
-  const lines =
-    [
-      ...document
-        .querySelectorAll(
-          ".end-line"
-        )
-    ];
-
-
-  const finalMessage =
-    document.getElementById(
-      "finalMessage"
-    );
-
-
-  if(
-    endingStep
-    <
-    lines.length
-  ){
-
-    lines[
-      endingStep
-    ]
-      .classList
-      .add("show");
-
-
-    endingStep++;
-
-
-    return;
-
-  }
-
-
-  finalMessage
-    .classList
-    .add("show");
-
-}
-
-
-window.revealEnding =
-revealEnding;
-
-
-/* ================================
-   START
-================================ */
+/* START */
 
 loadAnswers();
 
