@@ -1,2804 +1,637 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI trong công việc</title>
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI trong công việc · Từ dữ liệu đến quyết định</title>
 <style>
+*{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#06111f;
-  --panel:rgba(11,30,50,.84);
-  --cyan:#65ddff;
-  --green:#67e8b1;
-  --amber:#ffd166;
-  --text:#f5fbff;
-  --muted:#a9bfd0;
-  --danger:#ff9f9f;
+  --bg:#061524;--panel:#0b2034;--panel2:#0e2941;--white:#f7fbff;--muted:#bfd0dc;
+  --blue:#38bdf8;--cyan:#67e8f9;--green:#6ee7b7;--yellow:#fde68a;--red:#fca5a5;
+  --line:rgba(255,255,255,.13);--card:rgba(255,255,255,.055);--shadow:0 18px 70px rgba(0,0,0,.28)
 }
-
-*{box-sizing:border-box}
-
-html,body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:#06111f;
-  color:var(--text);
-  font-family:"Segoe UI",Arial,sans-serif;
-}
-
+html,body{width:100%;height:100%;overflow:hidden}
 body{
+  font-family:"Segoe UI",Arial,sans-serif;color:var(--white);
   background:
-    radial-gradient(circle at 85% 15%,rgba(62,183,255,.13),transparent 27%),
-    radial-gradient(circle at 12% 88%,rgba(52,211,153,.08),transparent 29%),
-    linear-gradient(135deg,#06111f,#071625 50%,#06101d);
+    radial-gradient(circle at 82% 18%,rgba(56,189,248,.14),transparent 28%),
+    radial-gradient(circle at 10% 85%,rgba(103,232,249,.07),transparent 30%),var(--bg)
 }
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:56px 56px}
+button,a{font:inherit}
 
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background-image:
-    linear-gradient(rgba(101,221,255,.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(101,221,255,.04) 1px,transparent 1px);
-  background-size:44px 44px;
-}
-
-button,input{font:inherit}
-button{cursor:pointer}
-
-.topbar{
-  position:fixed;
-  z-index:100;
-  top:0;left:0;right:0;
-  height:70px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 28px;
-  border-bottom:1px solid rgba(255,255,255,.07);
-  background:rgba(4,14,25,.76);
-  backdrop-filter:blur(18px);
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:11px;
-  font-weight:800;
-  letter-spacing:.08em;
-  font-size:14px;
-}
-
-.brand-dot{
-  width:13px;
-  height:13px;
-  border-radius:50%;
-  background:var(--cyan);
-  box-shadow:0 0 22px rgba(101,221,255,.8);
-}
-
-.top-btn{
-  color:#d9e8f2;
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:999px;
-  padding:10px 15px;
-  font-weight:700;
-}
-
-.progress{
-  position:fixed;
-  z-index:105;
-  top:69px;
-  left:0;
-  height:3px;
-  background:linear-gradient(90deg,var(--cyan),var(--green));
-  transition:.35s;
-}
-
-.scene{
-  position:absolute;
-  inset:70px 0 0;
-  padding:42px 6.5vw 100px;
-  opacity:0;
-  visibility:hidden;
-  transform:translateY(15px);
-  transition:.4s;
-  overflow:auto;
-}
-
-.scene.active{
-  opacity:1;
-  visibility:visible;
-  transform:none;
-}
-
-.slide-inner{
-  width:min(1220px,100%);
-  min-height:calc(100vh - 225px);
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-
-.eyebrow{
-  color:var(--cyan);
-  letter-spacing:.18em;
-  font-weight:800;
-  font-size:14px;
-  margin-bottom:14px;
-}
-
-h1{
-  font-size:clamp(48px,6vw,78px);
-  line-height:1.03;
-  letter-spacing:-.045em;
-  margin:0;
-  max-width:1100px;
-}
-
-h2{
-  font-size:clamp(36px,4.3vw,56px);
-  line-height:1.08;
-  letter-spacing:-.035em;
-  margin:0;
-  max-width:1100px;
-}
-
-h3{
-  margin:0;
-  font-size:23px;
-}
-
-.lead{
-  max-width:930px;
-  margin:22px 0 0;
-  color:var(--muted);
-  font-size:20px;
-  line-height:1.6;
-}
-
-.flow{
-  margin-top:36px;
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  gap:10px;
-}
-
-.flow-box{
-  padding:16px 20px;
-  border-radius:16px;
-  border:1px solid rgba(101,221,255,.2);
-  background:rgba(101,221,255,.075);
-  font-weight:800;
-  font-size:18px;
-}
-
-.arrow{
-  color:var(--cyan);
-  font-size:24px;
-  font-weight:900;
-}
-
-.cards{
-  margin-top:32px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-}
-
-.card{
-  padding:22px;
-  border-radius:22px;
-  border:1px solid rgba(255,255,255,.09);
-  background:rgba(12,34,55,.76);
-}
-
-.card strong{
-  display:block;
-  color:var(--cyan);
-  margin-bottom:9px;
-  font-size:19px;
-}
-
-.card p{
-  color:var(--muted);
-  line-height:1.5;
-  margin:0;
-}
-
-.callout{
-  margin-top:30px;
-  padding:19px 23px;
-  border-left:4px solid var(--cyan);
-  border-radius:0 18px 18px 0;
-  background:rgba(101,221,255,.07);
-  max-width:1050px;
-  font-size:20px;
-  line-height:1.5;
-  font-weight:700;
-}
-
-/* LIVE */
-
-.live-layout{
-  margin-top:28px;
-  display:grid;
-  grid-template-columns:290px 1fr;
-  gap:28px;
-}
-
-.qr-panel{
-  padding:22px;
-  border-radius:25px;
-  background:rgba(12,34,55,.8);
-  border:1px solid rgba(101,221,255,.18);
-  text-align:center;
-}
-
-.qr-box{
-  background:white;
-  padding:12px;
-  border-radius:18px;
-  display:inline-flex;
-}
-
-.qr-box img{
-  width:195px;
-  height:195px;
-  display:block;
-}
-
-.qr-title{
-  margin-top:15px;
-  font-weight:900;
-  font-size:17px;
-}
-
-.qr-sub{
-  margin-top:8px;
-  color:var(--muted);
-  line-height:1.4;
-  font-size:14px;
-}
-
-.live-panel{
-  min-height:370px;
-  padding:24px;
-  border-radius:25px;
-  background:rgba(8,26,43,.68);
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.live-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-}
-
-.live-status{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  color:var(--green);
-  font-size:14px;
-  font-weight:800;
-}
-
-.live-dot{
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 15px var(--green);
-}
-
-.total{
-  color:var(--muted);
-  font-size:14px;
-}
-
-.word-cloud{
-  min-height:270px;
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  align-content:center;
-  align-items:center;
-  gap:13px;
-}
-
-.ai-word{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  padding:10px 16px;
-  border-radius:999px;
-  border:1px solid rgba(101,221,255,.22);
-  background:rgba(101,221,255,.07);
-  font-weight:850;
-  line-height:1;
-  white-space:nowrap;
-  transition:.35s;
-}
-
-.ai-word .count{
-  color:var(--cyan);
-  font-size:.68em;
-  font-weight:900;
-}
-
-.ai-word.just-updated{
-  animation:voteUp .72s ease;
-}
-
-@keyframes voteUp{
-  0%{transform:scale(1)}
-  38%{
-    transform:scale(1.10);
-    border-color:rgba(101,221,255,.8);
-    background:rgba(101,221,255,.16);
-    box-shadow:0 0 28px rgba(101,221,255,.28);
-  }
-  100%{transform:scale(1)}
-}
-
-.empty-cloud{
-  color:#7890a2;
-  text-align:center;
-  font-size:18px;
-}
-
-.live-note{
-  color:var(--muted);
-  font-size:14px;
-  text-align:center;
-  margin-top:12px;
-}
-
-/* AI CARDS */
-
-.ai-grid{
-  margin-top:28px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:13px;
-}
-
-.ai-card{
-  min-height:132px;
-  padding:19px;
-  text-align:left;
-  color:white;
-  border-radius:19px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(12,34,55,.78);
-  transition:.25s;
-}
-
-.ai-card:hover{
-  transform:translateY(-2px);
-  border-color:rgba(101,221,255,.28);
-}
-
-.ai-name{
-  font-weight:900;
-  font-size:19px;
-}
-
-.ai-strength{
-  display:none;
-  margin-top:10px;
-  color:var(--muted);
-  line-height:1.4;
-  font-size:15px;
-}
-
-.ai-card.open{
-  border-color:rgba(101,221,255,.4);
-  background:rgba(101,221,255,.09);
-}
-
-.ai-card.open .ai-strength{
-  display:block;
-}
-
-/* GENERAL */
-
-.cycle{
-  margin-top:34px;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:12px;
-}
-
-.cycle-card{
-  padding:21px;
-  border-radius:20px;
-  border:1px solid rgba(255,255,255,.09);
-  background:rgba(12,34,55,.72);
-  text-align:center;
-}
-
-.cycle-card strong{
-  color:var(--cyan);
-  font-size:18px;
-}
-
-.cycle-card p{
-  color:var(--muted);
-  line-height:1.4;
-}
-
-.problem-grid{
-  margin-top:30px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-}
-
-.problem{
-  min-height:105px;
-  padding:19px;
-  display:flex;
-  align-items:center;
-  border-radius:18px;
-  background:rgba(255,159,159,.055);
-  border:1px solid rgba(255,159,159,.17);
-  font-weight:800;
-}
-
-.two-col{
-  margin-top:30px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-}
-
-.col{
-  padding:25px;
-  border-radius:24px;
-  border:1px solid rgba(255,255,255,.09);
-  background:rgba(12,34,55,.7);
-}
-
-.col.good{
-  border-color:rgba(103,232,177,.25);
-}
-
-.col-title{
-  font-size:21px;
-  font-weight:900;
-  margin-bottom:15px;
-}
-
-.item{
-  padding:11px 0;
-  border-bottom:1px solid rgba(255,255,255,.07);
-  color:#d9e8f2;
-}
-
-.item:last-child{border-bottom:0}
-
-.stack{
-  margin-top:30px;
-  display:grid;
-  gap:11px;
-  max-width:950px;
-}
-
-.stack-row{
-  display:grid;
-  grid-template-columns:210px 1fr;
-  gap:20px;
-  padding:17px 21px;
-  border-radius:17px;
-  border:1px solid rgba(101,221,255,.16);
-  background:rgba(101,221,255,.055);
-}
-
-.stack-row strong{color:var(--cyan)}
-.stack-row span{color:var(--muted)}
-
-/* SECURITY */
-
-.security-grid{
-  margin-top:30px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-}
-
-.security-card{
-  padding:24px;
-  border-radius:22px;
-  border:1px solid rgba(255,255,255,.09);
-  background:rgba(12,34,55,.76);
-}
-
-.security-card.safe{
-  border-color:rgba(103,232,177,.27);
-}
-
-.security-card.caution{
-  border-color:rgba(255,209,102,.24);
-}
-
-.security-card.test{
-  border-color:rgba(101,221,255,.22);
-}
-
-.security-number{
-  width:38px;
-  height:38px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  background:rgba(101,221,255,.1);
-  color:var(--cyan);
-  font-weight:900;
-  margin-bottom:16px;
-}
-
-.security-card strong{
-  display:block;
-  font-size:20px;
-  margin-bottom:12px;
-}
-
-.security-card p{
-  margin:0;
-  color:var(--muted);
-  line-height:1.55;
-}
-
-.security-bottom{
-  margin-top:22px;
-  display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:16px;
-}
-
-.security-rule{
-  padding:19px 22px;
-  border-radius:19px;
-  background:rgba(101,221,255,.065);
-  border:1px solid rgba(101,221,255,.16);
-  font-size:18px;
-  font-weight:800;
-  line-height:1.5;
-}
-
-.security-warning{
-  padding:19px 22px;
-  border-radius:19px;
-  background:rgba(255,209,102,.07);
-  border:1px solid rgba(255,209,102,.18);
-  color:#f7df9f;
-  line-height:1.5;
-}
-
-/* ECOSYSTEM */
-
-.ecosystem{
-  margin-top:32px;
-  display:grid;
-  grid-template-columns:1fr auto 1fr auto 1fr;
-  gap:14px;
-  align-items:stretch;
-}
-
-.eco-block{
-  position:relative;
-  padding:24px;
-  border-radius:23px;
-  border:1px solid rgba(255,255,255,.09);
-  background:rgba(12,34,55,.76);
-  min-height:220px;
-}
-
-.eco-block.ai{
-  border-color:rgba(101,221,255,.28);
-}
-
-.eco-block.platform{
-  border-color:rgba(103,232,177,.25);
-}
-
-.eco-block.product{
-  border-color:rgba(255,209,102,.24);
-}
-
-.eco-label{
-  font-size:13px;
-  letter-spacing:.14em;
-  font-weight:900;
-  color:var(--cyan);
-  margin-bottom:14px;
-}
-
-.eco-block.product .eco-label{
-  color:var(--amber);
-}
-
-.eco-block h3{
-  font-size:26px;
-  margin-bottom:14px;
-}
-
-.eco-list{
-  color:var(--muted);
-  line-height:1.75;
-  font-size:17px;
-}
-
-.eco-tags{
-  margin-top:15px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-
-.eco-tag{
-  padding:7px 11px;
-  border-radius:999px;
-  background:rgba(255,255,255,.055);
-  border:1px solid rgba(255,255,255,.08);
-  color:#dceaf3;
-  font-size:14px;
-  font-weight:700;
-}
-
-.eco-arrow{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--cyan);
-  font-size:31px;
-  font-weight:900;
-}
-
-.real-example{
-  margin-top:20px;
-  padding:18px 22px;
-  border-radius:19px;
-  border:1px solid rgba(101,221,255,.16);
-  background:linear-gradient(
-    90deg,
-    rgba(101,221,255,.07),
-    rgba(103,232,177,.05)
-  );
-}
-
-.real-example strong{
-  color:var(--cyan);
-}
-
-.real-flow{
-  margin-top:10px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  align-items:center;
-  color:#dceaf3;
-  font-weight:750;
-}
-
-.real-flow span{
-  padding:6px 9px;
-}
-
-.real-flow b{
-  color:var(--cyan);
-}
-
-/* DRAFT */
-
-.version-flow{
-  margin-top:35px;
-  display:grid;
-  grid-template-columns:1fr auto 1fr auto 1fr;
-  gap:12px;
-  align-items:stretch;
-}
-
-.version{
-  padding:25px;
-  border-radius:23px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(12,34,55,.75);
-}
-
-.version strong{
-  color:var(--cyan);
-  font-size:14px;
-  letter-spacing:.12em;
-}
-
-.version p{
-  color:var(--muted);
-  line-height:1.5;
-}
-
-.chain{
-  margin-top:34px;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:11px;
-}
-
-.chain-card{
-  padding:20px;
-  min-height:140px;
-  border-radius:20px;
-  border:1px solid rgba(255,255,255,.09);
-  background:rgba(12,34,55,.75);
-}
-
-.chain-card strong{
-  display:block;
-  color:var(--cyan);
-  font-size:18px;
-  margin-bottom:10px;
-}
-
-.chain-card span{
-  color:var(--muted);
-  line-height:1.45;
-}
-
-.questions{
-  margin-top:30px;
-  display:grid;
-  gap:11px;
-  max-width:1050px;
-}
-
-.question{
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,.09);
-  background:rgba(12,34,55,.75);
-  overflow:hidden;
-}
-
-.question button{
-  width:100%;
-  text-align:left;
-  padding:17px 20px;
-  border:0;
-  background:transparent;
-  color:white;
-  font-weight:800;
-  font-size:18px;
-}
-
-.q-detail{
-  display:none;
-  padding:0 20px 17px;
-  color:var(--muted);
-  line-height:1.5;
-}
-
-.question.open .q-detail{
-  display:block;
-}
-
-/* FINAL */
-
-.final-slide-title{
-  transition:.7s ease;
-}
-
-.final-slide-title.fade{
-  opacity:.38;
-}
-
-.end-stack{
-  margin-top:34px;
-  display:grid;
-  gap:11px;
-  max-width:980px;
-}
-
-.end-line{
-  opacity:0;
-  transform:translateY(12px) scale(.98);
-  padding:15px 21px;
-  border-radius:17px;
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(13,33,53,.68);
-  font-size:clamp(22px,2.7vw,34px);
-  font-weight:900;
-  transition:
-    opacity .65s ease,
-    transform .65s ease;
-}
-
-.end-line.show{
-  opacity:1;
-  transform:none;
-}
-
-.end-line.dim{
-  opacity:.25;
-}
-
-.end-line.last{
-  color:var(--amber);
-}
-
-.final-message{
-  opacity:0;
-  transform:scale(.94);
-  margin-top:28px;
-  padding-top:24px;
-  border-top:1px solid rgba(255,255,255,.1);
-  font-size:clamp(32px,4.2vw,54px);
-  font-weight:900;
-  line-height:1.13;
-  transition:.8s ease;
-}
-
-.final-message.show{
-  opacity:1;
-  transform:scale(1);
-}
-
-/* NAV */
-
-.bottom-nav{
-  position:fixed;
-  z-index:110;
-  left:50%;
-  transform:translateX(-50%);
-  bottom:18px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:8px;
-  border-radius:999px;
-  background:rgba(4,15,26,.84);
-  border:1px solid rgba(255,255,255,.09);
-}
-
-.nav-arrow{
-  width:46px;
-  height:46px;
-  border:0;
-  border-radius:50%;
-  background:rgba(255,255,255,.065);
-  color:white;
-  font-size:21px;
-}
-
-.counter{
-  min-width:82px;
-  text-align:center;
-  color:var(--muted);
-  font-weight:800;
-}
-
-/* DRAWER */
-
-.drawer{
-  position:fixed;
-  z-index:200;
-  inset:0;
-  display:none;
-}
-
-.drawer.open{display:block}
-
-.drawer-bg{
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.58);
-}
-
-.drawer-panel{
-  position:absolute;
-  top:0;
-  right:0;
-  width:min(430px,91vw);
-  height:100%;
-  padding:28px;
-  overflow:auto;
-  background:#081827;
-}
-
-.drawer-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-}
-
-.close{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.05);
-  color:white;
-}
-
-.menu-item{
-  width:100%;
-  text-align:left;
-  padding:12px 13px;
-  border:0;
-  border-radius:12px;
-  background:transparent;
-  color:#d9e8f2;
-}
-
-.menu-item:hover{
-  background:rgba(101,221,255,.07);
-}
-
-.menu-item span{
-  color:var(--cyan);
-  font-weight:900;
-  display:inline-block;
-  width:30px;
-}
-
-@media(max-width:900px){
-  .cards{grid-template-columns:repeat(2,1fr)}
-  .ai-grid{grid-template-columns:repeat(3,1fr)}
-  .cycle{grid-template-columns:repeat(2,1fr)}
-  .chain{grid-template-columns:repeat(2,1fr)}
-  .security-grid{grid-template-columns:1fr}
-  .security-bottom{grid-template-columns:1fr}
-}
-
-@media(max-width:720px){
-
-  .topbar{
-    height:60px;
-    padding:0 14px;
-  }
-
-  .progress{top:59px}
-
-  .scene{
-    inset:60px 0 0;
-    padding:30px 18px 105px;
-  }
-
-  .slide-inner{
-    min-height:auto;
-    justify-content:flex-start;
-  }
-
-  h1{font-size:43px}
-  h2{font-size:35px}
-  .lead{font-size:18px}
-
-  .live-layout,
-  .cards,
-  .problem-grid,
-  .two-col,
-  .cycle,
-  .chain,
-  .security-grid{
-    grid-template-columns:1fr;
-  }
-
-  .ai-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .stack-row{
-    grid-template-columns:1fr;
-    gap:5px;
-  }
-
-  .version-flow,
-  .ecosystem{
-    grid-template-columns:1fr;
-  }
-
-  .version-flow .arrow{
-    text-align:center;
-    transform:rotate(90deg);
-  }
-
-  .eco-arrow{
-    transform:rotate(90deg);
-    min-height:25px;
-  }
-
-  .bottom-nav{
-    width:calc(100% - 28px);
-    justify-content:space-between;
-    bottom:12px;
-  }
-
-}
-
-@media(prefers-reduced-motion:reduce){
-  *{
-    animation:none!important;
-    transition:none!important;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<header class="topbar">
-  <div class="brand">
-    <span class="brand-dot"></span>
-    AI TRONG CÔNG VIỆC
-  </div>
-
-  <button class="top-btn" onclick="openMenu()">
-    MỤC LỤC
-  </button>
-</header>
-
-<div class="progress" id="progress"></div>
-
-<main>
-
-<!-- 1 -->
-<section class="scene active">
-<div class="slide-inner">
-
-  <div class="eyebrow">AI TRONG CÔNG VIỆC</div>
-
-  <h1>
-    Từ một yêu cầu công việc đến một kết quả có thể sử dụng
-  </h1>
-
-  <p class="lead">
-    AI có thể hỗ trợ ở rất nhiều bước.
-    Quan trọng là biết mình cần giải quyết việc gì
-    và sử dụng AI như thế nào trong cả quá trình.
-  </p>
-
-  <div class="flow">
-    <div class="flow-box">HIỂU VIỆC</div>
-    <div class="arrow">→</div>
-    <div class="flow-box">LÀM CÙNG AI</div>
-    <div class="arrow">→</div>
-    <div class="flow-box">TẠO KẾT QUẢ</div>
-    <div class="arrow">→</div>
-    <div class="flow-box">KIỂM TRA</div>
-    <div class="arrow">→</div>
-    <div class="flow-box">QUYẾT ĐỊNH</div>
-  </div>
-
-</div>
-</section>
-
-
-<!-- 2 -->
-<section class="scene">
-<div class="slide-inner">
-
-  <div class="eyebrow">01 · HIỂU VIỆC</div>
-
-  <h2>
-    Trước khi hỏi AI, hãy hiểu việc mình đang cần giải quyết
-  </h2>
-
-  <div class="cards">
-
-    <div class="card">
-      <strong>YÊU CẦU</strong>
-      <p>Mình thực sự được giao việc gì</p>
-    </div>
-
-    <div class="card">
-      <strong>TÌNH HÌNH</strong>
-      <p>Đang có dữ liệu, vấn đề và hạn chế gì</p>
-    </div>
-
-    <div class="card">
-      <strong>MỤC TIÊU</strong>
-      <p>Kết quả cuối cùng cần giúp ích cho việc gì</p>
-    </div>
-
-    <div class="card">
-      <strong>NGƯỜI NHẬN</strong>
-      <p>Ai sẽ đọc, sử dụng hoặc ra quyết định</p>
-    </div>
-
-  </div>
-
-  <div class="callout">
-    AI có thể hỏi ngược để giúp làm rõ yêu cầu
-    và phát hiện những điều mình chưa nghĩ tới.
-  </div>
-
-</div>
-</section>
-
-
-<!-- 3 -->
-<section class="scene">
-<div class="slide-inner">
-
-  <div class="eyebrow">02 · NGHĨ CÙNG AI</div>
-
-  <h2>
-    Nghĩ cùng AI và tạo Draft 1 thật sớm
-  </h2>
-
-  <p class="lead">
-    Trao đổi với AI để mở rộng góc nhìn,
-    sắp xếp suy nghĩ và tạo một bản nháp đầu tiên.
-  </p>
-
-  <div class="flow">
-    <div class="flow-box">YÊU CẦU</div>
-    <div class="arrow">→</div>
-    <div class="flow-box">TRAO ĐỔI</div>
-    <div class="arrow">→</div>
-    <div class="flow-box">Ý TƯỞNG</div>
-    <div class="arrow">→</div>
-    <div class="flow-box">CẤU TRÚC</div>
-    <div class="arrow">→</div>
-    <div class="flow-box">DRAFT 1</div>
-  </div>
-
-  <div class="callout">
-    Có bản nháp sớm giúp chúng ta có thứ để nhìn,
-    phản biện và nâng cấp.
-  </div>
-
-</div>
-</section>
-
-
-<!-- 4 LIVE -->
-<section class="scene">
-<div class="slide-inner">
-
-  <div class="eyebrow">03 · TƯƠNG TÁC TRỰC TIẾP</div>
-
-  <h2>
-    Bạn đang sử dụng AI nào?
-  </h2>
-
-  <p class="lead">
-    Quét QR và nhập các công cụ AI bạn đang sử dụng
-    trong công việc hoặc học tập.
-  </p>
-
-  <div class="live-layout">
-
-    <div class="qr-panel">
-
-      <div class="qr-box">
-        <img
-          src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fduongthuhuong.github.io%2Fai-in-work%2Ftham-gia.html"
-          alt="QR tham gia">
-      </div>
-
-      <div class="qr-title">
-        QUÉT QR ĐỂ THAM GIA
-      </div>
-
-      <div class="qr-sub">
-        Không cần đăng nhập<br>
-        Nhập tên AI rồi bấm Gửi
-      </div>
-
-    </div>
-
-    <div class="live-panel">
-
-      <div class="live-head">
-
-        <div class="live-status">
-          <span class="live-dot"></span>
-          LIVE
-        </div>
-
-        <div class="total">
-          <span id="totalAnswers">0</span> lượt trả lời
-        </div>
-
-      </div>
-
-      <div class="word-cloud" id="wordCloud">
-        <div class="empty-cloud">
-          Đang chờ câu trả lời đầu tiên
-        </div>
-      </div>
-
-      <div class="live-note">
-        AI được nhắc nhiều hơn sẽ lớn hơn một chút
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-</section>
-
-
-<!-- 5 -->
-<section class="scene">
-<div class="slide-inner">
-
-  <div class="eyebrow">04 · KHÁM PHÁ</div>
-
-  <h2>
-    Còn rất nhiều công cụ AI khác
-  </h2>
-
-  <p class="lead">
-    Mỗi công cụ có thế mạnh riêng.
-    Bấm từng công cụ để khám phá.
-  </p>
-
-  <div class="ai-grid">
-
-    <button class="ai-card">
-      <div class="ai-name">ChatGPT</div>
-      <div class="ai-strength">
-        Trao đổi · phân tích · tạo nội dung · làm việc đa dạng
-      </div>
-    </button>
-
-    <button class="ai-card">
-      <div class="ai-name">Claude</div>
-      <div class="ai-strength">
-        Đọc tài liệu dài · viết · phân tích · lập luận
-      </div>
-    </button>
-
-    <button class="ai-card">
-      <div class="ai-name">Gemini</div>
-      <div class="ai-strength">
-        Đa phương thức · tìm hiểu · hệ sinh thái Google
-      </div>
-    </button>
-
-    <button class="ai-card">
-      <div class="ai-name">Microsoft Copilot</div>
-      <div class="ai-strength">
-        Hỗ trợ công việc trong hệ sinh thái Microsoft
-      </div>
-    </button>
-
-    <button class="ai-card">
-      <div class="ai-name">1Assistant</div>
-      <div class="ai-strength">
-        AI Assistant trong hệ thống 1Office của đơn vị
-      </div>
-    </button>
-
-    <button class="ai-card">
-      <div class="ai-name">NotebookLM</div>
-      <div class="ai-strength">
-        Tổng hợp và khai thác thông tin từ bộ tài liệu đã chọn
-      </div>
-    </button>
-
-    <button class="ai-card">
-      <div class="ai-name">Manus</div>
-      <div class="ai-strength">
-        Nghiên cứu và thực hiện nhiệm vụ nhiều bước
-      </div>
-    </button>
-
-    <button class="ai-card">
-      <div class="ai-name">DeepSeek</div>
-      <div class="ai-strength">
-        Phân tích · lập luận · kỹ thuật · hỗ trợ lập trình
-      </div>
-    </button>
-
-    <button class="ai-card">
-      <div class="ai-name">XMind AI</div>
-      <div class="ai-strength">
-        Hệ thống ý tưởng thành sơ đồ tư duy
-      </div>
-    </button>
-
-    <button class="ai-card">
-      <div class="ai-name">draw.io</div>
-      <div class="ai-strength">
-        Sơ đồ quy trình · mô hình · kiến trúc
-      </div>
-    </button>
-
-    <button class="ai-card">
-      <div class="ai-name">Canva AI</div>
-      <div class="ai-strength">
-        Thiết kế nội dung trực quan và trình bày
-      </div>
-    </button>
-
-    <button class="ai-card">
-      <div class="ai-name">Moda</div>
-      <div class="ai-strength">
-        Hỗ trợ thiết kế và tạo nội dung trình bày
-      </div>
-    </button>
-
-  </div>
-
-  <div class="callout">
-    Các công cụ này có thể thay đổi hoặc bị thay thế.
-    Khả năng học hỏi và thích nghi mới là điều cần giữ lại.
-  </div>
-
-</div>
-</section>
-
-
-<!-- 6 -->
-<section class="scene">
-<div class="slide-inner">
-
-  <div class="eyebrow">05 · HỌC LIÊN TỤC</div>
-
-  <h2>
-    Công cụ thay đổi thì cách làm việc cũng phải thay đổi
-  </h2>
-
-  <div class="cycle">
-
-    <div class="cycle-card">
-      <strong>KHÁM PHÁ</strong>
-      <p>Biết điều gì mới xuất hiện</p>
-    </div>
-
-    <div class="cycle-card">
-      <strong>HỌC</strong>
-      <p>Hiểu khả năng và giới hạn</p>
-    </div>
-
-    <div class="cycle-card">
-      <strong>THỬ</strong>
-      <p>Đưa vào công việc phù hợp</p>
-    </div>
-
-    <div class="cycle-card">
-      <strong>ÁP DỤNG</strong>
-      <p>Giữ cách làm tạo giá trị</p>
-    </div>
-
-    <div class="cycle-card">
-      <strong>CẬP NHẬT</strong>
-      <p>Tiếp tục học khi AI thay đổi</p>
-    </div>
-
-  </div>
-
-  <div class="callout">
-    Điều cần duy trì không phải là thuộc tên thật nhiều công cụ,
-    mà là khả năng học hỏi và thích nghi.
-  </div>
-
-</div>
-</section>
-
-
-<!-- 7 -->
-<section class="scene">
-<div class="slide-inner">
-
-  <div class="eyebrow">06 · NHÌN LẠI</div>
-
-  <h2>
-    Chúng ta có đang dùng AI thiếu hệ thống?
-  </h2>
-
-  <div class="problem-grid">
-
-    <div class="problem">
-      Mỗi câu hỏi lại mở một chat mới
-    </div>
-
-    <div class="problem">
-      Đưa lại cùng một bối cảnh nhiều lần
-    </div>
-
-    <div class="problem">
-      Sửa một phần nhưng yêu cầu làm lại toàn bộ
-    </div>
-
-    <div class="problem">
-      Đổi AI liên tục mà không rõ lý do
-    </div>
-
-    <div class="problem">
-      Không lưu lại cách làm đã tốt
-    </div>
-
-    <div class="problem">
-      Việc đơn giản cũng dùng công cụ mạnh nhất
-    </div>
-
-  </div>
-
-  <div class="callout">
-    TỐN LƯỢT · TỐN THỜI GIAN · MẤT BỐI CẢNH · KHÔNG TÍCH LŨY
-  </div>
-
-</div>
-</section>
-
+/* TOP */
+.topbar{position:fixed;z-index:300;top:0;left:0;right:0;height:76px;padding:0 3vw;display:flex;align-items:center;gap:14px;background:rgba(6,21,36,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}
+.brand{display:flex;align-items:center;gap:10px;min-width:185px;font-size:15px;font-weight:750}.brand-dot{width:10px;height:10px;border-radius:50%;background:var(--cyan);box-shadow:0 0 16px var(--cyan)}
+.parts{flex:1;display:flex;justify-content:center;gap:3px}.part{padding:9px 10px;border:0;border-radius:999px;background:transparent;color:#8ea3b5;font-size:13px;font-weight:650;cursor:pointer}.part.active{color:white;background:rgba(56,189,248,.14)}
+.top-btn{padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.05);color:white;font-size:14px;font-weight:650;cursor:pointer}.join-btn{color:var(--cyan);border-color:rgba(103,232,249,.3)}
+.progress{position:fixed;z-index:310;top:75px;left:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:.4s}
 
-<!-- 8 -->
-<section class="scene">
-<div class="slide-inner">
+/* SCENES */
+.scene{position:absolute;inset:0;padding:104px 6vw 86px;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transform:translateY(18px) scale(.99);filter:blur(3px);transition:.45s ease;overflow:auto;-webkit-overflow-scrolling:touch}
+.scene.active{opacity:1;pointer-events:auto;transform:none;filter:none}.inner{width:min(1180px,100%);margin:auto}.center{text-align:center}.eyebrow{margin-bottom:14px;color:var(--cyan);font-size:16px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+h1{font-size:clamp(46px,5vw,70px);line-height:1.08;font-weight:760;letter-spacing:-.6px}h2{font-size:clamp(34px,3.8vw,50px);line-height:1.14;font-weight:730;letter-spacing:-.2px}h3{font-size:23px;line-height:1.3}.subtitle{margin-top:20px;max-width:920px;color:var(--muted);font-size:21px;line-height:1.55}.center .subtitle{margin-left:auto;margin-right:auto}.highlight{color:var(--cyan)}.bigline{margin-top:26px;font-size:28px;line-height:1.42;font-weight:650}
+.reveal{opacity:0;transform:translateY(17px)}.scene.active .reveal{animation:rise .5s forwards}.scene.active .d1{animation-delay:.08s}.scene.active .d2{animation-delay:.18s}.scene.active .d3{animation-delay:.28s}.scene.active .d4{animation-delay:.38s}.scene.active .d5{animation-delay:.48s}.scene.active .d6{animation-delay:.58s}@keyframes rise{to{opacity:1;transform:none}}
 
-  <div class="eyebrow">07 · LÀM VIỆC CÓ HỆ THỐNG</div>
+/* GENERIC */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:29px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:29px}.card{padding:24px;border:1px solid var(--line);border-radius:19px;background:var(--card);box-shadow:var(--shadow)}.card p{margin-top:9px;color:var(--muted);font-size:19px;line-height:1.5}.card strong{font-size:22px}
+.btn{display:inline-block;margin-top:25px;padding:13px 21px;border:1px solid rgba(103,232,249,.35);border-radius:999px;background:rgba(56,189,248,.10);color:white;font-size:17px;font-weight:700;text-decoration:none;cursor:pointer;transition:.2s}.btn:hover{transform:translateY(-2px);background:rgba(56,189,248,.18)}
 
-  <h2>
-    Dùng AI có hệ thống
-  </h2>
+/* TASK */
+.task-layout{display:grid;grid-template-columns:.82fr 1.18fr;gap:48px;align-items:center}.task{padding:32px;border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.06);box-shadow:var(--shadow)}.task-label{margin-bottom:18px;color:var(--cyan);font-size:16px;font-weight:700}.task-text{font-size:29px;line-height:1.45;font-weight:620}.task-note{margin-top:20px;color:var(--muted);font-size:19px}
 
-  <div class="two-col">
+/* OLD FLOW */
+.file-stream{display:grid;grid-template-columns:1fr 80px 1.15fr;gap:18px;align-items:center;margin-top:30px}.sources{display:grid;gap:10px}.source{padding:14px 16px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.045);font-size:18px;animation:sourcePulse 2.8s ease-in-out infinite}.source:nth-child(2){animation-delay:.25s}.source:nth-child(3){animation-delay:.5s}.source:nth-child(4){animation-delay:.75s}@keyframes sourcePulse{50%{border-color:rgba(103,232,249,.45);transform:translateX(4px)}}.flow-arrow{color:var(--cyan);font-size:44px;text-align:center}.manual-box{padding:24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.04)}.manual-chain{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}.chip{padding:10px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04);font-size:16px}.timer{margin-top:18px;color:var(--yellow);font-size:29px;font-weight:750}
 
-    <div class="col">
-
-      <div class="col-title">
-        DỄ TỐN LƯỢT
-      </div>
-
-      <div class="item">
-        Hỏi từng câu rời rạc
-      </div>
-
-      <div class="item">
-        Mỗi lần lại bắt đầu từ đầu
-      </div>
-
-      <div class="item">
-        Sửa ít nhưng tạo lại toàn bộ
-      </div>
-
-      <div class="item">
-        Một AI làm mọi việc
-      </div>
-
-      <div class="item">
-        Không giữ cách làm tốt
-      </div>
-
-    </div>
-
-    <div class="col good">
-
-      <div class="col-title" style="color:var(--green)">
-        CÓ HỆ THỐNG
-      </div>
-
-      <div class="item">
-        Giữ một công việc trong một luồng hợp lý
-      </div>
-
-      <div class="item">
-        Đưa đủ bối cảnh ngay từ đầu
-      </div>
-
-      <div class="item">
-        Chỉ sửa đúng phần cần sửa
-      </div>
-
-      <div class="item">
-        Chọn công cụ theo điểm mạnh
-      </div>
-
-      <div class="item">
-        Giữ lại cách làm có thể dùng lại
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="callout">
-    Dùng AI hiệu quả không phải là hỏi nhiều hơn,
-    mà là làm việc với AI ngày càng có hệ thống hơn.
-  </div>
-
-</div>
-</section>
-
-
-<!-- 9 -->
-<section class="scene">
-<div class="slide-inner">
-
-  <div class="eyebrow">08 · TRAINING HẰNG NGÀY</div>
-
-  <h2>
-    Mỗi lần sử dụng là một lần học cách làm việc tốt hơn với AI
-  </h2>
-
-  <p class="lead">
-    Không cần tích trữ thật nhiều prompt.
-    Quan trọng là nhận ra cách nào hiệu quả và có thể sử dụng lại.
-  </p>
-
-  <div class="flow">
-
-    <div class="flow-box">DÙNG</div>
-    <div class="arrow">→</div>
-
-    <div class="flow-box">PHẢN HỒI</div>
-    <div class="arrow">→</div>
-
-    <div class="flow-box">CHỈNH</div>
-    <div class="arrow">→</div>
-
-    <div class="flow-box">THỬ LẠI</div>
-    <div class="arrow">→</div>
-
-    <div class="flow-box">GIỮ CÁCH TỐT</div>
-
-  </div>
-
-  <div class="callout">
-    Điều đáng tích lũy là cách làm tốt,
-    không phải một kho câu lệnh rời rạc.
-  </div>
-
-</div>
-</section>
-
-
-<!-- 10 -->
-<section class="scene">
-<div class="slide-inner">
-
-  <div class="eyebrow">09 · HỆ THỐNG HÓA</div>
-
-  <h2>
-    Từ cách làm tốt đến hệ thống có thể dùng lại
-  </h2>
-
-  <div class="stack">
-
-    <div class="stack-row">
-      <strong>CÁCH LÀM TỐT</strong>
-      <span>Một phương pháp đã thử và tạo ra kết quả tốt</span>
-    </div>
-
-    <div class="stack-row">
-      <strong>PROMPT LIBRARY</strong>
-      <span>Giữ lại những cấu trúc thực sự có giá trị và có thể dùng lại</span>
-    </div>
-
-    <div class="stack-row">
-      <strong>ASSISTANT</strong>
-      <span>Trợ lý được tổ chức theo nhóm công việc và nguồn phù hợp</span>
-    </div>
-
-    <div class="stack-row">
-      <strong>COPILOT AGENT</strong>
-      <span>Hỗ trợ các công việc được cấu hình trong hệ sinh thái làm việc</span>
-    </div>
-
-    <div class="stack-row">
-      <strong>AI AGENT</strong>
-      <span>Phù hợp hơn khi quy trình đã rõ, lặp lại và cần nhiều bước</span>
-    </div>
-
-  </div>
-
-</div>
-</section>
-
-
-<!-- 11 SECURITY -->
-<section class="scene">
-<div class="slide-inner">
-
-  <div class="eyebrow">10 · AI TRONG MÔI TRƯỜNG CÔNG VIỆC</div>
-
-  <h2>
-    Không phải có dùng AI hay không,
-    mà là dữ liệu nào được dùng với AI nào
-  </h2>
-
-  <div class="security-grid">
-
-    <div class="security-card safe">
-
-      <div class="security-number">1</div>
-
-      <strong>
-        AI ĐƯỢC PHÉP SỬ DỤNG
-      </strong>
-
-      <p>
-        Khi làm việc trong môi trường AI được đơn vị cho phép,
-        vẫn cần tuân thủ quy định về dữ liệu,
-        tài khoản, phân quyền và phạm vi sử dụng.
-      </p>
-
-    </div>
-
-    <div class="security-card caution">
-
-      <div class="security-number">2</div>
-
-      <strong>
-        AI BÊN NGOÀI
-      </strong>
-
-      <p>
-        Không đưa tài liệu mật, dữ liệu nhạy cảm,
-        thông tin dự án, đối tác, số liệu hoặc điều khoản
-        nếu chưa được phép sử dụng trên công cụ đó.
-      </p>
-
-    </div>
-
-    <div class="security-card test">
-
-      <div class="security-number">3</div>
-
-      <strong>
-        HỌC VÀ THỬ AI MỚI
-      </strong>
-
-      <p>
-        Khi cần khám phá công cụ mới,
-        ưu tiên dữ liệu mô phỏng,
-        dữ liệu công khai hoặc dữ liệu đã được xử lý phù hợp.
-      </p>
-
-    </div>
-
-  </div>
-
-  <div class="security-bottom">
-
-    <div class="security-rule">
-      Trước khi đưa công việc sang một AI khác,
-      hãy xem công cụ mình được phép sử dụng
-      đã làm được việc đó chưa.
-    </div>
-
-    <div class="security-warning">
-      Chỉ xóa tên công ty chưa chắc đã đủ.
-      Dự án, đối tác, thời gian, số liệu và nhiều chi tiết kết hợp
-      vẫn có thể làm lộ thông tin.
-    </div>
-
-  </div>
-
-</div>
-</section>
-
-
-<!-- 12 ECOSYSTEM -->
-<section class="scene">
-<div class="slide-inner">
-
-  <div class="eyebrow">11 · TỪ AI ĐẾN SẢN PHẨM</div>
-
-  <h2>
-    AI không nhất thiết làm mọi thứ
-  </h2>
-
-  <p class="lead">
-    Kết hợp AI với các công cụ số khác
-    để tạo thành một sản phẩm hoàn chỉnh.
-  </p>
-
-  <div class="ecosystem">
-
-    <div class="eco-block ai">
-
-      <div class="eco-label">
-        AI
-      </div>
-
-      <h3>
-        Nghĩ và tạo
-      </h3>
-
-      <div class="eco-list">
-        Phân tích<br>
-        Tạo nội dung<br>
-        Viết code<br>
-        Phản biện
-      </div>
-
-      <div class="eco-tags">
-        <span class="eco-tag">ChatGPT</span>
-        <span class="eco-tag">Claude</span>
-        <span class="eco-tag">Gemini</span>
-        <span class="eco-tag">Copilot</span>
-      </div>
-
-    </div>
-
-    <div class="eco-arrow">
-      →
-    </div>
-
-    <div class="eco-block platform">
-
-      <div class="eco-label">
-        CÔNG CỤ VÀ NỀN TẢNG
-      </div>
-
-      <h3>
-        Xây và kết nối
-      </h3>
-
-      <div class="eco-list">
-        Trực quan hóa<br>
-        Quản lý code<br>
-        Lưu dữ liệu<br>
-        Kết nối tương tác
-      </div>
-
-      <div class="eco-tags">
-        <span class="eco-tag">XMind</span>
-        <span class="eco-tag">Canva</span>
-        <span class="eco-tag">GitHub</span>
-        <span class="eco-tag">Supabase</span>
-      </div>
-
-    </div>
-
-    <div class="eco-arrow">
-      →
-    </div>
-
-    <div class="eco-block product">
-
-      <div class="eco-label">
-        SẢN PHẨM
-      </div>
-
-      <h3>
-        Đưa vào sử dụng
-      </h3>
-
-      <div class="eco-list">
-        Báo cáo<br>
-        Website<br>
-        Dashboard<br>
-        Trình bày tương tác
-      </div>
-
-      <div class="eco-tags">
-        <span class="eco-tag">WEB</span>
-        <span class="eco-tag">LIVE</span>
-        <span class="eco-tag">QR</span>
-        <span class="eco-tag">DATA</span>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="real-example">
-
-    <strong>
-      Bài trình bày bạn đang xem cũng được tạo theo cách này
-    </strong>
-
-    <div class="real-flow">
-
-      <span>AI hỗ trợ nội dung và code</span>
-
-      <b>→</b>
-
-      <span>GitHub xuất bản website</span>
-
-      <b>→</b>
-
-      <span>Supabase nhận dữ liệu</span>
-
-      <b>→</b>
-
-      <span>QR kết nối người tham gia</span>
-
-      <b>→</b>
-
-      <span>kết quả xuất hiện trực tiếp</span>
-
-    </div>
-
-  </div>
-
-</div>
-</section>
-
-
-<!-- 13 -->
-<section class="scene">
-<div class="slide-inner">
-
-  <div class="eyebrow">12 · NÂNG CẤP</div>
-
-  <h2>
-    Draft 1 không phải sản phẩm cuối cùng
-  </h2>
-
-  <div class="version-flow">
-
-    <div class="version">
-
-      <strong>DRAFT 1</strong>
-
-      <h3>
-        Có bản đầu tiên
-      </h3>
-
-      <p>
-        Đã có cấu trúc và ý chính.
-      </p>
-
-    </div>
-
-    <div class="arrow">→</div>
-
-    <div class="version">
-
-      <strong>PHẢN BIỆN</strong>
-
-      <h3>
-        Tìm điểm yếu
-      </h3>
-
-      <p>
-        Thiếu gì · thừa gì · logic nào yếu ·
-        chỗ nào chưa đủ căn cứ.
-      </p>
-
-    </div>
-
-    <div class="arrow">→</div>
-
-    <div class="version">
-
-      <strong>DRAFT 2</strong>
-
-      <h3>
-        Nâng cấp
-      </h3>
-
-      <p>
-        Bổ sung bối cảnh và chỉnh lại nội dung.
-      </p>
-
-    </div>
-
-  </div>
-
-</div>
-</section>
-
-
-<!-- 14 -->
-<section class="scene">
-<div class="slide-inner">
-
-  <div class="eyebrow">13 · KIỂM CHỨNG</div>
-
-  <h2>
-    Có kết quả rồi,
-    bây giờ mới đến bước không được bỏ qua
-  </h2>
-
-  <div class="chain">
-
-    <div class="chain-card">
-      <strong>AI 1</strong>
-      <span>Tạo hoặc phân tích kết quả</span>
-    </div>
-
-    <div class="chain-card">
-      <strong>AI 2</strong>
-      <span>Phản biện và tìm điểm yếu</span>
-    </div>
-
-    <div class="chain-card">
-      <strong>NGUỒN</strong>
-      <span>Quay lại tài liệu và dữ liệu gốc</span>
-    </div>
-
-    <div class="chain-card">
-      <strong>CON NGƯỜI</strong>
-      <span>Kiểm tra dữ liệu · thời điểm · giả định · logic</span>
-    </div>
-
-    <div class="chain-card">
-      <strong style="color:var(--green)">
-        FINAL
-      </strong>
-      <span>Kết quả đã được xem xét trước khi sử dụng</span>
-    </div>
-
-  </div>
-
-  <div class="callout">
-    Hai AI cùng đồng ý vẫn có thể cùng sai.
-  </div>
-
-</div>
-</section>
-
-
-<!-- 15 -->
-<section class="scene">
-<div class="slide-inner">
-
-  <div class="eyebrow">14 · ĐỔI GÓC NHÌN</div>
-
-  <h2>
-    Bản cuối đã có.
-    Người nhận sẽ hỏi gì?
-  </h2>
-
-  <div class="questions">
-
-    <div class="question">
-      <button>1 · Nguồn ở đâu?</button>
-      <div class="q-detail">
-        Có thể quay lại và kiểm tra những nguồn quan trọng
-        làm cơ sở cho kết luận không?
-      </div>
-    </div>
-
-    <div class="question">
-      <button>2 · Nguồn và dữ liệu đáng tin đến mức nào?</button>
-      <div class="q-detail">
-        Ai công bố, khi nào
-        và còn phù hợp với bối cảnh hiện tại không?
-      </div>
-    </div>
-
-    <div class="question">
-      <button>3 · Giả định quan trọng nhất là gì?</button>
-      <div class="q-detail">
-        Nếu giả định này thay đổi
-        thì kết luận có thay đổi không?
-      </div>
-    </div>
-
-    <div class="question">
-      <button>4 · Còn thiếu thông tin nào có thể làm thay đổi kết luận?</button>
-      <div class="q-detail">
-        Đâu là dữ liệu đã xác nhận
-        và đâu vẫn là khoảng trống thông tin?
-      </div>
-    </div>
-
-    <div class="question">
-      <button>5 · Điều gì có thể khiến kết luận này sai?</button>
-      <div class="q-detail">
-        Điểm yếu nào cần kiểm tra thêm
-        trước khi sử dụng kết quả để quyết định?
-      </div>
-    </div>
-
-  </div>
-
-</div>
-</section>
-
-
-<!-- 16 FINAL -->
-<section class="scene" id="finalScene">
-<div class="slide-inner">
-
-  <div class="eyebrow">15 · CUỐI CÙNG</div>
-
-  <h2 class="final-slide-title" id="finalTitle">
-    AI có thể hỗ trợ rất nhiều.
-    Nhưng có những việc AI không làm thay chúng ta.
-  </h2>
-
-  <div class="end-stack">
-
-    <div class="end-line">
-      AI KHÔNG KÝ
-    </div>
-
-    <div class="end-line">
-      AI KHÔNG PHÊ DUYỆT
-    </div>
-
-    <div class="end-line">
-      AI KHÔNG RA QUYẾT ĐỊNH THAY BẠN
-    </div>
-
-    <div class="end-line last">
-      AI KHÔNG CHỊU TRÁCH NHIỆM THAY BẠN
-    </div>
-
-  </div>
-
-  <div class="final-message" id="finalMessage">
-    NGƯỜI QUYẾT ĐỊNH<br>
-    <span style="color:var(--amber)">
-      LÀ NGƯỜI CHỊU TRÁCH NHIỆM
-    </span>
-  </div>
-
-</div>
-</section>
-
-</main>
-
-
-<div class="bottom-nav">
-
-  <button class="nav-arrow" onclick="prevSlide()">
-    ←
-  </button>
-
-  <div class="counter">
-    <span id="currentSlide">1</span> · 16
-  </div>
-
-  <button class="nav-arrow" onclick="nextSlide()">
-    →
-  </button>
-
-</div>
-
-
-<div class="drawer" id="drawer">
-
-  <div class="drawer-bg" onclick="closeMenu()"></div>
-
-  <div class="drawer-panel">
-
-    <div class="drawer-head">
-
-      <strong>MỤC LỤC</strong>
-
-      <button class="close" onclick="closeMenu()">
-        ×
-      </button>
-
-    </div>
-
-    <div id="menuList"></div>
-
-  </div>
-
-</div>
-
-
-<script type="module">
-
-import {
-  createClient
-} from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
-
-
-const SUPABASE_URL =
-"https://rfrhiexkxztulwauevtf.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_6I8RxZdVpu2Aj3q5qKsAwA_xv3SojaH";
-
-const supabase =
-createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
-
-
-/* SLIDES */
-
-const scenes =
-[...document.querySelectorAll(".scene")];
-
-let current = 0;
-
-const progress =
-document.getElementById("progress");
-
-const currentSlide =
-document.getElementById("currentSlide");
-
-let finalTimers = [];
-
-
-function clearFinalTimers(){
-
-  finalTimers.forEach(timer=>{
-    clearTimeout(timer);
-  });
-
-  finalTimers = [];
-
-}
-
-
-function resetFinalSlide(){
-
-  clearFinalTimers();
-
-  const lines =
-    [...document.querySelectorAll("#finalScene .end-line")];
-
-  lines.forEach(line=>{
-    line.classList.remove("show","dim");
-  });
-
-  document
-    .getElementById("finalTitle")
-    .classList
-    .remove("fade");
-
-  document
-    .getElementById("finalMessage")
-    .classList
-    .remove("show");
-
-}
-
-
-function startFinalSequence(){
-
-  resetFinalSlide();
-
-  const lines =
-    [...document.querySelectorAll("#finalScene .end-line")];
-
-  const title =
-    document.getElementById("finalTitle");
-
-  const finalMessage =
-    document.getElementById("finalMessage");
-
-
-  finalTimers.push(
-    setTimeout(()=>{
-      lines[0].classList.add("show");
-    },1200)
-  );
-
-  finalTimers.push(
-    setTimeout(()=>{
-      lines[1].classList.add("show");
-    },2400)
-  );
-
-  finalTimers.push(
-    setTimeout(()=>{
-      lines[2].classList.add("show");
-    },3600)
-  );
-
-  finalTimers.push(
-    setTimeout(()=>{
-      lines[3].classList.add("show");
-    },4800)
-  );
-
-  finalTimers.push(
-    setTimeout(()=>{
-
-      title.classList.add("fade");
-
-      lines.forEach(line=>{
-        line.classList.add("dim");
-      });
-
-    },6200)
-  );
-
-  finalTimers.push(
-    setTimeout(()=>{
-      finalMessage.classList.add("show");
-    },6900)
-  );
-
-}
-
-
-function showSlide(index){
-
-  if(index < 0){
-    index = 0;
-  }
-
-  if(index >= scenes.length){
-    index = scenes.length - 1;
-  }
-
-  if(current === scenes.length - 1){
-    resetFinalSlide();
-  }
-
-  scenes[current]
-    .classList
-    .remove("active");
-
-  current = index;
-
-  scenes[current]
-    .classList
-    .add("active");
-
-  scenes[current].scrollTop = 0;
-
-  currentSlide.textContent =
-    current + 1;
-
-  progress.style.width =
-    (
-      (current + 1)
-      /
-      scenes.length
-      *
-      100
-    )
-    + "%";
-
-  if(current === scenes.length - 1){
-    startFinalSequence();
-  }
-
-}
-
-
-function nextSlide(){
-  showSlide(current + 1);
-}
-
-function prevSlide(){
-  showSlide(current - 1);
-}
+/* SECURITY GATE */
+.security-gate{margin-top:30px;padding:30px;border:1px solid rgba(252,165,165,.3);border-radius:24px;background:rgba(252,165,165,.055);position:relative;overflow:hidden}.security-gate:before{content:"";position:absolute;left:-30%;top:0;width:26%;height:100%;background:linear-gradient(90deg,transparent,rgba(252,165,165,.11),transparent);animation:scan 2.5s infinite}@keyframes scan{to{left:110%}}.gate-title{font-size:34px;font-weight:760}.gate-q{margin-top:12px;font-size:24px;line-height:1.45}.security3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:23px}.sec{padding:20px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.035)}.sec small{display:block;color:var(--cyan);font-size:15px;font-weight:700;margin-bottom:7px}.sec p{font-size:18px;color:var(--muted);line-height:1.45}
 
-window.nextSlide = nextSlide;
-window.prevSlide = prevSlide;
+/* TWO PATHS */
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:30px}.path{padding:26px;border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.045)}.path.real{border-color:rgba(252,165,165,.25)}.path.demo{border-color:rgba(110,231,183,.28)}.path-tag{display:inline-flex;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.06);font-size:14px;font-weight:750}.path h3{margin-top:15px;font-size:27px}.pathline{margin-top:18px;display:grid;gap:9px}.pathstep{padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.045);font-size:18px}.pathstep:after{content:"↓";display:block;color:var(--cyan);text-align:center;margin-top:9px}.pathstep:last-child:after{display:none}
 
+/* MAP / PIPELINE */
+.pipeline{display:flex;align-items:stretch;gap:9px;margin-top:31px}.pipe{flex:1;padding:18px 12px;text-align:center;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.045);position:relative;overflow:hidden}.pipe:after{content:"";position:absolute;left:-100%;bottom:0;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--cyan),transparent)}.scene.active .pipe:after{animation:runline 2.7s ease-in-out infinite}@keyframes runline{to{left:100%}}.pipe strong{display:block;margin-bottom:7px;color:var(--cyan);font-size:19px}.pipe p{color:var(--muted);font-size:17px;line-height:1.4}.pipe-arrow{align-self:center;color:var(--cyan);font-size:23px}
+.map3{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;margin-top:30px}.mapcol{padding:23px;border:1px solid var(--line);border-radius:19px;background:rgba(255,255,255,.04)}.mapcol h3{color:var(--cyan)}.mapitem{margin-top:10px;padding:11px 13px;border-radius:11px;background:rgba(255,255,255,.05);font-size:18px}
 
-/* KEYBOARD */
+/* TOOL STACK */
+.stack{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}.stack-card{padding:22px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.045);min-height:180px}.stack-card .icon{font-size:30px}.stack-card strong{display:block;margin-top:11px;color:var(--cyan);font-size:22px}.stack-card p{margin-top:8px;color:var(--muted);font-size:18px;line-height:1.45}.stack-note{margin-top:24px;padding:18px 22px;border-left:3px solid var(--cyan);background:rgba(56,189,248,.055);font-size:19px;color:var(--muted);line-height:1.5}
 
-document.addEventListener(
-  "keydown",
-  event=>{
+/* DATA DEMO */
+.data-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;margin-top:28px;align-items:stretch}.data-table{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:rgba(255,255,255,.035)}.row{display:grid;grid-template-columns:1.1fr .9fr .9fr;gap:6px;padding:12px 14px;border-bottom:1px solid var(--line);font-size:17px}.row.head{font-weight:750;color:var(--cyan);background:rgba(56,189,248,.07)}.row:last-child{border-bottom:0}.dashboard{padding:20px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.04);position:relative}.dash-title{font-size:18px;color:var(--muted)}.bars{height:210px;display:flex;align-items:flex-end;gap:14px;margin-top:14px}.bar-wrap{flex:1;text-align:center}.bar{width:100%;min-height:20px;border-radius:10px 10px 4px 4px;background:linear-gradient(180deg,var(--cyan),rgba(56,189,248,.35));transition:height .7s ease}.barlabel{margin-top:8px;font-size:15px;color:var(--muted)}.update-badge{position:absolute;right:16px;top:14px;padding:7px 10px;border-radius:999px;background:rgba(110,231,183,.10);color:var(--green);font-size:14px;font-weight:700}.pulse-dot{display:inline-block;width:8px;height:8px;margin-right:6px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
 
-    if(
-      event.key === "ArrowRight"
-      ||
-      event.key === "PageDown"
-      ||
-      event.key === " "
-    ){
-      event.preventDefault();
-      nextSlide();
-    }
+/* COPILOT */
+.chat{margin-top:28px;max-width:920px;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.035);overflow:hidden}.chat-head{padding:13px 18px;border-bottom:1px solid var(--line);color:var(--cyan);font-weight:700}.msg{margin:16px;padding:16px 18px;border-radius:16px;font-size:19px;line-height:1.5}.msg.user{margin-left:12%;background:rgba(56,189,248,.10)}.msg.ai{margin-right:12%;background:rgba(255,255,255,.06)}
 
-    if(
-      event.key === "ArrowLeft"
-      ||
-      event.key === "PageUp"
-    ){
-      event.preventDefault();
-      prevSlide();
-    }
+/* ERROR */
+.errorbox{margin-top:28px;padding:28px;border:1px solid rgba(252,165,165,.32);border-radius:22px;background:rgba(252,165,165,.06)}.wrong{font-size:26px;line-height:1.45}.strike{color:var(--red);text-decoration:line-through;text-decoration-thickness:2px}.correct-note{margin-top:17px;color:var(--yellow);font-size:22px;font-weight:700}.checks{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:24px}.check{padding:16px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.04);font-size:17px;line-height:1.35}.check span{display:block;color:var(--cyan);font-size:14px;font-weight:750;margin-bottom:7px}
 
-    if(event.key === "Home"){
-      showSlide(0);
-    }
+/* FLIP */
+.flip-stage{perspective:1200px;margin-top:28px}.flip-card{position:relative;min-height:300px;transform-style:preserve-3d;transition:transform .8s}.flip-card.flipped{transform:rotateY(180deg)}.face{position:absolute;inset:0;backface-visibility:hidden;padding:34px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(56,189,248,.045));display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}.back{transform:rotateY(180deg);border-color:rgba(103,232,249,.35)}.role{font-size:16px;color:var(--cyan);font-weight:750}.face h3{font-size:38px;margin-top:10px}.face p{max-width:780px;margin-top:15px;color:var(--muted);font-size:21px;line-height:1.5}
 
-    if(event.key === "End"){
-      showSlide(scenes.length - 1);
-    }
+/* BOSS */
+.boss-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:28px}.boss-btn{min-height:91px;padding:17px;text-align:left;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.045);color:white;cursor:pointer}.boss-btn.active{border-color:var(--cyan);background:rgba(56,189,248,.12)}.boss-btn small{display:block;color:var(--cyan);font-size:15px;margin-bottom:6px}.boss-btn strong{font-size:19px}.boss-focus{margin-top:21px;min-height:150px;padding:25px 28px;border:1px solid rgba(103,232,249,.25);border-radius:20px;background:rgba(56,189,248,.055)}.boss-focus-label{color:var(--cyan);font-size:15px;font-weight:700}.boss-focus-question{margin-top:9px;font-size:27px;font-weight:650}.boss-focus-help{margin-top:10px;color:var(--muted);font-size:19px;line-height:1.45}
+.prompt{margin-top:24px;padding:21px 23px;border:1px solid rgba(103,232,249,.25);border-radius:18px;background:#081c30;font-size:19px;line-height:1.6}.prompt:before{content:"PROMPT CHECK NGƯỢC";display:block;margin-bottom:9px;color:var(--cyan);font-size:15px;font-weight:700}
 
-    if(event.key === "Escape"){
-      closeMenu();
-    }
+/* LEARNING */
+.learning-chain{display:flex;justify-content:center;align-items:center;gap:11px;flex-wrap:wrap;margin-top:30px}.learn-step{padding:14px 20px;border:1px solid rgba(103,232,249,.28);border-radius:999px;background:rgba(56,189,248,.07);font-size:20px;font-weight:700}.learn-arrow{color:var(--cyan);font-size:24px}
 
-  }
-);
+/* QUIZ */
+.quiz-wrap{margin-top:26px;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.035);overflow:hidden}.quiz-top{display:flex;justify-content:space-between;gap:15px;align-items:center;padding:15px 18px;border-bottom:1px solid var(--line)}.quiz-progress{font-weight:750;color:var(--cyan)}.quiz-body{padding:24px}.quiz-q{font-size:24px;font-weight:700;line-height:1.4}.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}.qopt{padding:15px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.045);color:white;text-align:left;cursor:pointer;font-size:17px}.qopt:hover{border-color:var(--cyan)}.qopt.correct{border-color:var(--green);background:rgba(110,231,183,.09)}.qopt.wrong{border-color:var(--red);background:rgba(252,165,165,.08)}.quiz-feedback{min-height:30px;margin-top:15px;color:var(--muted);font-size:17px}.quiz-actions{display:flex;justify-content:space-between;gap:12px;margin-top:14px}.quiz-actions button{padding:10px 16px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.05);color:white;cursor:pointer}.kahoot-note{margin-top:15px;color:var(--muted);font-size:16px}.kahoot-note a{color:var(--cyan)}
 
+/* END */
+.decision-box{max-width:950px;margin:28px auto 0;padding:34px;border:1px solid rgba(103,232,249,.28);border-radius:24px;background:rgba(56,189,248,.055)}.decision-word{font-size:clamp(46px,5.8vw,70px);font-weight:760}.decision-sub{margin-top:12px;color:var(--cyan);font-size:22px;font-weight:650}.triple{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}.triple .card{text-align:center}.triple .card small{display:block;color:var(--cyan);font-weight:750;margin-bottom:8px}.triple .card strong{font-size:24px}
 
 /* MENU */
+.overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:.25s}.overlay.open{opacity:1;pointer-events:auto}.drawer{position:absolute;top:0;bottom:0;left:0;width:min(470px,90vw);padding:27px;overflow:auto;background:#071a2b;transform:translateX(-100%);transition:.3s}.overlay.open .drawer{transform:none}.drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.drawer-head h3{font-size:28px}.close{width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:transparent;color:white;font-size:20px;cursor:pointer}.menu-section{margin:22px 0 7px;color:var(--cyan);font-size:15px;font-weight:700}.menu-item{width:100%;padding:11px 13px;text-align:left;border:0;border-radius:9px;background:transparent;color:#c9d5df;font-size:17px;cursor:pointer}.menu-item.current{background:rgba(56,189,248,.1);color:white}
 
-const menuNames = [
+/* QR */
+.qr-modal{position:fixed;inset:0;z-index:800;display:flex;align-items:center;justify-content:center;background:rgba(2,10,18,.88);opacity:0;pointer-events:none;transition:.25s}.qr-modal.open{opacity:1;pointer-events:auto}.qr-card{width:min(700px,92vw);padding:32px;text-align:center;border:1px solid var(--line);border-radius:25px;background:#0a2034}.qr-box{width:210px;height:210px;margin:20px auto;padding:10px;border-radius:16px;background:white}.qr-box img{width:100%;height:100%}.qr-note{color:var(--muted);font-size:18px;line-height:1.5}
 
-  "AI trong công việc",
-  "Hiểu việc trước",
-  "Nghĩ cùng AI",
-  "Tương tác trực tiếp",
-  "Khám phá công cụ AI",
-  "Học liên tục",
-  "AI thiếu hệ thống",
-  "Dùng AI có hệ thống",
-  "Training hằng ngày",
-  "Hệ thống hóa",
-  "Bảo mật và dữ liệu",
-  "AI kết hợp công cụ số",
-  "Draft 1 đến Draft 2",
-  "Kiểm chứng",
-  "Nhìn từ phía người nhận",
-  "Con người chịu trách nhiệm"
+/* BOTTOM */
+.bottom-nav{position:fixed;z-index:350;right:3vw;bottom:24px;display:flex;align-items:center;gap:8px}.nav-btn{width:45px;height:45px;border:1px solid var(--line);border-radius:50%;background:rgba(255,255,255,.055);color:white;font-size:18px;cursor:pointer}.counter{min-width:82px;text-align:center;color:#d7e4ec;font-size:15px;font-weight:650}.mobile-center{display:flex;align-items:center;gap:7px}.mobile-action{display:none}.location{position:fixed;z-index:250;left:3vw;bottom:32px;color:#8197a9;font-size:14px;font-weight:650}
 
+@media(max-width:1050px){.parts{display:none}.topbar{height:60px;padding:0 18px}.brand{flex:1;min-width:0}.top-btn{padding:8px 10px}.join-btn{display:none}.progress{top:59px}.scene{padding:86px 22px 100px}.grid3,.stack,.checks{grid-template-columns:1fr 1fr}.task-layout,.data-wrap{grid-template-columns:1fr}.file-stream{grid-template-columns:1fr}.flow-arrow{transform:rotate(90deg)}.pipeline{flex-wrap:wrap}.pipe{min-width:30%}.pipe-arrow{display:none}.map3{grid-template-columns:1fr}.location{display:none}.bottom-nav{left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));justify-content:space-between;padding:7px 9px;border:1px solid var(--line);border-radius:999px;background:rgba(6,21,36,.94);backdrop-filter:blur(14px)}.mobile-action{display:inline-block;padding:8px 9px;border:0;background:transparent;color:#cfe0eb;font-size:13px}.boss-buttons{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){h1{font-size:clamp(38px,11vw,50px)}h2{font-size:clamp(30px,8.5vw,40px)}.subtitle{font-size:18px}.bigline{font-size:22px}.scene{align-items:flex-start;padding:84px 18px 105px}.grid2,.grid3,.paths,.security3,.stack,.checks,.triple,.quiz-options{grid-template-columns:1fr}.card{padding:20px}.task{padding:22px}.task-text{font-size:24px}.pipeline{display:grid;grid-template-columns:1fr}.pipe{min-width:0}.stack-card{min-height:0}.boss-buttons{grid-template-columns:1fr}.boss-focus-question{font-size:23px}.face{padding:24px}.face h3{font-size:31px}.flip-card{min-height:340px}.row{grid-template-columns:1fr .85fr .85fr;font-size:15px}.bars{height:170px}.qr-card{width:calc(100vw - 28px);padding:24px}.qr-box{width:190px;height:190px}.drawer{width:88vw;max-width:390px;padding:22px}.top-btn:first-of-type{padding:8px 11px}.top-btn:first-of-type span{display:none}.learn-arrow{transform:rotate(90deg)}.learning-chain{flex-direction:column}}
+@media(max-width:390px){.brand{font-size:13px}.top-btn{font-size:13px}.mobile-action{font-size:12px}.counter{font-size:13px;min-width:65px}.row{font-size:14px;padding:10px}}
+@media(max-height:520px) and (orientation:landscape){.scene{align-items:flex-start;padding-top:72px}.topbar{height:54px}.progress{top:53px}.bottom-nav{bottom:7px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+
+/* =========================================================
+   SLIDE 17–19 · LIVE TEST + KẾT QUẢ + BÀI TẬP
+========================================================= */
+.live-test-shell{display:grid;grid-template-columns:1.6fr .65fr;gap:18px;margin-top:24px}
+.live-test-card,.test-side,.results-panel,.homework-card{border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.04);box-shadow:var(--shadow)}
+.live-test-card{padding:24px}.test-side{padding:22px;display:flex;flex-direction:column;justify-content:space-between}
+.test-mini{color:var(--cyan);font-size:14px;font-weight:750;letter-spacing:.4px}.test-question{margin-top:12px;font-size:25px;font-weight:720;line-height:1.42}
+.test-options{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:18px}.test-option{padding:14px 15px;text-align:left;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.045);color:white;cursor:pointer;font-size:16px;line-height:1.35;transition:.18s}
+.test-option:hover{border-color:rgba(103,232,249,.55);transform:translateY(-1px)}.test-option.selected{border-color:var(--cyan);background:rgba(56,189,248,.14)}
+.test-controls{display:flex;justify-content:space-between;gap:10px;margin-top:18px}.test-controls button,.submit-test,.refresh-results{padding:10px 15px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.05);color:white;cursor:pointer}
+.submit-test{width:100%;margin-top:14px;border-color:rgba(110,231,183,.35);background:rgba(110,231,183,.10);font-weight:750}.submit-test:disabled{opacity:.45;cursor:not-allowed}
+.test-status{margin-top:12px;min-height:42px;color:var(--muted);font-size:15px;line-height:1.45}.test-stat{font-size:42px;font-weight:780;color:var(--cyan)}.test-stat-label{margin-top:3px;color:var(--muted);font-size:14px}.test-side-note{margin-top:20px;color:var(--muted);font-size:15px;line-height:1.5}
+.dot-row{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:18px}.qdot{height:34px;border:1px solid var(--line);border-radius:9px;background:rgba(255,255,255,.035);color:#a9bac7;font-weight:750;cursor:pointer}.qdot.done{border-color:rgba(110,231,183,.42);color:white;background:rgba(110,231,183,.09)}.qdot.current{border-color:var(--cyan);color:var(--cyan)}
+.results-head{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}.result-kpi{padding:19px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.04)}.result-kpi strong{display:block;font-size:34px;color:var(--cyan)}.result-kpi span{display:block;margin-top:5px;color:var(--muted);font-size:15px}
+.results-panel{margin-top:17px;padding:18px;max-height:48vh;overflow:auto}.result-row{display:grid;grid-template-columns:52px 1.1fr 1fr 90px;gap:12px;align-items:center;padding:11px 8px;border-bottom:1px solid rgba(255,255,255,.08)}.result-row:last-child{border-bottom:0}.result-no{color:var(--cyan);font-weight:750}.result-q{font-size:15px;line-height:1.35}.result-answer{color:var(--muted);font-size:14px;line-height:1.35}.result-answer strong{color:white}.result-bar-wrap{height:8px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:7px}.result-bar{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--blue),var(--green))}.result-pct{text-align:right;font-size:18px;font-weight:760}.results-actions{display:flex;justify-content:flex-end;margin-top:12px}.results-message{margin-top:10px;color:var(--muted);font-size:14px}
+.homework-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}.homework-card{padding:23px}.homework-card small{color:var(--cyan);font-weight:750}.homework-card h3{margin-top:10px;font-size:22px}.homework-card p{margin-top:9px;color:var(--muted);font-size:17px;line-height:1.5}.homework-output{margin-top:22px;padding:20px 22px;border-left:3px solid var(--cyan);background:rgba(56,189,248,.055);font-size:18px;line-height:1.5;color:#d8e7f0}.homework-output strong{color:var(--cyan)}
+@media(max-width:900px){.live-test-shell{grid-template-columns:1fr}.test-options,.homework-grid{grid-template-columns:1fr}.results-head{grid-template-columns:1fr 1fr}.result-row{grid-template-columns:42px 1fr 72px}.result-answer{grid-column:2/4}}
+@media(max-width:560px){.test-question{font-size:21px}.results-head{grid-template-columns:1fr}.test-stat{font-size:34px}}
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="brand-dot"></span>AI TRONG CÔNG VIỆC</div>
+  <div class="parts">
+    <button class="part active" data-part="1" onclick="goTo(0)">1 · NHIỆM VỤ</button>
+    <button class="part" data-part="2" onclick="goTo(3)">2 · DỮ LIỆU & BẢO MẬT</button>
+    <button class="part" data-part="3" onclick="goTo(7)">3 · SỐ HÓA & AI</button>
+    <button class="part" data-part="4" onclick="goTo(12)">4 · KIỂM CHỨNG</button>
+    <button class="part" data-part="5" onclick="goTo(14)">5 · TÔI LÀ SẾP</button>
+    <button class="part" data-part="6" onclick="goTo(18)">6 · HỌC & QUYẾT ĐỊNH</button>
+  </div>
+  <button class="top-btn" onclick="toggleMenu()">☰ <span>MỤC LỤC</span></button>
+  <button class="top-btn join-btn" onclick="openQR()">▦ THAM GIA</button>
+</div>
+<div class="progress" id="progress"></div>
+
+<!-- 01 -->
+<section class="scene active" data-part="1" data-title="AI trong công việc">
+  <div class="inner center">
+    <div class="eyebrow reveal d1">Một case công việc · đi từ đầu đến cuối</div>
+    <h1 class="reveal d2">TỪ DỮ LIỆU KHAI THÁC<br><span class="highlight">ĐẾN QUYẾT ĐỊNH</span></h1>
+    <p class="subtitle reveal d3">Không bắt đầu bằng “AI nào tốt nhất”. Bắt đầu bằng một việc thật: cập nhật nhanh tình hình sản lượng khai thác từ các mỏ.</p>
+    <div class="bigline reveal d4">AI giúp ta đi nhanh hơn. <span class="highlight">Con người vẫn phải hiểu, kiểm chứng và chịu trách nhiệm.</span></div>
+    <button class="btn reveal d5" onclick="nextScene()">Bắt đầu case →</button>
+  </div>
+</section>
+
+<!-- 02 -->
+<section class="scene" data-part="1" data-title="Sếp giao việc">
+  <div class="inner task-layout">
+    <div class="reveal d1">
+      <div class="eyebrow">Tình huống</div>
+      <h2>SẾP GIAO VIỆC</h2>
+      <p class="subtitle">Một yêu cầu rất quen thuộc trong điều hành: cần thông tin nhanh, nhưng dữ liệu lại đến từ nhiều nguồn.</p>
+    </div>
+    <div class="task reveal d2">
+      <div class="task-label">YÊU CẦU</div>
+      <div class="task-text">“Tôi cần cập nhật nhanh tình hình sản lượng khai thác từ các mỏ để phục vụ điều hành.”</div>
+      <div class="task-note">Câu hỏi: làm thế nào để giảm thời gian tổng hợp mà vẫn bảo đảm dữ liệu đáng tin cậy?</div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section class="scene" data-part="1" data-title="Cách làm cũ">
+  <div class="inner">
+    <div class="eyebrow reveal d1">Trước đây</div>
+    <h2 class="reveal d2">NHIỀU FILE → NHIỀU THAO TÁC → MẤT THỜI GIAN</h2>
+    <div class="file-stream reveal d3">
+      <div class="sources">
+        <div class="source">📄 File từ Mỏ Alpha</div><div class="source">📧 Email từ Mỏ Beta</div><div class="source">📊 Excel từ Mỏ Gamma</div><div class="source">🗂️ Báo cáo cập nhật khác</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="manual-box">
+        <h3>Người tổng hợp</h3>
+        <div class="manual-chain"><span class="chip">Mở file</span><span class="chip">Copy/Paste</span><span class="chip">Chuẩn hóa</span><span class="chip">Tính toán</span><span class="chip">Vẽ biểu đồ</span><span class="chip">Viết nhận xét</span><span class="chip">Sửa khi có số mới</span></div>
+        <div class="timer">⏱ Thời gian tăng theo số nguồn & số lần cập nhật</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 -->
+<section class="scene" data-part="2" data-title="Cú phanh bảo mật">
+  <div class="inner center">
+    <div class="eyebrow reveal d1">Phản xạ rất dễ xảy ra</div>
+    <h2 class="reveal d2">“UPLOAD FILE LÊN AI RỒI BẢO NÓ TỔNG HỢP?”</h2>
+    <div class="security-gate reveal d3">
+      <div class="gate-title">🔒 DỪNG LẠI.</div>
+      <div class="gate-q">Đây có thể là dữ liệu nội bộ / dữ liệu nhạy cảm. <strong>AI làm được không đồng nghĩa với việc ta được phép đưa dữ liệu vào.</strong></div>
+      <div class="security3">
+        <div class="sec"><small>01 · DỮ LIỆU</small><p>Dữ liệu được phân loại thế nào?</p></div>
+        <div class="sec"><small>02 · CÔNG CỤ</small><p>Công cụ / tài khoản / môi trường này có được đơn vị cho phép?</p></div>
+        <div class="sec"><small>03 · QUYỀN TRUY CẬP</small><p>Ai được xem, xử lý và chia sẻ dữ liệu?</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 -->
+<section class="scene" data-part="2" data-title="Hai đường xử lý">
+  <div class="inner">
+    <div class="eyebrow reveal d1">Tách việc thật và việc học</div>
+    <h2 class="reveal d2">DỮ LIỆU THẬT VÀ DỮ LIỆU GIẢ LẬP ĐI THEO HAI ĐƯỜNG KHÁC NHAU</h2>
+    <div class="paths reveal d3">
+      <div class="path real">
+        <span class="path-tag">🔒 CÔNG VIỆC THẬT</span><h3>Dữ liệu sản lượng thật</h3>
+        <div class="pathline"><div class="pathstep">Kiểm tra phân loại dữ liệu</div><div class="pathstep">Dùng môi trường doanh nghiệp được phép</div><div class="pathstep">Đúng quyền truy cập & chính sách nội bộ</div><div class="pathstep">Người có trách nhiệm kiểm chứng</div></div>
+      </div>
+      <div class="path demo">
+        <span class="path-tag">🧪 HỌC & THỬ</span><h3>Dữ liệu giả lập</h3>
+        <div class="pathline"><div class="pathstep">Tên mỏ hư cấu</div><div class="pathstep">Sản lượng hư cấu</div><div class="pathstep">Nguyên nhân hư cấu</div><div class="pathstep">Dùng để học toàn bộ quy trình AI</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 -->
+<section class="scene" data-part="2" data-title="Bộ dữ liệu giả lập">
+  <div class="inner">
+    <div class="eyebrow reveal d1">Bộ dữ liệu để cả lớp cùng làm</div>
+    <h2 class="reveal d2">ALPHA · BETA · GAMMA · DELTA · OMEGA</h2>
+    <p class="subtitle reveal d3">Tất cả số liệu dưới đây chỉ để minh họa. Mục tiêu là học cách xử lý, không phải mô phỏng dữ liệu thực tế của bất kỳ mỏ nào.</p>
+    <div class="data-wrap reveal d4">
+      <div class="data-table" id="demoTable"></div>
+      <div class="dashboard">
+        <div class="update-badge"><span class="pulse-dot"></span>GIẢ LẬP</div>
+        <div class="dash-title">Sản lượng thực hiện so với kế hoạch</div>
+        <div class="bars" id="bars"></div>
+      </div>
+    </div>
+    <button class="btn reveal d5" onclick="simulateUpdate()">↻ Giả lập số Gamma thay đổi</button>
+  </div>
+</section>
+
+<!-- 07 -->
+<section class="scene" data-part="2" data-title="Bản đồ xử lý">
+  <div class="inner">
+    <div class="eyebrow reveal d1">Trước khi chọn tool</div>
+    <h2 class="reveal d2">MAPPING CÔNG VIỆC TRƯỚC, TOOL SAU</h2>
+    <div class="map3 reveal d3">
+      <div class="mapcol"><h3>⚙️ TỰ ĐỘNG HÓA</h3><div class="mapitem">Nhận & ghép dữ liệu</div><div class="mapitem">Chuẩn hóa cấu trúc</div><div class="mapitem">Tính toán lặp lại</div><div class="mapitem">Refresh báo cáo</div></div>
+      <div class="mapcol"><h3>✦ AI HỖ TRỢ</h3><div class="mapitem">Tóm tắt</div><div class="mapitem">Tìm bất thường</div><div class="mapitem">Gợi ý câu hỏi</div><div class="mapitem">Dự thảo nhận xét</div></div>
+      <div class="mapcol"><h3>👤 CON NGƯỜI</h3><div class="mapitem">Hiểu bối cảnh kỹ thuật</div><div class="mapitem">Kiểm chứng</div><div class="mapitem">Xử lý ngoại lệ</div><div class="mapitem">Quyết định</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 -->
+<section class="scene" data-part="3" data-title="Bộ công cụ">
+  <div class="inner">
+    <div class="eyebrow reveal d1">Một kiến trúc dễ hiểu</div>
+    <h2 class="reveal d2">POWER BI + COPILOT: KHÔNG PHẢI CHỌN MỘT TRONG HAI</h2>
+    <div class="stack reveal d3">
+      <div class="stack-card"><div class="icon">📥</div><strong>Nguồn dữ liệu</strong><p>Excel / hệ thống dữ liệu / file nguồn được quản trị.</p></div>
+      <div class="stack-card"><div class="icon">⚙️</div><strong>Power Query</strong><p>Gom, làm sạch và chuẩn hóa dữ liệu lặp lại.</p></div>
+      <div class="stack-card"><div class="icon">📊</div><strong>Power BI</strong><p>Dashboard, mô hình dữ liệu, refresh và trực quan hóa.</p></div>
+      <div class="stack-card"><div class="icon">✦</div><strong>Copilot</strong><p>Hỏi dữ liệu, hỗ trợ tóm tắt, phân tích và phản biện — trong môi trường được phép.</p></div>
+    </div>
+    <div class="stack-note reveal d4"><strong>Power BI</strong> là lớp báo cáo và trực quan hóa. <strong>Copilot</strong> là lớp AI hỗ trợ con người làm việc với dữ liệu. Còn bảo mật phụ thuộc vào môi trường, cấu hình và quy định của tổ chức — không phụ thuộc vào tên công cụ.</div>
+  </div>
+</section>
+
+<!-- 09 -->
+<section class="scene" data-part="3" data-title="Dòng dữ liệu số">
+  <div class="inner center">
+    <div class="eyebrow reveal d1">Từ thủ công đến số hóa</div>
+    <h2 class="reveal d2">DỮ LIỆU THAY ĐỔI → DÒNG THÔNG TIN CŨNG ĐƯỢC CẬP NHẬT NHANH HƠN</h2>
+    <div class="pipeline reveal d3">
+      <div class="pipe"><strong>CÁC MỎ</strong><p>Nguồn dữ liệu</p></div><div class="pipe-arrow">→</div>
+      <div class="pipe"><strong>POWER QUERY</strong><p>Chuẩn hóa</p></div><div class="pipe-arrow">→</div>
+      <div class="pipe"><strong>POWER BI</strong><p>Dashboard</p></div><div class="pipe-arrow">→</div>
+      <div class="pipe"><strong>COPILOT</strong><p>Hỏi & tóm tắt</p></div><div class="pipe-arrow">→</div>
+      <div class="pipe"><strong>CON NGƯỜI</strong><p>Kiểm chứng</p></div><div class="pipe-arrow">→</div>
+      <div class="pipe"><strong>SẾP</strong><p>Quyết định</p></div>
+    </div>
+    <div class="bigline reveal d4">Số hóa không chỉ là “làm báo cáo nhanh hơn một lần”. <span class="highlight">Đó là thiết kế lại dòng chảy thông tin.</span></div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="scene" data-part="3" data-title="Hỏi dữ liệu">
+  <div class="inner">
+    <div class="eyebrow reveal d1">Một cách làm mới</div>
+    <h2 class="reveal d2">THAY VÌ ĐỌC HẾT BÁO CÁO, TA BẮT ĐẦU BẰNG MỘT CÂU HỎI</h2>
+    <div class="chat reveal d3">
+      <div class="chat-head">COPILOT · DỮ LIỆU GIẢ LẬP</div>
+      <div class="msg user">“Tóm tắt tình hình sản lượng. Mỏ nào có biến động đáng chú ý so với kế hoạch?”</div>
+      <div class="msg ai" id="aiSummary">Đang tổng hợp từ bộ dữ liệu giả lập…</div>
+    </div>
+    <button class="btn reveal d4" onclick="generateSummary()">✦ Tạo tóm tắt giả lập</button>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="scene" data-part="3" data-title="AI không chỉ viết">
+  <div class="inner">
+    <div class="eyebrow reveal d1">Nâng cấp cách dùng</div>
+    <h2 class="reveal d2">ĐỪNG CHỈ BẢO AI “VIẾT BÁO CÁO”</h2>
+    <div class="grid2 reveal d3">
+      <div class="card"><strong>Hỏi để tìm tín hiệu</strong><p>Mỏ nào lệch kế hoạch nhiều nhất? Xu hướng nào đáng chú ý? Dữ liệu nào cần xác minh?</p></div>
+      <div class="card"><strong>Hỏi để phân biệt dữ liệu và nhận định</strong><p>Điều gì là con số quan sát được? Điều gì mới chỉ là giả định hoặc diễn giải?</p></div>
+      <div class="card"><strong>Hỏi để tạo sản phẩm</strong><p>Tạo executive summary ngắn, bảng ưu tiên, câu hỏi cho cuộc họp.</p></div>
+      <div class="card"><strong>Hỏi để phản biện</strong><p>Điểm nào trong báo cáo đang kết luận mạnh hơn bằng chứng?</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="scene" data-part="3" data-title="Tiết kiệm thời gian">
+  <div class="inner center">
+    <div class="eyebrow reveal d1">Giá trị thực tế</div>
+    <h2 class="reveal d2">AI GIÚP LẤY LẠI THỜI GIAN TỪ NHỮNG VIỆC LẶP LẠI</h2>
+    <div class="grid3 reveal d3">
+      <div class="card"><strong>Ít copy/paste hơn</strong><p>Dành ít thời gian hơn cho thao tác thủ công.</p></div>
+      <div class="card"><strong>Cập nhật nhanh hơn</strong><p>Số nguồn thay đổi không bắt buộc làm lại toàn bộ báo cáo từ đầu.</p></div>
+      <div class="card"><strong>Nhiều thời gian hơn cho tư duy</strong><p>Phân tích, trao đổi chuyên môn, xử lý ngoại lệ và quyết định.</p></div>
+    </div>
+    <div class="bigline reveal d4">Nhưng <span class="highlight">nhanh hơn chưa đủ.</span></div>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="scene" data-part="4" data-title="AI có thể sai">
+  <div class="inner">
+    <div class="eyebrow reveal d1">Cú lật thứ nhất</div>
+    <h2 class="reveal d2">BÁO CÁO RẤT ĐẸP. NHƯNG KẾT LUẬN CÓ ĐÚNG KHÔNG?</h2>
+    <div class="errorbox reveal d3">
+      <div class="wrong">AI viết: <span class="strike">“Gamma đã vượt kế hoạch.”</span></div>
+      <div class="correct-note">Trong dữ liệu giả lập, Gamma vẫn đang thấp hơn kế hoạch.</div>
+      <div class="checks">
+        <div class="check"><span>01</span>Nguồn dữ liệu?</div><div class="check"><span>02</span>Phép tính?</div><div class="check"><span>03</span>Đơn vị đo?</div><div class="check"><span>04</span>Kỳ so sánh?</div><div class="check"><span>05</span>Dữ liệu hay suy diễn?</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section class="scene" data-part="4" data-title="5 kiểm tra cuối">
+  <div class="inner center">
+    <div class="eyebrow reveal d1">Trước khi gửi / trình</div>
+    <h2 class="reveal d2">5 KIỂM TRA CUỐI</h2>
+    <div class="checks reveal d3">
+      <div class="check"><span>01</span>Đúng sự thật chưa?</div><div class="check"><span>02</span>Nguồn ở đâu?</div><div class="check"><span>03</span>Có đúng bối cảnh không?</div><div class="check"><span>04</span>Có an toàn thông tin / đúng quy định không?</div><div class="check"><span>05</span>Ai chịu trách nhiệm?</div>
+    </div>
+    <div class="bigline reveal d4">AI có thể tạo ra câu trả lời. <span class="highlight">Người dùng AI phải tạo ra sự tin cậy.</span></div>
+  </div>
+</section>
+
+<!-- 15 -->
+<section class="scene" data-part="5" data-title="Bây giờ tôi là Sếp">
+  <div class="inner center">
+    <div class="eyebrow reveal d1">Cú lật thứ hai</div>
+    <h2 class="reveal d2">BÂY GIỜ TÔI KHÔNG PHẢI NGƯỜI LÀM BÁO CÁO.</h2>
+    <div class="flip-stage reveal d3">
+      <div class="flip-card" id="roleFlip">
+        <div class="face front"><div class="role">VAI 1</div><h3>NGƯỜI LÀM</h3><p>Dùng AI để tổng hợp, phân tích và tạo sản phẩm.</p><button class="btn" onclick="flipRole()">Lật vai →</button></div>
+        <div class="face back"><div class="role">VAI 2</div><h3>TÔI LÀ SẾP</h3><p>Tôi không cần AI viết lại báo cáo. Tôi cần AI giúp tôi <strong>đặt câu hỏi tốt hơn</strong> trước khi quyết định.</p><button class="btn" onclick="flipRole()">← Quay lại</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 16 -->
+<section class="scene" data-part="5" data-title="Sếp hỏi ngược">
+  <div class="inner">
+    <div class="eyebrow reveal d1">Check ngược</div>
+    <h2 class="reveal d2">TÔI CÓ TIN NGAY CON SỐ NÀY KHÔNG?</h2>
+    <div class="boss-buttons reveal d3">
+      <button class="boss-btn active" onclick="bossQuestion(this,'96,8% lấy từ đâu?','Cho tôi xem dữ liệu nguồn, công thức và cách tính tổng.')"><small>01</small><strong>Con số từ đâu?</strong></button>
+      <button class="boss-btn" onclick="bossQuestion(this,'Vì sao Gamma được coi là bất thường?','So với kế hoạch, kỳ trước, trung bình nhiều kỳ hay một ngưỡng kỹ thuật?')"><small>02</small><strong>So với cái gì?</strong></button>
+      <button class="boss-btn" onclick="bossQuestion(this,'Nguyên nhân giảm sản lượng đã được chứng minh chưa?','Phân biệt dữ liệu thực tế với nhận định hoặc suy diễn của AI.')"><small>03</small><strong>Nguyên nhân?</strong></button>
+      <button class="boss-btn" onclick="bossQuestion(this,'Có tín hiệu xấu nào bị che bởi số tổng không?','Hãy tìm xu hướng theo thời gian hoặc một mỏ đang xấu dần dù tổng thể chưa bất thường.')"><small>04</small><strong>Có gì bị che?</strong></button>
+      <button class="boss-btn" onclick="bossQuestion(this,'Nếu một giả định thay đổi, kết luận có thay đổi không?','Kiểm tra độ nhạy của kết luận trước khi quyết định.')"><small>05</small><strong>Giả định nào?</strong></button>
+      <button class="boss-btn" onclick="bossQuestion(this,'AI đang kết luận mạnh hơn dữ liệu ở điểm nào?','Yêu cầu chỉ ra phần chưa chắc chắn và phần cần chuyên gia xác nhận.')"><small>06</small><strong>AI có nói quá?</strong></button>
+    </div>
+    <div class="boss-focus reveal d4"><div class="boss-focus-label">CÂU HỎI ĐANG CHỌN</div><div class="boss-focus-question" id="bossTitle">96,8% lấy từ đâu?</div><div class="boss-focus-help" id="bossHelp">Cho tôi xem dữ liệu nguồn, công thức và cách tính tổng.</div></div>
+  </div>
+</section>
+
+<!-- 17 -->
+<section class="scene" data-part="6" data-title="Cùng test chút nhé">
+  <div class="inner">
+    <div class="eyebrow reveal d1">Kiểm tra nhanh cuối bài · 10 câu</div>
+    <h2 class="reveal d2">CÙNG TEST CHÚT NHÉ!</h2>
+    <p class="subtitle reveal d3">Mỗi người trả lời 10 câu. Kết quả được gửi ẩn danh và tổng hợp ngay ở màn hình tiếp theo.</p>
+
+    <div class="live-test-shell reveal d4">
+      <div class="live-test-card">
+        <div class="test-mini" id="liveQuizProgress">CÂU 1 / 10</div>
+        <div class="test-question" id="liveQuizQuestion"></div>
+        <div class="test-options" id="liveQuizOptions"></div>
+        <div class="test-controls">
+          <button onclick="prevLiveQuestion()">← Câu trước</button>
+          <button onclick="nextLiveQuestion()">Câu tiếp →</button>
+        </div>
+      </div>
+
+      <div class="test-side">
+        <div>
+          <div class="test-mini">TIẾN ĐỘ</div>
+          <div class="test-stat" id="answeredCount">0/10</div>
+          <div class="test-stat-label">câu đã trả lời</div>
+          <div class="dot-row" id="questionDots"></div>
+        </div>
+
+        <div>
+          <button class="submit-test" id="submitTestBtn" onclick="submitLiveTest()" disabled>NỘP BÀI</button>
+          <div class="test-status" id="testStatus">Trả lời đủ 10 câu để bật nút Nộp bài.</div>
+          <div class="test-side-note">Không hiện đáp án ngay trên máy người tham gia. Cả lớp sẽ cùng xem kết quả ở Slide 18.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 18 -->
+<section class="scene" data-part="6" data-title="Kết quả cả lớp">
+  <div class="inner">
+    <div class="eyebrow reveal d1">Kết quả trực tiếp</div>
+    <h2 class="reveal d2">CẢ LỚP ĐÃ HIỂU ĐẾN ĐÂU?</h2>
+
+    <div class="results-head reveal d3">
+      <div class="result-kpi"><strong id="participantCount">0</strong><span>người đã nộp</span></div>
+      <div class="result-kpi"><strong id="averageScore">–</strong><span>điểm trung bình / 10</span></div>
+      <div class="result-kpi"><strong id="consensusLevel">–</strong><span>mức đồng thuận trung bình</span></div>
+    </div>
+
+    <div class="results-panel reveal d4" id="resultsPanel">
+      <div class="results-message">Đang chờ câu trả lời từ lớp…</div>
+    </div>
+
+    <div class="results-actions reveal d5">
+      <button class="refresh-results" onclick="loadLiveResults(true)">↻ Cập nhật kết quả</button>
+    </div>
+
+    <div class="results-message reveal d5" id="resultsStatus">Kết quả tự động cập nhật mỗi 3 giây khi đang ở Slide 18.</div>
+  </div>
+</section>
+
+<!-- 19 -->
+<section class="scene" data-part="6" data-title="Bài tập về nhà">
+  <div class="inner">
+    <div class="eyebrow reveal d1">Đem AI trở lại công việc thật</div>
+    <h2 class="reveal d2">BÀI TẬP VỀ NHÀ · 1 VIỆC THẬT, 1 CÁCH LÀM MỚI</h2>
+
+    <div class="homework-grid reveal d3">
+      <div class="homework-card">
+        <small>01 · CHỌN VIỆC</small>
+        <h3>Một việc bạn đang làm thật</h3>
+        <p>Chọn một đầu việc lặp lại hoặc tốn thời gian: tổng hợp, phân tích, soạn thảo, kiểm tra, chuẩn bị họp…</p>
+      </div>
+      <div class="homework-card">
+        <small>02 · THỬ VỚI AI</small>
+        <h3>Thiết kế lại cách làm</h3>
+        <p>Chỉ dùng dữ liệu được phép hoặc dữ liệu giả lập. Ghi lại prompt, đầu ra AI và cách bạn kiểm chứng trước khi sử dụng.</p>
+      </div>
+      <div class="homework-card">
+        <small>03 · ĐO GIÁ TRỊ</small>
+        <h3>Cho thấy AI giúp gì</h3>
+        <p>So sánh trước – sau: thời gian, chất lượng, số bước thao tác, rủi ro và phần việc vẫn cần con người quyết định.</p>
+      </div>
+    </div>
+
+    <div class="homework-output reveal d4">
+      <strong>Sản phẩm nộp:</strong> 01 trang hoặc 03 slide gồm: Việc đã chọn → Cách làm cũ → Cách dùng AI → Cách kiểm chứng → Kết quả/giá trị tạo ra → Điều bạn sẽ làm khác đi lần sau.
+    </div>
+
+    <div class="bigline reveal d5">Mục tiêu không phải “dùng AI cho có”. <span class="highlight">Mục tiêu là làm công việc tốt hơn và vẫn chịu trách nhiệm với kết quả.</span></div>
+  </div>
+</section>
+
+<!-- MENU -->
+<div class="overlay" id="overlay" onclick="overlayClick(event)">
+  <div class="drawer">
+    <div class="drawer-head"><h3>Mục lục</h3><button class="close" onclick="toggleMenu()">×</button></div>
+    <div class="menu-section">1 · NHIỆM VỤ</div>
+    <button class="menu-item" onclick="goToMenu(0)">01 · AI trong công việc</button><button class="menu-item" onclick="goToMenu(1)">02 · Sếp giao việc</button><button class="menu-item" onclick="goToMenu(2)">03 · Cách làm cũ</button>
+    <div class="menu-section">2 · DỮ LIỆU & BẢO MẬT</div>
+    <button class="menu-item" onclick="goToMenu(3)">04 · Cú phanh bảo mật</button><button class="menu-item" onclick="goToMenu(4)">05 · Hai đường xử lý</button><button class="menu-item" onclick="goToMenu(5)">06 · Bộ dữ liệu giả lập</button><button class="menu-item" onclick="goToMenu(6)">07 · Mapping công việc</button>
+    <div class="menu-section">3 · SỐ HÓA & AI</div>
+    <button class="menu-item" onclick="goToMenu(7)">08 · Power BI + Copilot</button><button class="menu-item" onclick="goToMenu(8)">09 · Dòng dữ liệu số</button><button class="menu-item" onclick="goToMenu(9)">10 · Hỏi dữ liệu</button><button class="menu-item" onclick="goToMenu(10)">11 · AI không chỉ viết</button><button class="menu-item" onclick="goToMenu(11)">12 · Tiết kiệm thời gian</button>
+    <div class="menu-section">4 · KIỂM CHỨNG</div>
+    <button class="menu-item" onclick="goToMenu(12)">13 · AI có thể sai</button><button class="menu-item" onclick="goToMenu(13)">14 · 5 kiểm tra cuối</button>
+    <div class="menu-section">5 · TÔI LÀ SẾP</div>
+    <button class="menu-item" onclick="goToMenu(14)">15 · Bây giờ tôi là Sếp</button><button class="menu-item" onclick="goToMenu(15)">16 · Sếp hỏi ngược</button>
+    <div class="menu-section">6 · KIỂM TRA & THỰC HÀNH</div>
+    <button class="menu-item" onclick="goToMenu(16)">17 · Cùng test chút nhé</button><button class="menu-item" onclick="goToMenu(17)">18 · Kết quả cả lớp</button><button class="menu-item" onclick="goToMenu(18)">19 · Bài tập về nhà</button>
+  </div>
+</div>
+
+<!-- QR -->
+<div class="qr-modal" id="qrModal" onclick="qrOutside(event)">
+  <div class="qr-card">
+    <button class="close" style="float:right" onclick="closeQR()">×</button>
+    <h3>Tham gia trên điện thoại</h3>
+    <div class="qr-box"><img id="mainQR" alt="QR"></div>
+    <div class="qr-note">QR đang trỏ tới trang GitHub Pages của khóa học. Người tham gia có thể mở bài test trực tiếp trên điện thoại.</div>
+  </div>
+</div>
+
+<div class="location" id="location">PHẦN 1 · NHIỆM VỤ</div>
+<div class="bottom-nav"><button class="nav-btn" onclick="previousScene()" aria-label="Màn trước">←</button><div class="mobile-center"><button class="mobile-action" onclick="goTo(6)">◎ Bản đồ</button><div class="counter" id="counter">01 / 19</div><button class="mobile-action" onclick="openQR()">▦ Tham gia</button></div><button class="nav-btn" onclick="nextScene()" aria-label="Màn tiếp theo">→</button></div>
+
+<script>
+const SITE_URL='https://duongthuhuong.github.io/ai-in-work/';
+
+const scenes=[...document.querySelectorAll('.scene')];
+const parts=[...document.querySelectorAll('.part')];
+const menuItems=[...document.querySelectorAll('.menu-item')];
+let currentScene=0;
+const partNames={1:'PHẦN 1 · NHIỆM VỤ',2:'PHẦN 2 · DỮ LIỆU & BẢO MẬT',3:'PHẦN 3 · SỐ HÓA & AI',4:'PHẦN 4 · KIỂM CHỨNG',5:'PHẦN 5 · TÔI LÀ SẾP',6:'PHẦN 6 · KIỂM TRA & THỰC HÀNH'};
+function showScene(index){index=Math.max(0,Math.min(index,scenes.length-1));scenes.forEach(s=>s.classList.remove('active'));currentScene=index;const scene=scenes[index];void scene.offsetWidth;scene.classList.add('active');const part=Number(scene.dataset.part);parts.forEach(x=>x.classList.toggle('active',Number(x.dataset.part)===part));menuItems.forEach((x,i)=>x.classList.toggle('current',i===index));document.getElementById('counter').innerText=String(index+1).padStart(2,'0')+' / '+scenes.length;document.getElementById('progress').style.width=((index+1)/scenes.length*100)+'%';document.getElementById('location').innerText=partNames[part]+' · '+scene.dataset.title;scene.scrollTop=0;if(resultsTimer){clearInterval(resultsTimer);resultsTimer=null}if(index===17){loadLiveResults();resultsTimer=setInterval(()=>loadLiveResults(),3000)}}
+function nextScene(){if(currentScene<scenes.length-1)showScene(currentScene+1)}function previousScene(){if(currentScene>0)showScene(currentScene-1)}function goTo(i){showScene(i)}
+function toggleMenu(){document.getElementById('overlay').classList.toggle('open')}function goToMenu(i){document.getElementById('overlay').classList.remove('open');setTimeout(()=>showScene(i),100)}function overlayClick(e){if(e.target.id==='overlay')toggleMenu()}
+function openQR(){document.getElementById('qrModal').classList.add('open')}function closeQR(){document.getElementById('qrModal').classList.remove('open')}function qrOutside(e){if(e.target.id==='qrModal')closeQR()}
+document.getElementById('mainQR').src='https://api.qrserver.com/v1/create-qr-code/?size=400x400&data='+encodeURIComponent(SITE_URL);
+
+// DỮ LIỆU GIẢ LẬP — KHÔNG PHẢI DỮ LIỆU THỰC TẾ
+let demoData=[
+  {field:'Alpha',plan:10000,actual:9750},
+  {field:'Beta',plan:8500,actual:8920},
+  {field:'Gamma',plan:6200,actual:5610},
+  {field:'Delta',plan:7400,actual:7310},
+  {field:'Omega',plan:9100,actual:8850}
+];
+let gammaAlt=false;
+function fmt(n){return n.toLocaleString('vi-VN')}
+function renderDemo(){const table=document.getElementById('demoTable');table.innerHTML='<div class="row head"><div>Mỏ</div><div>Kế hoạch</div><div>Thực hiện</div></div>'+demoData.map(d=>`<div class="row"><div>${d.field}</div><div>${fmt(d.plan)}</div><div>${fmt(d.actual)}</div></div>`).join('');const max=Math.max(...demoData.map(d=>d.plan));document.getElementById('bars').innerHTML=demoData.map(d=>`<div class="bar-wrap"><div class="bar" style="height:${Math.max(18,d.actual/max*180)}px"></div><div class="barlabel">${d.field}<br>${Math.round(d.actual/d.plan*100)}%</div></div>`).join('')}
+function simulateUpdate(){gammaAlt=!gammaAlt;demoData=demoData.map(d=>d.field==='Gamma'?{...d,actual:gammaAlt?5950:5610}:d);renderDemo();document.getElementById('aiSummary').innerText='Dữ liệu vừa thay đổi. Hãy tạo lại tóm tắt để xem kết luận mới.'}
+function generateSummary(){const totalPlan=demoData.reduce((a,b)=>a+b.plan,0);const totalActual=demoData.reduce((a,b)=>a+b.actual,0);const ratio=(totalActual/totalPlan*100).toFixed(1);const worst=[...demoData].sort((a,b)=>(a.actual/a.plan)-(b.actual/b.plan))[0];const best=[...demoData].sort((a,b)=>(b.actual/b.plan)-(a.actual/a.plan))[0];document.getElementById('aiSummary').innerHTML=`Tổng thực hiện đạt <strong>${ratio}%</strong> kế hoạch trong bộ dữ liệu giả lập. <strong>${worst.field}</strong> có tỷ lệ thực hiện thấp nhất; <strong>${best.field}</strong> cao nhất. Cần kiểm tra thêm bối cảnh vận hành trước khi kết luận nguyên nhân.`}
+renderDemo();
+
+function flipRole(){document.getElementById('roleFlip').classList.toggle('flipped')}
+function bossQuestion(button,title,help){document.querySelectorAll('.boss-btn').forEach(x=>x.classList.remove('active'));button.classList.add('active');document.getElementById('bossTitle').innerText=title;document.getElementById('bossHelp').innerText=help}
+
+const SUPABASE_URL='https://rfrhiexkxztulwauevtf.supabase.co';
+const SUPABASE_KEY='sb_publishable_6I8RxZdVpu2Aj3q5qKsAwA_xv3SojaH';
+
+const liveQuiz=[
+ {q:'Khi bắt đầu dùng AI cho một công việc, bước đầu tiên nên là gì?',o:['Chọn AI mạnh nhất','Hiểu công việc, dữ liệu và đầu ra cần có','Upload toàn bộ tài liệu','Viết prompt thật dài'],a:1},
+ {q:'Với dữ liệu nội bộ hoặc nhạy cảm, nguyên tắc đúng là gì?',o:['Có thể đưa vào AI nếu xóa tên file','Chỉ sử dụng trong công cụ/môi trường được tổ chức cho phép và đúng chính sách','AI nào cũng bảo mật như nhau','Có thể dùng nếu chỉ tóm tắt'],a:1},
+ {q:'Khi cần thực hành nhưng dữ liệu thật không phù hợp để đưa vào AI, nên làm gì?',o:['Dùng dữ liệu giả lập','Chụp màn hình dữ liệu thật','Đổi tên đơn vị là đủ','Bỏ qua bước kiểm tra'],a:0},
+ {q:'AI phù hợp nhất với vai trò nào?',o:['Tự phê duyệt quyết định','Hỗ trợ tra cứu, tổng hợp, phân tích và phản biện','Thay hệ thống phân quyền','Chịu trách nhiệm thay người dùng'],a:1},
+ {q:'AI đưa ra một con số khác bảng dữ liệu nguồn. Bạn nên làm gì trước?',o:['Tin AI vì câu trả lời tự tin','Kiểm tra nguồn, phép tính và kỳ so sánh','Yêu cầu AI viết lại','Bỏ bảng dữ liệu'],a:1},
+ {q:'Một kết luận do AI tạo ra nên được sử dụng thế nào?',o:['Dùng ngay nếu nghe hợp lý','Kiểm chứng bằng nguồn và bối cảnh công việc','Chỉ cần hỏi lại AI lần hai','Coi như ý kiến chuyên gia'],a:1},
+ {q:'Người quản lý có thể dùng AI hiệu quả hơn bằng cách nào?',o:['Chỉ yêu cầu tóm tắt','Yêu cầu AI đóng vai người phê duyệt, tìm điểm cần hỏi lại','Giao AI quyết định phương án cuối','Yêu cầu AI ký xác nhận'],a:1},
+ {q:'Dữ liệu cho thấy một chỉ tiêu thấp hơn kế hoạch. Có đủ để kết luận nguyên nhân không?',o:['Luôn đủ','Chưa đủ; cần thêm bối cảnh và chuyên môn','Đủ nếu dashboard màu đỏ','Đủ nếu AI đồng ý'],a:1},
+ {q:'Vì sao cần tiếp tục học AI?',o:['Để thuộc tên mọi công cụ','Vì công cụ và cách làm việc thay đổi liên tục','Vì mọi việc đều bắt buộc dùng AI','Vì AI luôn đúng hơn con người'],a:1},
+ {q:'Ai chịu trách nhiệm cuối cùng với sản phẩm công việc và quyết định?',o:['AI','Nhà cung cấp phần mềm','Con người trong phạm vi trách nhiệm và thẩm quyền của mình','Công cụ có benchmark cao nhất'],a:2}
 ];
 
-const menuList =
-document.getElementById("menuList");
+let liveQi=0;
+let liveAnswers=Array(10).fill(null);
+let resultsTimer=null;
 
-menuNames.forEach(
-  (name,index)=>{
-
-    const btn =
-      document.createElement("button");
-
-    btn.className =
-      "menu-item";
-
-    btn.innerHTML =
-      "<span>"
-      +
-      (index + 1)
-      +
-      "</span>"
-      +
-      name;
-
-    btn.onclick = ()=>{
-
-      closeMenu();
-      showSlide(index);
-
-    };
-
-    menuList.appendChild(btn);
-
-  }
-);
-
-
-function openMenu(){
-
-  document
-    .getElementById("drawer")
-    .classList
-    .add("open");
-
+function renderLiveQuiz(){
+  const item=liveQuiz[liveQi];
+  const progress=document.getElementById('liveQuizProgress');
+  if(!progress)return;
+  progress.innerText='CÂU '+(liveQi+1)+' / '+liveQuiz.length;
+  document.getElementById('liveQuizQuestion').innerText=item.q;
+  document.getElementById('liveQuizOptions').innerHTML=item.o.map((x,i)=>`<button class="test-option ${liveAnswers[liveQi]===i?'selected':''}" onclick="chooseLiveAnswer(${i})">${String.fromCharCode(65+i)}. ${x}</button>`).join('');
+  const done=liveAnswers.filter(x=>x!==null).length;
+  document.getElementById('answeredCount').innerText=done+'/10';
+  document.getElementById('questionDots').innerHTML=liveQuiz.map((_,i)=>`<button class="qdot ${liveAnswers[i]!==null?'done':''} ${i===liveQi?'current':''}" onclick="goLiveQuestion(${i})">${i+1}</button>`).join('');
+  const alreadySubmitted=localStorage.getItem('ai_work_test_submitted')==='1';
+  document.getElementById('submitTestBtn').disabled=done!==10||alreadySubmitted;
+  if(alreadySubmitted)document.getElementById('testStatus').innerText='✅ Thiết bị này đã nộp bài.';
 }
 
-function closeMenu(){
+function chooseLiveAnswer(i){liveAnswers[liveQi]=i;renderLiveQuiz();if(liveQi<9){setTimeout(()=>{liveQi++;renderLiveQuiz()},180)}}
+function nextLiveQuestion(){liveQi=Math.min(9,liveQi+1);renderLiveQuiz()}
+function prevLiveQuestion(){liveQi=Math.max(0,liveQi-1);renderLiveQuiz()}
+function goLiveQuestion(i){liveQi=i;renderLiveQuiz()}
 
-  document
-    .getElementById("drawer")
-    .classList
-    .remove("open");
-
+async function submitLiveTest(){
+  const status=document.getElementById('testStatus');
+  if(liveAnswers.some(x=>x===null)){status.innerText='Bạn còn câu chưa trả lời.';return}
+  if(localStorage.getItem('ai_work_test_submitted')==='1'){status.innerText='Thiết bị này đã nộp bài.';return}
+  const payload={};
+  liveAnswers.forEach((a,i)=>payload['q'+(i+1)]=String(a));
+  status.innerText='Đang gửi câu trả lời…';
+  try{
+    const r=await fetch(SUPABASE_URL+'/rest/v1/test_answers',{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(payload)});
+    if(!r.ok)throw new Error(await r.text());
+    localStorage.setItem('ai_work_test_submitted','1');
+    localStorage.setItem('ai_work_test_answers',JSON.stringify(liveAnswers));
+    document.getElementById('submitTestBtn').disabled=true;
+    status.innerHTML='✅ Đã nộp bài. Cảm ơn bạn! Cả lớp cùng xem kết quả ở Slide 18.';
+  }catch(e){console.error(e);status.innerText='Không gửi được dữ liệu. Kiểm tra kết nối Supabase.'}
 }
 
-window.openMenu = openMenu;
-window.closeMenu = closeMenu;
+function consensusText(v){if(v>=85)return'Rất cao';if(v>=75)return'Cao';if(v>=60)return'Khá';return'Phân tán'}
 
-
-/* LIVE ANSWERS */
-
-function splitAnswers(value){
-
-  return String(value || "")
-    .replace(/\n/g,",")
-    .replace(/;/g,",")
-    .replace(/\|/g,",")
-    .replace(/，/g,",")
-    .split(",")
-    .map(item=>item.trim())
-    .filter(Boolean);
-
+async function loadLiveResults(manual=false){
+  const panel=document.getElementById('resultsPanel');
+  const status=document.getElementById('resultsStatus');
+  if(!panel||!status)return;
+  try{
+    if(manual)status.innerText='Đang cập nhật…';
+    const fields=liveQuiz.map((_,i)=>'q'+(i+1)).join(',');
+    const r=await fetch(SUPABASE_URL+'/rest/v1/test_answers?select='+fields,{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}});
+    if(!r.ok)throw new Error(await r.text());
+    const rows=await r.json();
+    document.getElementById('participantCount').innerText=rows.length;
+    if(!rows.length){document.getElementById('averageScore').innerText='–';document.getElementById('consensusLevel').innerText='–';panel.innerHTML='<div class="results-message">Đang chờ câu trả lời từ lớp…</div>';status.innerText='Chưa có bài nộp.';return}
+    let totalCorrect=0,totalConsensus=0;
+    const html=liveQuiz.map((item,qi)=>{
+      const vals=rows.map(row=>Number(row['q'+(qi+1)])).filter(v=>Number.isInteger(v));
+      const correct=vals.filter(v=>v===item.a).length;totalCorrect+=correct;
+      const counts=item.o.map((_,oi)=>vals.filter(v=>v===oi).length);
+      const maxCount=Math.max(...counts,0);
+      const consensus=vals.length?Math.round(maxCount/vals.length*100):0;totalConsensus+=consensus;
+      const pct=vals.length?Math.round(correct/vals.length*100):0;
+      return `<div class="result-row"><div class="result-no">${String(qi+1).padStart(2,'0')}</div><div><div class="result-q">${item.q}</div><div class="result-bar-wrap"><div class="result-bar" style="width:${pct}%"></div></div></div><div class="result-answer">Đáp án đúng: <strong>${String.fromCharCode(65+item.a)}. ${item.o[item.a]}</strong><br>Đồng thuận: ${consensus}%</div><div class="result-pct">${pct}%</div></div>`;
+    }).join('');
+    document.getElementById('averageScore').innerText=(totalCorrect/rows.length).toFixed(1);
+    const avgConsensus=Math.round(totalConsensus/liveQuiz.length);
+    document.getElementById('consensusLevel').innerText=consensusText(avgConsensus);
+    panel.innerHTML=html;
+    status.innerText='Đã cập nhật · '+new Date().toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  }catch(e){console.error(e);panel.innerHTML='<div class="results-message">Không đọc được dữ liệu từ Supabase.</div>';status.innerText='Lỗi kết nối Supabase.'}
 }
 
-
-function normalizeAI(value){
-
-  const clean =
-    String(value || "")
-      .trim()
-      .replace(/\s+/g," ");
-
-  const key =
-    clean
-      .toLowerCase()
-      .replace(/[\s._-]/g,"");
-
-  const known = {
-
-    "chatgpt":"ChatGPT",
-    "chatgptai":"ChatGPT",
-
-    "claude":"Claude",
-    "claudeai":"Claude",
-
-    "gemini":"Gemini",
-    "geminiai":"Gemini",
-
-    "copilot":"Copilot",
-    "copilotai":"Copilot",
-    "microsoftcopilot":"Copilot",
-    "microsoftcopilotai":"Copilot",
-
-    "githubcopilot":"GitHub Copilot",
-
-    "notebooklm":"NotebookLM",
-
-    "manus":"Manus",
-    "manusai":"Manus",
-
-    "deepseek":"DeepSeek",
-    "deepseekai":"DeepSeek",
-
-    "xmind":"XMind AI",
-    "xmindai":"XMind AI",
-
-    "canva":"Canva AI",
-    "canvaai":"Canva AI",
-
-    "moda":"Moda",
-    "modaai":"Moda",
-
-    "drawio":"draw.io",
-    "diagramsnet":"draw.io",
-
-    "1assistant":"1Assistant",
-    "1officeassistant":"1Assistant"
-
-  };
-
-  if(known[key]){
-    return known[key];
-  }
-
-  return clean;
-
-}
-
-
-let answers = [];
-let previousCounts = {};
-
-
-async function loadAnswers(){
-
-  const {
-    data,
-    error
-  } =
-    await supabase
-      .from("ai_answers")
-      .select("id,answer,created_at")
-      .order(
-        "created_at",
-        {ascending:true}
-      );
-
-  if(error){
-
-    console.error(
-      "Không đọc được dữ liệu",
-      error
-    );
-
-    return;
-
-  }
-
-  answers = data || [];
-
-  renderCloud();
-
-}
-
-
-function renderCloud(){
-
-  const cloud =
-    document.getElementById("wordCloud");
-
-  const total =
-    document.getElementById("totalAnswers");
-
-  total.textContent =
-    answers.length;
-
-  if(!answers.length){
-
-    cloud.innerHTML =
-      '<div class="empty-cloud">'
-      +
-      'Đang chờ câu trả lời đầu tiên'
-      +
-      '</div>';
-
-    previousCounts = {};
-
-    return;
-
-  }
-
-
-  const grouped = {};
-
-
-  answers.forEach(row=>{
-
-    const tools =
-      splitAnswers(row.answer);
-
-    const uniqueTools =
-      new Set();
-
-    tools.forEach(tool=>{
-
-      const name =
-        normalizeAI(tool);
-
-      if(!name){
-        return;
-      }
-
-      const key =
-        name.toLowerCase();
-
-      if(uniqueTools.has(key)){
-        return;
-      }
-
-      uniqueTools.add(key);
-
-      if(!grouped[key]){
-
-        grouped[key] = {
-          name:name,
-          count:0
-        };
-
-      }
-
-      grouped[key].count++;
-
-    });
-
-  });
-
-
-  const items =
-    Object
-      .values(grouped)
-      .sort(
-        (a,b)=>{
-
-          if(b.count !== a.count){
-            return b.count - a.count;
-          }
-
-          return a.name.localeCompare(
-            b.name,
-            "vi"
-          );
-
-        }
-      );
-
-
-  const maxCount =
-    Math.max(
-      ...items.map(
-        item=>item.count
-      )
-    );
-
-
-  const newCounts = {};
-
-  cloud.innerHTML = "";
-
-
-  items.forEach(item=>{
-
-    const key =
-      item.name.toLowerCase();
-
-    newCounts[key] =
-      item.count;
-
-    const word =
-      document.createElement("div");
-
-    word.className =
-      "ai-word";
-
-
-    let ratio = 0;
-
-    if(maxCount > 1){
-
-      ratio =
-        (item.count - 1)
-        /
-        (maxCount - 1);
-
-    }
-
-
-    /*
-      Chỉ chênh kích thước nhẹ
-    */
-
-    const size =
-      20 + ratio * 8;
-
-    word.style.fontSize =
-      size.toFixed(1) + "px";
-
-
-    const glow =
-      .06 + ratio * .07;
-
-    word.style.background =
-      "rgba(101,221,255,"
-      +
-      glow.toFixed(3)
-      +
-      ")";
-
-
-    word.innerHTML =
-      "<span>"
-      +
-      escapeHTML(item.name)
-      +
-      "</span>"
-      +
-      '<span class="count">'
-      +
-      "× "
-      +
-      item.count
-      +
-      "</span>";
-
-
-    if(
-      previousCounts[key]
-      &&
-      item.count > previousCounts[key]
-    ){
-
-      word.classList.add(
-        "just-updated"
-      );
-
-    }
-
-
-    cloud.appendChild(word);
-
-  });
-
-
-  previousCounts =
-    newCounts;
-
-}
-
-
-/* REALTIME */
-
-supabase
-
-  .channel("ai_answers_live")
-
-  .on(
-
-    "postgres_changes",
-
-    {
-      event:"INSERT",
-      schema:"public",
-      table:"ai_answers"
-    },
-
-    payload=>{
-
-      const exists =
-        answers.some(
-          row=>row.id === payload.new.id
-        );
-
-      if(!exists){
-
-        answers.push(
-          payload.new
-        );
-
-        renderCloud();
-
-      }
-
-    }
-
-  )
-
-  .subscribe();
-
-
-function escapeHTML(text){
-
-  const div =
-    document.createElement("div");
-
-  div.textContent = text;
-
-  return div.innerHTML;
-
-}
-
-
-/* CLICK AI CARDS */
-
-document
-  .querySelectorAll(".ai-card")
-  .forEach(card=>{
-
-    card.addEventListener(
-      "click",
-      ()=>{
-
-        card
-          .classList
-          .toggle("open");
-
-      }
-    );
-
-  });
-
-
-/* QUESTIONS */
-
-document
-  .querySelectorAll(".question")
-  .forEach(question=>{
-
-    question
-      .querySelector("button")
-      .addEventListener(
-        "click",
-        ()=>{
-
-          question
-            .classList
-            .toggle("open");
-
-        }
-      );
-
-  });
-
-
-/* START */
-
-loadAnswers();
-showSlide(0);
-
+const savedAnswers=localStorage.getItem('ai_work_test_answers');
+if(savedAnswers){try{liveAnswers=JSON.parse(savedAnswers)}catch(e){}}
+renderLiveQuiz();
+
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown')nextScene();if(e.key==='ArrowLeft'||e.key==='PageUp')previousScene();if(e.key==='Escape'){document.getElementById('overlay').classList.remove('open');closeQR()}});
+let touchX=null;document.addEventListener('touchstart',e=>{touchX=e.changedTouches[0].screenX},{passive:true});document.addEventListener('touchend',e=>{if(touchX===null)return;const dx=e.changedTouches[0].screenX-touchX;touchX=null;if(Math.abs(dx)>65){if(dx<0)nextScene();else previousScene()}},{passive:true});
+showScene(0);
 </script>
-
 </body>
 </html>
